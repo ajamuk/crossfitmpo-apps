@@ -233,6 +233,59 @@
       letter-spacing: 0;
     }
 
+    .location-block {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: unset;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(238, 233, 233, 0.09), rgba(238, 233, 233, 0.035));
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+    }
+
+    .location-header {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .location-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .location-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 6px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(238, 233, 233, 0.06);
+      color: var(--bright-gray);
+      font-family: "Oswald", Impact, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .location-btn:hover {
+      border-color: rgba(135, 177, 95, 0.72);
+      background: rgba(135, 177, 95, 0.12);
+      color: var(--dollar-bill);
+    }
+
+    .location-btn:active {
+      transform: scale(0.97);
+    }
+
     @media (min-width: 760px) {
       .wrap {
         justify-content: center;
@@ -287,14 +340,20 @@
         <span class="arrow">→</span>
       </a>
 
-      <a class="card" href="#">
-        <span class="icon">04</span>
-        <span class="copy">
-          <span class="title">Próxima app</span>
-          <span class="desc">Reserva para nuevas herramientas.</span>
-        </span>
-        <span class="arrow">→</span>
-      </a>
+      <div class="card location-block">
+        <div class="location-header">
+          <span class="icon">04</span>
+          <span class="copy">
+            <span class="title">Sede</span>
+            <span class="desc">Selecciona tu centro CrossFit Metropolitano.</span>
+          </span>
+        </div>
+        <div class="location-options">
+          <a class="location-btn" href="#">Getafe</a>
+          <a class="location-btn" href="#">Parla</a>
+          <a class="location-btn" href="#">Las Rosas</a>
+        </div>
+      </div>
     </nav>
 
     <footer>CrossFit Metropolitano · Uso interno</footer>
