@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CrossFit Metropolitano | Apps</title>
+  <meta name="description" content="Acceso rapido a las herramientas internas de CrossFit Metropolitano.">
+  <meta name="theme-color" content="#121212">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bright-gray: #EEE9E9;
+      --argent: #C4C0BF;
+      --dollar-bill: #87B15F;
+      --chinese-black: #121212;
+      --white: #FFFFFF;
+      --ink-soft: rgba(238, 233, 233, 0.72);
+      --line: rgba(238, 233, 233, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      background: var(--chinese-black);
+    }
+
+    body {
+      min-height: 100svh;
+      margin: 0;
+      font-family: "Oswald", Impact, sans-serif;
+      color: var(--bright-gray);
+      background:
+        radial-gradient(circle at 88% 8%, rgba(135, 177, 95, 0.36), transparent 28%),
+        radial-gradient(circle at 6% 82%, rgba(196, 192, 191, 0.18), transparent 28%),
+        var(--chinese-black);
+      letter-spacing: 0.01em;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(238, 233, 233, 0.04) 1px, transparent 1px);
+      background-size: 100% 8px;
+      opacity: 0.5;
+    }
+
+    .wrap {
+      width: min(100%, 520px);
+      min-height: 100svh;
+      margin: 0 auto;
+      padding: max(22px, env(safe-area-inset-top)) 18px max(22px, env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 10px 0 24px;
+      text-align: center;
+    }
+
+    .logo-mark {
+      width: min(82vw, 360px);
+      height: auto;
+      margin: 0 auto 22px;
+      display: block;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--dollar-bill);
+      background: rgba(238, 233, 233, 0.06);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--dollar-bill);
+      box-shadow: 0 0 0 5px rgba(135, 177, 95, 0.14);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 16vw, 5.9rem);
+      line-height: 0.86;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      max-width: 330px;
+      margin: 16px auto 0;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+
+    .links {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 46px 1fr 28px;
+      gap: 14px;
+      align-items: center;
+      min-height: 92px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      color: var(--bright-gray);
+      text-decoration: none;
+      background: linear-gradient(135deg, rgba(238, 233, 233, 0.09), rgba(238, 233, 233, 0.035));
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+      overflow: hidden;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(135, 177, 95, 0.12));
+      opacity: 0;
+      transition: opacity 160ms ease;
+    }
+
+    .card:active {
+      transform: scale(0.985);
+    }
+
+    .card:hover {
+      border-color: rgba(135, 177, 95, 0.72);
+      background: linear-gradient(135deg, rgba(238, 233, 233, 0.13), rgba(238, 233, 233, 0.05));
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card.featured {
+      color: var(--chinese-black);
+      background: var(--dollar-bill);
+      border-color: rgba(135, 177, 95, 0.95);
+    }
+
+    .card.featured .desc {
+      color: rgba(18, 18, 18, 0.72);
+    }
+
+    .icon {
+      position: relative;
+      z-index: 1;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--bright-gray);
+      color: var(--chinese-black);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .featured .icon {
+      background: var(--chinese-black);
+      color: var(--bright-gray);
+    }
+
+    .copy {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .title {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 1.42rem;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .desc {
+      display: block;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.32;
+      letter-spacing: 0;
+    }
+
+    .arrow {
+      position: relative;
+      z-index: 1;
+      justify-self: end;
+      color: currentColor;
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 28px 0 2px;
+      color: rgba(238, 233, 233, 0.5);
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0;
+    }
+
+    @media (min-width: 760px) {
+      .wrap {
+        justify-content: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+
+      .links {
+        gap: 14px;
+      }
+
+      .card {
+        min-height: 98px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <img class="logo-mark" src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano">
+      <p class="kicker"><span class="dot"></span> Apps internas</p>
+      <h1>Metro<br>Tools</h1>
+      <p class="subtitle">Acceso rápido a las herramientas operativas del equipo.</p>
+    </header>
+
+    <nav class="links" aria-label="Aplicaciones internas">
+      <a class="card featured" href="https://adaptador.crossfitmpo.com">
+        <span class="icon">01</span>
+        <span class="copy">
+          <span class="title">Adaptador WOD</span>
+          <span class="desc">Adaptaciones por centro, briefing y lesson plan.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://feedbackbox.crossfitmpo.com">
+        <span class="icon">02</span>
+        <span class="copy">
+          <span class="title">Feedback Box</span>
+          <span class="desc">Formularios y feedback interno.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="https://dashboard.crossfitmpo.com">
+        <span class="icon">03</span>
+        <span class="copy">
+          <span class="title">Facturación</span>
+          <span class="desc">Dashboard de control y seguimiento económico.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+
+      <a class="card" href="#">
+        <span class="icon">04</span>
+        <span class="copy">
+          <span class="title">Próxima app</span>
+          <span class="desc">Reserva para nuevas herramientas.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </nav>
+
+    <footer>CrossFit Metropolitano · Uso interno</footer>
+  </main>
+</body>
+</html>
