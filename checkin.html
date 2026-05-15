@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>CrossFit Metropolitano | Apps</title>
-  <meta name="description" content="Acceso rapido a las herramientas internas de CrossFit Metropolitano.">
+  <title>Check-in | CrossFit Metropolitano</title>
+  <meta name="description" content="Registro de asistencia por sede de CrossFit Metropolitano.">
   <meta name="theme-color" content="#121212">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -223,6 +223,23 @@
       line-height: 1;
     }
 
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 18px;
+      color: var(--ink-soft);
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      text-decoration: none;
+      letter-spacing: 0;
+      transition: color 160ms ease;
+    }
+
+    .back:hover {
+      color: var(--bright-gray);
+    }
+
     footer {
       margin-top: auto;
       padding: 28px 0 2px;
@@ -254,44 +271,35 @@
   <main class="wrap">
     <header>
       <img class="logo-mark" src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano">
-      <p class="kicker"><span class="dot"></span> Apps internas</p>
-      <h1>Metro<br>Tools</h1>
-      <p class="subtitle">Acceso rápido a las herramientas operativas del equipo.</p>
+      <p class="kicker"><span class="dot"></span> Check-in</p>
+      <h1>Elige<br>tu sede</h1>
+      <p class="subtitle">Selecciona tu centro para registrar la asistencia.</p>
     </header>
 
-    <nav class="links" aria-label="Aplicaciones internas">
-      <a class="card featured" href="https://adaptador.crossfitmpo.com">
+    <nav class="links" aria-label="Sedes">
+      <a class="card featured" href="#">
         <span class="icon">01</span>
         <span class="copy">
-          <span class="title">Adaptador WOD</span>
-          <span class="desc">Adaptaciones por centro, briefing y lesson plan.</span>
+          <span class="title">Getafe</span>
+          <span class="desc">Check-in CrossFit Metropolitano Getafe.</span>
         </span>
         <span class="arrow">→</span>
       </a>
 
-      <a class="card" href="https://feedbackbox.crossfitmpo.com">
+      <a class="card" href="#">
         <span class="icon">02</span>
         <span class="copy">
-          <span class="title">Feedback Box</span>
-          <span class="desc">Formularios y feedback interno.</span>
+          <span class="title">Parla</span>
+          <span class="desc">Check-in CrossFit Metropolitano Parla.</span>
         </span>
         <span class="arrow">→</span>
       </a>
 
-      <a class="card" href="https://dashboard.crossfitmpo.com">
+      <a class="card" href="#">
         <span class="icon">03</span>
         <span class="copy">
-          <span class="title">Facturación</span>
-          <span class="desc">Dashboard de control y seguimiento económico.</span>
-        </span>
-        <span class="arrow">→</span>
-      </a>
-
-      <a class="card" href="checkin.html">
-        <span class="icon">04</span>
-        <span class="copy">
-          <span class="title">Check-in</span>
-          <span class="desc">Registro de asistencia por sede.</span>
+          <span class="title">Las Rosas</span>
+          <span class="desc">Check-in CrossFit Metropolitano Las Rosas.</span>
         </span>
         <span class="arrow">→</span>
       </a>
