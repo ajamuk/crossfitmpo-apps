@@ -290,20 +290,57 @@
     .location-doc {
       display: none;
       width: 100%;
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(135, 177, 95, 0.4);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .location-doc.open {
       display: block;
     }
 
+    .location-doc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(135, 177, 95, 0.15);
+      border-bottom: 1px solid rgba(135, 177, 95, 0.3);
+    }
+
+    .location-doc-title {
+      font-family: "Oswald", Impact, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dollar-bill);
+    }
+
+    .location-doc-close {
+      background: none;
+      border: none;
+      color: var(--argent);
+      font-size: 1.1rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 6px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .location-doc-close:hover {
+      color: var(--bright-gray);
+      background: rgba(238, 233, 233, 0.1);
+    }
+
     .location-doc iframe {
       width: 100%;
-      height: 480px;
+      height: 500px;
       border: none;
       display: block;
+      background: #fff;
     }
 
     .location-btn.active {
@@ -377,12 +414,35 @@
         <div class="location-options">
           <a class="location-btn" href="#">Getafe</a>
           <a class="location-btn" href="#">Parla</a>
-          <a class="location-btn" href="https://docs.google.com/document/d/e/2PACX-1vRI-AoRzNc_pRZUjkIHIVWbuAC8ZCY29ao4VzNYogoZ0OlEORw8z8NcLNdE_ANdY4uWIbPteVYDzbka/pub" target="_blank">Las Rosas</a>
+          <a class="location-btn" id="btn-las-rosas" href="#">Las Rosas</a>
+        </div>
+        <div class="location-doc" id="doc-las-rosas">
+          <div class="location-doc-header">
+            <span class="location-doc-title">Check In · Las Rosas</span>
+            <button class="location-doc-close" id="btn-close-las-rosas">✕</button>
+          </div>
+          <iframe src="https://docs.google.com/document/d/e/2PACX-1vRI-AoRzNc_pRZUjkIHIVWbuAC8ZCY29ao4VzNYogoZ0OlEORw8z8NcLNdE_ANdY4uWIbPteVYDzbka/pub?embedded=true"></iframe>
+        </div>
       </div>
     </nav>
 
     <footer>CrossFit Metropolitano · Uso interno</footer>
   </main>
+  <script>
+    var btn = document.getElementById('btn-las-rosas');
+    var doc = document.getElementById('doc-las-rosas');
+    var closeBtn = document.getElementById('btn-close-las-rosas');
 
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      doc.classList.add('open');
+      btn.classList.add('active');
+    });
+
+    closeBtn.addEventListener('click', function() {
+      doc.classList.remove('open');
+      btn.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
