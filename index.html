@@ -413,8 +413,15 @@
         </div>
         <div class="location-options">
           <a class="location-btn" href="#">Getafe</a>
-          <a class="location-btn" href="#">Parla</a>
+          <a class="location-btn" id="btn-parla" href="#">Parla</a>
           <a class="location-btn" id="btn-las-rosas" href="#">Las Rosas</a>
+        </div>
+        <div class="location-doc" id="doc-parla">
+          <div class="location-doc-header">
+            <span class="location-doc-title">Check In · Parla</span>
+            <button class="location-doc-close" id="btn-close-parla">✕</button>
+          </div>
+          <iframe src="https://docs.google.com/document/d/e/2PACX-1vTill1v4deEHA6pRsdW2CkiFhKWYFlmZUWbQpOcXWTQ5VWUKxrS-SGa6m4XKgHC6P3tpJTWOQwYRcJJ/pub?embedded=true"></iframe>
         </div>
         <div class="location-doc" id="doc-las-rosas">
           <div class="location-doc-header">
@@ -429,20 +436,25 @@
     <footer>CrossFit Metropolitano · Uso interno</footer>
   </main>
   <script>
-    var btn = document.getElementById('btn-las-rosas');
-    var doc = document.getElementById('doc-las-rosas');
-    var closeBtn = document.getElementById('btn-close-las-rosas');
+    function setupLocation(btnId, docId, closeId) {
+      var btn = document.getElementById(btnId);
+      var doc = document.getElementById(docId);
+      var closeBtn = document.getElementById(closeId);
 
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      doc.classList.add('open');
-      btn.classList.add('active');
-    });
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        doc.classList.add('open');
+        btn.classList.add('active');
+      });
 
-    closeBtn.addEventListener('click', function() {
-      doc.classList.remove('open');
-      btn.classList.remove('active');
-    });
+      closeBtn.addEventListener('click', function() {
+        doc.classList.remove('open');
+        btn.classList.remove('active');
+      });
+    }
+
+    setupLocation('btn-parla', 'doc-parla', 'btn-close-parla');
+    setupLocation('btn-las-rosas', 'doc-las-rosas', 'btn-close-las-rosas');
   </script>
 </body>
 </html>
