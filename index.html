@@ -286,6 +286,31 @@
       transform: scale(0.97);
     }
 
+    .location-doc {
+      display: none;
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .location-doc.open {
+      display: block;
+    }
+
+    .location-doc iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      display: block;
+    }
+
+    .location-btn.active {
+      border-color: rgba(135, 177, 95, 0.72);
+      background: rgba(135, 177, 95, 0.18);
+      color: var(--dollar-bill);
+    }
+
     @media (min-width: 760px) {
       .wrap {
         justify-content: center;
@@ -351,12 +376,23 @@
         <div class="location-options">
           <a class="location-btn" href="#">Getafe</a>
           <a class="location-btn" href="#">Parla</a>
-          <a class="location-btn" href="#">Las Rosas</a>
+          <a class="location-btn" id="btn-las-rosas" href="#">Las Rosas</a>
+        </div>
+        <div class="location-doc" id="doc-las-rosas">
+          <iframe src="https://docs.google.com/document/d/e/2PACX-1vRI-AoRzNc_pRZUjkIHIVWbuAC8ZCY29ao4VzNYogoZ0OlEORw8z8NcLNdE_ANdY4uWIbPteVYDzbka/pub?embedded=true"></iframe>
         </div>
       </div>
     </nav>
 
     <footer>CrossFit Metropolitano · Uso interno</footer>
   </main>
+  <script>
+    document.getElementById('btn-las-rosas').addEventListener('click', function(e) {
+      e.preventDefault();
+      var doc = document.getElementById('doc-las-rosas');
+      var isOpen = doc.classList.toggle('open');
+      this.classList.toggle('active', isOpen);
+    });
+  </script>
 </body>
 </html>
