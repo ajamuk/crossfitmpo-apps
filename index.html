@@ -412,9 +412,16 @@
           </span>
         </div>
         <div class="location-options">
-          <a class="location-btn" href="#">Getafe</a>
+          <a class="location-btn" id="btn-getafe" href="#">Getafe</a>
           <a class="location-btn" id="btn-parla" href="#">Parla</a>
           <a class="location-btn" id="btn-las-rosas" href="#">Las Rosas</a>
+        </div>
+        <div class="location-doc" id="doc-getafe">
+          <div class="location-doc-header">
+            <span class="location-doc-title">Check In · Getafe</span>
+            <button class="location-doc-close" id="btn-close-getafe">✕</button>
+          </div>
+          <iframe src="https://docs.google.com/document/d/e/2PACX-1vQUhTIsVXxbPybnwVZdTNamKBKnnWJ6nTZb0E-vw-k6_u-7NgeuxUzX1BMACJgOtvInp5z_I7QmUU9T/pub?embedded=true"></iframe>
         </div>
         <div class="location-doc" id="doc-parla">
           <div class="location-doc-header">
@@ -453,6 +460,7 @@
       });
     }
 
+    setupLocation('btn-getafe', 'doc-getafe', 'btn-close-getafe');
     setupLocation('btn-parla', 'doc-parla', 'btn-close-parla');
     setupLocation('btn-las-rosas', 'doc-las-rosas', 'btn-close-las-rosas');
   </script>
