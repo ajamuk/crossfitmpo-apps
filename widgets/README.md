@@ -1,30 +1,45 @@
-# Widget de Facturación — iPhone (Scriptable)
+# CFMP · Mobile Pulse — Widget de iPhone (Scriptable)
 
-Widget para iOS que muestra los datos de
+Widget de iOS que muestra la facturación de
 `https://facturacion.crossfitmpo.com/v2/mobile` en la pantalla de inicio.
 
-## Estado
+## Qué muestra
 
-🚧 **Borrador.** El endpoint requiere login, así que el mapeo de campos en
-`facturacion-widget.js` es **provisional**. Pendiente de:
+- **Facturación mensual total**, facturación de hoy y crecimiento vs año pasado.
+- **Por centro** (Parla / Getafe / Las Rosas): facturación del mes, socios,
+  variación vs cierre del mes pasado y altas confirmadas.
 
-- Un ejemplo real de la respuesta JSON de `/v2/mobile` (para saber qué campos
-  mostrar).
-- El token/API key y cómo viaja (URL, `Bearer` o `X-Api-Key`).
+Tamaños: **pequeño** (total + crecimiento), **mediano** (total + 3 centros
+compactos) y **grande** (total + 3 centros con detalle).
 
 ## Instalación
 
 1. Instala **Scriptable** desde la App Store (gratis).
-2. Abre Scriptable → **+** → pega el contenido de `facturacion-widget.js`.
-3. Edita la sección `CONFIGURACIÓN`:
+2. Abre Scriptable → **+** → pega el contenido de `facturacion-widget.js` →
+   nómbralo p.ej. `Facturación MPO`.
+3. Edita la sección **CONFIGURACIÓN** (arriba del archivo):
    - `TOKEN`: tu token / API key.
-   - `AUTH_MODE`: `"query"`, `"bearer"` o `"apikey"` según cómo lo acepte el
-     servidor.
-4. En la pantalla de inicio: mantén pulsado → **+** → **Scriptable** →
-   elige tamaño → **Editar widget** → selecciona este script.
+   - `AUTH_MODE`: `"bearer"`, `"apikey"`, `"query"`, `"cookie"` o `"none"`.
+4. Pantalla de inicio → mantén pulsado → **+** → **Scriptable** → elige tamaño
+   → **Editar widget** → Script: `Facturación MPO`.
 
-## Personalización
+> Para ver el diseño sin red, pon `USE_MOCK = true` y ejecuta el script dentro
+> de Scriptable (usa datos de ejemplo).
 
-- Paleta de marca definida en `COLORS` (negro `#121212`, verde `#87B15F`).
-- El mapeo de campos está en `buildWidget()`, marcado con `⚠️ MAPEO DE CAMPOS`.
-- Al tocar el widget abre `apps.crossfitmpo.com` (configurable en `w.url`).
+## Cómo lee los datos
+
+El widget es tolerante al formato de la respuesta:
+
+1. Si `/v2/mobile` devuelve **JSON**, lo mapea (acepta varios nombres de campo:
+   `total`/`facturacionTotal`, `centros`/`centers`, etc.).
+2. Si devuelve **HTML**, lo convierte a texto y extrae los valores usando las
+   etiquetas como anclas (`FACTURACIÓN MENSUAL TOTAL`, `Facturación mes`,
+   `Socios`, `Altas confirmadas`, …). Probado contra la respuesta real.
+
+## Pendiente para dejarlo 100% operativo
+
+- **Token**: facilitar el token real y confirmar `AUTH_MODE`. Ahora mismo el
+  endpoint redirige a `access-admin/login`; sin auth válida el widget mostrará
+  "Sin datos · Redirigido a login".
+- Si la respuesta es JSON con nombres de campo distintos a los previstos, se
+  ajusta `fromJson()` en un minuto.

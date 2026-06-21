@@ -1,44 +1,74 @@
 // ============================================================
-// CrossFit Metropolitano — Widget de Facturación (Scriptable)
+// CrossFit Metropolitano — CFMP · MOBILE PULSE (Widget iOS)
 // ------------------------------------------------------------
-// Muestra los datos de https://facturacion.crossfitmpo.com/v2/mobile
-// en un widget de iOS usando la app Scriptable.
+// Muestra la facturación de https://facturacion.crossfitmpo.com/v2/mobile
+// en un widget de iPhone usando la app Scriptable.
+//
+// Datos que muestra:
+//   • Facturación mensual total + facturación de hoy + crecimiento anual.
+//   • Por centro (Parla / Getafe / Las Rosas): facturación del mes, socios,
+//     variación vs cierre del mes pasado y altas confirmadas.
+//
+// Tamaños soportados:
+//   • Pequeño  -> total + crecimiento anual.
+//   • Mediano  -> total + 3 centros en compacto.
+//   • Grande   -> total + 3 centros con detalle.
 //
 // INSTALACIÓN
 //   1. Instala "Scriptable" desde la App Store (gratis).
-//   2. Abre Scriptable → "+" → pega este archivo → ponle un nombre
-//      (p.ej. "Facturación MPO").
-//   3. Edita el TOKEN más abajo.
-//   4. Añade un widget de Scriptable a la pantalla de inicio,
-//      mantén pulsado → "Editar widget" → Script: "Facturación MPO".
-//
-// CONFIGURACIÓN ----------------------------------------------
-// Pega aquí tu token / API key.
+//   2. Scriptable → "+" → pega este archivo → nómbralo "Facturación MPO".
+//   3. Configura TOKEN y AUTH_MODE abajo.
+//   4. Pantalla de inicio → mantén pulsado → "+" → Scriptable → elige tamaño
+//      → "Editar widget" → Script: "Facturación MPO".
+// ============================================================
+
+// ===== CONFIGURACIÓN ========================================
+// Token / API key para autenticar la petición.
 const TOKEN = "PEGA_AQUI_TU_TOKEN";
 
-// Cómo se envía el token. Opciones:
-//   "query"  -> se añade a la URL como ?token=...
-//   "bearer" -> cabecera Authorization: Bearer <token>
-//   "apikey" -> cabecera X-Api-Key: <token>
+// Cómo viaja el token:
+//   "query"   -> ?token=...        en la URL
+//   "bearer"  -> Authorization: Bearer <token>
+//   "apikey"  -> X-Api-Key: <token>
+//   "cookie"  -> Cookie: <token>   (pega la cookie de sesión completa)
+//   "none"    -> sin auth (endpoint público / token ya en la URL)
 const AUTH_MODE = "bearer";
-const QUERY_PARAM_NAME = "token"; // solo se usa si AUTH_MODE === "query"
+const QUERY_PARAM_NAME = "token";
 
 const BASE_URL = "https://facturacion.crossfitmpo.com/v2/mobile";
 
-// Paleta de marca (Metro Tools)
+// Pon true para probar el diseño sin red, con datos de ejemplo.
+const USE_MOCK = false;
+// ============================================================
+
 const COLORS = {
   bg: new Color("#121212"),
+  card: new Color("#EEE9E9", 0.06),
   brightGray: new Color("#EEE9E9"),
   green: new Color("#87B15F"),
+  red: new Color("#E5705C"),
   inkSoft: new Color("#EEE9E9", 0.72),
+  inkFaint: new Color("#EEE9E9", 0.5),
   line: new Color("#EEE9E9", 0.16),
 };
 
-// ------------------------------------------------------------
-// FETCH
-async function fetchData() {
+const MOCK = {
+  periodo: "2026-06",
+  actualizado: "21/6, 02:15",
+  total: 73025.44,
+  hoy: 0.0,
+  crecimientoAnual: 64.4,
+  centros: [
+    { nombre: "Parla", crecimiento: -0.5, facturacion: 23007.13, socios: 260, deltaSocios: -17, altas: 13 },
+    { nombre: "Getafe", crecimiento: 42373.6, facturacion: 29306.81, socios: 335, deltaSocios: -18, altas: 22 },
+    { nombre: "Las Rosas", crecimiento: -2.4, facturacion: 20711.5, socios: 228, deltaSocios: -11, altas: 7 },
+  ],
+};
+
+// ===== RED ==================================================
+async function loadRaw() {
   let url = BASE_URL;
-  const headers = { Accept: "application/json" };
+  const headers = { Accept: "application/json, text/html" };
 
   if (AUTH_MODE === "query") {
     const sep = url.includes("?") ? "&" : "?";
@@ -47,136 +77,342 @@ async function fetchData() {
     headers["Authorization"] = `Bearer ${TOKEN}`;
   } else if (AUTH_MODE === "apikey") {
     headers["X-Api-Key"] = TOKEN;
+  } else if (AUTH_MODE === "cookie") {
+    headers["Cookie"] = TOKEN;
   }
 
   const req = new Request(url);
   req.headers = headers;
-  req.timeoutInterval = 15;
-  return await req.loadJSON();
+  req.timeoutInterval = 20;
+  const text = await req.loadString();
+
+  // Si nos han redirigido al login, avisamos claramente.
+  const finalUrl = req.response ? req.response.url || "" : "";
+  if (/access-admin\/login|\/login/i.test(finalUrl)) {
+    throw new Error("Redirigido a login: revisa el TOKEN/AUTH_MODE.");
+  }
+  return text;
 }
 
-// ------------------------------------------------------------
-// HELPERS de formato
-function eur(n) {
+// ===== PARSEO ===============================================
+// Número en formato español: "73.025,44" -> 73025.44 ; "+64,4%" -> 64.4
+function parseEsNumber(s) {
+  if (s == null) return null;
+  const m = String(s).match(/-?\+?[\d.\s]*,?\d+/);
+  if (!m) return null;
+  let v = m[0].replace(/\s/g, "").replace(/\./g, "").replace(",", ".").replace("+", "");
+  const n = parseFloat(v);
+  return isNaN(n) ? null : n;
+}
+
+function normalize(raw) {
+  // 1) Intentar JSON.
+  try {
+    const j = typeof raw === "string" ? JSON.parse(raw) : raw;
+    if (j && typeof j === "object" && (j.total != null || j.centros || j.centers)) {
+      return fromJson(j);
+    }
+  } catch (_) {
+    /* no era JSON, seguimos con HTML */
+  }
+  // 2) Parsear como HTML/texto.
+  return fromText(String(raw));
+}
+
+function fromJson(j) {
+  const centros = (j.centros || j.centers || []).map((c) => ({
+    nombre: c.nombre || c.name,
+    crecimiento: c.crecimiento ?? c.growth ?? c.variacion ?? null,
+    facturacion: c.facturacion ?? c.revenue ?? c.facturacionMes ?? null,
+    socios: c.socios ?? c.members ?? null,
+    deltaSocios: c.deltaSocios ?? c.variacionSocios ?? c.delta ?? null,
+    altas: c.altas ?? c.altasConfirmadas ?? c.signups ?? null,
+  }));
+  return {
+    periodo: j.periodo ?? j.period ?? "",
+    actualizado: j.actualizado ?? j.updated ?? "",
+    total: j.total ?? j.facturacionTotal ?? null,
+    hoy: j.hoy ?? j.facturacionHoy ?? null,
+    crecimientoAnual: j.crecimientoAnual ?? j.crecimientoVsAnoPasado ?? null,
+    centros,
+  };
+}
+
+// Parser tolerante: convierte HTML a texto y usa las etiquetas como anclas.
+function fromText(html) {
+  const text = html
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, "\n")
+    .replace(/&euro;/gi, "€")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/[ \t]+/g, " ");
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length);
+
+  const joined = lines.join("\n");
+
+  const after = (label) => {
+    const re = new RegExp(label + "[^\\n]*\\n([^\\n]+)", "i");
+    const m = joined.match(re);
+    return m ? m[1] : null;
+  };
+  const sameOrAfter = (label) => {
+    const re = new RegExp(label + "\\s*:?\\s*([^\\n]+)", "i");
+    const m = joined.match(re);
+    return m ? m[1] : after(label);
+  };
+
+  const total = parseEsNumber(after("FACTURACIÓN MENSUAL TOTAL"));
+  const hoy = parseEsNumber(sameOrAfter("Facturación hoy"));
+  const crecimientoAnual = parseEsNumber(sameOrAfter("Crecimiento vs año pasado"));
+  const periodo = (joined.match(/\b(20\d{2}-\d{2})\b/) || [])[1] || "";
+  const actualizado = (sameOrAfter("Actualizado") || "").trim();
+
+  // Centros: anclamos por nombre conocido y leemos los campos siguientes.
+  const NOMBRES = ["Parla", "Getafe", "Las Rosas"];
+  const centros = [];
+  for (const nombre of NOMBRES) {
+    const idx = lines.findIndex((l) => l === nombre);
+    if (idx === -1) continue;
+    const block = lines.slice(idx, idx + 12);
+    const grab = (label) => {
+      const i = block.findIndex((l) => new RegExp(label, "i").test(l));
+      if (i === -1) return null;
+      // valor en la línea anterior (layout: número arriba, etiqueta abajo)
+      return parseEsNumber(block[i - 1]) ?? parseEsNumber(block[i]);
+    };
+    const pct = block.find((l) => /[+-]?\d[\d.,]*%/.test(l));
+    centros.push({
+      nombre,
+      crecimiento: parseEsNumber(pct),
+      facturacion: grab("Facturación mes"),
+      socios: grab("^Socios$|Socios"),
+      deltaSocios: grab("cierre mes pasado"),
+      altas: grab("Altas confirmadas"),
+    });
+  }
+
+  return { periodo, actualizado, total, hoy, crecimientoAnual, centros };
+}
+
+// ===== FORMATO ==============================================
+function eur(n, dec = 2) {
   if (n == null || isNaN(n)) return "—";
   return new Intl.NumberFormat("es-ES", {
     style: "currency",
     currency: "EUR",
-    maximumFractionDigits: 0,
+    minimumFractionDigits: dec,
+    maximumFractionDigits: dec,
   }).format(n);
 }
-
 function num(n) {
   if (n == null || isNaN(n)) return "—";
   return new Intl.NumberFormat("es-ES").format(n);
 }
+function pct(n) {
+  if (n == null || isNaN(n)) return "—";
+  const s = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 1 }).format(n);
+  return (n > 0 ? "+" : "") + s + "%";
+}
+function signed(n) {
+  if (n == null || isNaN(n)) return "—";
+  return (n > 0 ? "+" : "") + num(n);
+}
+function trend(n) {
+  return n == null || n >= 0 ? COLORS.green : COLORS.red;
+}
 
-// ------------------------------------------------------------
-// WIDGET UI
-function addHeader(w, subtitle) {
+// ===== UI ===================================================
+function header(w) {
   const row = w.addStack();
   row.centerAlignContent();
   const dot = row.addStack();
-  dot.size = new Size(8, 8);
+  dot.size = new Size(7, 7);
   dot.backgroundColor = COLORS.green;
-  dot.cornerRadius = 4;
+  dot.cornerRadius = 3.5;
   row.addSpacer(6);
-  const title = row.addText(subtitle || "FACTURACIÓN");
-  title.font = Font.boldSystemFont(11);
-  title.textColor = COLORS.green;
+  const t = row.addText("CFMP · MOBILE PULSE");
+  t.font = Font.boldSystemFont(10);
+  t.textColor = COLORS.green;
   row.addSpacer();
 }
 
-function addMetric(w, label, value, accent) {
-  const v = w.addText(value);
-  v.font = Font.boldSystemFont(30);
-  v.textColor = accent ? COLORS.green : COLORS.brightGray;
+function totalBlock(w, d, big) {
+  const lbl = w.addText("FACTURACIÓN MENSUAL TOTAL");
+  lbl.font = Font.mediumSystemFont(9);
+  lbl.textColor = COLORS.inkSoft;
+  const v = w.addText(eur(d.total, 2));
+  v.font = Font.boldSystemFont(big ? 34 : 26);
+  v.textColor = COLORS.brightGray;
   v.lineLimit = 1;
   v.minimumScaleFactor = 0.5;
-  const l = w.addText(label.toUpperCase());
-  l.font = Font.mediumSystemFont(10);
-  l.textColor = COLORS.inkSoft;
+  const sub = w.addText(`Hoy ${eur(d.hoy, 2)}  ·  vs año pasado ${pct(d.crecimientoAnual)}`);
+  sub.font = Font.systemFont(9);
+  sub.textColor = trend(d.crecimientoAnual);
 }
 
-function buildWidget(data) {
+function centerCardLarge(stack, c) {
+  const card = stack.addStack();
+  card.layoutVertically();
+  card.backgroundColor = COLORS.card;
+  card.cornerRadius = 12;
+  card.setPadding(9, 10, 9, 10);
+
+  const top = card.addStack();
+  top.centerAlignContent();
+  const name = top.addText(c.nombre);
+  name.font = Font.boldSystemFont(13);
+  name.textColor = COLORS.brightGray;
+  top.addSpacer();
+  const g = top.addText(pct(c.crecimiento));
+  g.font = Font.boldSystemFont(11);
+  g.textColor = trend(c.crecimiento);
+  g.lineLimit = 1;
+  g.minimumScaleFactor = 0.6;
+
+  card.addSpacer(4);
+  const fact = card.addText(eur(c.facturacion, 2));
+  fact.font = Font.boldSystemFont(17);
+  fact.textColor = COLORS.brightGray;
+
+  card.addSpacer(4);
+  const row = card.addStack();
+  const mk = (label, value, color) => {
+    const col = row.addStack();
+    col.layoutVertically();
+    const v = col.addText(value);
+    v.font = Font.semiboldSystemFont(12);
+    v.textColor = color || COLORS.brightGray;
+    const l = col.addText(label);
+    l.font = Font.systemFont(8);
+    l.textColor = COLORS.inkFaint;
+  };
+  mk("Socios", num(c.socios));
+  row.addSpacer();
+  mk("vs mes ant.", signed(c.deltaSocios), trend(c.deltaSocios));
+  row.addSpacer();
+  mk("Altas", num(c.altas), COLORS.green);
+}
+
+function centerRowMedium(stack, c) {
+  const row = stack.addStack();
+  row.centerAlignContent();
+  const name = row.addText(c.nombre);
+  name.font = Font.semiboldSystemFont(11);
+  name.textColor = COLORS.brightGray;
+  row.addSpacer();
+  const fact = row.addText(eur(c.facturacion, 0));
+  fact.font = Font.semiboldSystemFont(11);
+  fact.textColor = COLORS.brightGray;
+  row.addSpacer(8);
+  const so = row.addText(`${num(c.socios)} soc.`);
+  so.font = Font.systemFont(10);
+  so.textColor = COLORS.inkSoft;
+  row.addSpacer(8);
+  const g = row.addText(pct(c.crecimiento));
+  g.font = Font.semiboldSystemFont(10);
+  g.textColor = trend(c.crecimiento);
+  g.lineLimit = 1;
+  g.minimumScaleFactor = 0.6;
+}
+
+function footer(w, d) {
+  const f = w.addText(`${d.periodo}${d.actualizado ? "  ·  Act. " + d.actualizado : ""}`);
+  f.font = Font.systemFont(8);
+  f.textColor = COLORS.inkFaint;
+}
+
+function buildWidget(d, family) {
   const w = new ListWidget();
   w.backgroundColor = COLORS.bg;
-  w.setPadding(16, 16, 16, 16);
-  w.url = "https://apps.crossfitmpo.com"; // al tocar el widget abre las apps
+  w.setPadding(14, 14, 14, 14);
+  w.url = "https://facturacion.crossfitmpo.com/v2/mobile";
 
-  addHeader(w, "FACTURACIÓN");
-  w.addSpacer(10);
+  const size = family || config.widgetFamily || "medium";
 
-  // ⚠️ MAPEO DE CAMPOS (ajustar a la respuesta real de /v2/mobile)
-  // Estos nombres son provisionales. En cuanto tengamos el JSON real
-  // se sustituyen por los campos correctos.
-  const total = data.total ?? data.facturacion ?? data.revenue;
-  const subLabel = data.periodo ?? data.period ?? "Este mes";
+  if (size === "small") {
+    header(w);
+    w.addSpacer(6);
+    const lbl = w.addText("FACTURACIÓN MES");
+    lbl.font = Font.mediumSystemFont(8);
+    lbl.textColor = COLORS.inkSoft;
+    const v = w.addText(eur(d.total, 0));
+    v.font = Font.boldSystemFont(22);
+    v.textColor = COLORS.brightGray;
+    v.minimumScaleFactor = 0.5;
+    v.lineLimit = 1;
+    w.addSpacer(2);
+    const g = w.addText(`vs año ${pct(d.crecimientoAnual)}`);
+    g.font = Font.semiboldSystemFont(10);
+    g.textColor = trend(d.crecimientoAnual);
+    w.addSpacer();
+    footer(w, d);
+    return w;
+  }
 
-  addMetric(w, subLabel, eur(total), true);
+  if (size === "large" || size === "extraLarge") {
+    header(w);
+    w.addSpacer(8);
+    totalBlock(w, d, true);
+    w.addSpacer(10);
+    const grid = w.addStack();
+    grid.layoutVertically();
+    grid.spacing = 7;
+    for (const c of d.centros) centerCardLarge(grid, c);
+    w.addSpacer();
+    footer(w, d);
+    return w;
+  }
 
+  // medium
+  header(w);
+  w.addSpacer(6);
+  totalBlock(w, d, false);
   w.addSpacer(8);
-
-  // Métricas secundarias (provisional)
-  const grid = w.addStack();
-  grid.spacing = 16;
-  const colA = grid.addStack();
-  colA.layoutVertically();
-  const aVal = colA.addText(num(data.socios ?? data.members ?? data.altas));
-  aVal.font = Font.boldSystemFont(18);
-  aVal.textColor = COLORS.brightGray;
-  const aLbl = colA.addText("SOCIOS");
-  aLbl.font = Font.systemFont(9);
-  aLbl.textColor = COLORS.inkSoft;
-
-  const colB = grid.addStack();
-  colB.layoutVertically();
-  const bVal = colB.addText(num(data.bajas ?? data.churn ?? 0));
-  bVal.font = Font.boldSystemFont(18);
-  bVal.textColor = COLORS.brightGray;
-  const bLbl = colB.addText("BAJAS");
-  bLbl.font = Font.systemFont(9);
-  bLbl.textColor = COLORS.inkSoft;
-
+  const list = w.addStack();
+  list.layoutVertically();
+  list.spacing = 5;
+  for (const c of d.centros) centerRowMedium(list, c);
   w.addSpacer();
-
-  const ts = w.addText("Actualizado " + new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" }));
-  ts.font = Font.systemFont(8);
-  ts.textColor = COLORS.inkSoft;
-
+  footer(w, d);
   return w;
 }
 
-function buildErrorWidget(err) {
+function errorWidget(err) {
   const w = new ListWidget();
   w.backgroundColor = COLORS.bg;
-  w.setPadding(16, 16, 16, 16);
-  addHeader(w, "FACTURACIÓN");
-  w.addSpacer(10);
+  w.setPadding(14, 14, 14, 14);
+  header(w);
+  w.addSpacer(8);
   const t = w.addText("Sin datos");
-  t.font = Font.boldSystemFont(20);
+  t.font = Font.boldSystemFont(18);
   t.textColor = COLORS.brightGray;
-  w.addSpacer(4);
-  const m = w.addText(String(err).slice(0, 90));
+  w.addSpacer(3);
+  const m = w.addText(String(err).slice(0, 120));
   m.font = Font.systemFont(10);
   m.textColor = COLORS.inkSoft;
-  m.lineLimit = 3;
+  m.lineLimit = 4;
   return w;
 }
 
-// ------------------------------------------------------------
-// MAIN
+// ===== MAIN =================================================
 let widget;
 try {
-  const data = await fetchData();
+  const data = USE_MOCK ? MOCK : normalize(await loadRaw());
+  if (data.total == null && (!data.centros || !data.centros.length)) {
+    throw new Error("No se pudieron leer los datos del endpoint.");
+  }
   widget = buildWidget(data);
 } catch (e) {
-  widget = buildErrorWidget(e.message || e);
+  widget = errorWidget(e.message || e);
 }
 
 if (config.runsInWidget) {
   Script.setWidget(widget);
 } else {
-  await widget.presentMedium();
+  await widget.presentLarge();
 }
 Script.complete();
