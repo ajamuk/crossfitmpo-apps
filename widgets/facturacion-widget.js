@@ -32,10 +32,13 @@ const TOKEN = "PEGA_AQUI_TU_TOKEN";
 //   "apikey"  -> X-Api-Key: <token>
 //   "cookie"  -> Cookie: <token>   (pega la cookie de sesión completa)
 //   "none"    -> sin auth (endpoint público / token ya en la URL)
-const AUTH_MODE = "bearer";
+const AUTH_MODE = "query";
 const QUERY_PARAM_NAME = "token";
 
-const BASE_URL = "https://facturacion.crossfitmpo.com/v2/mobile";
+// Endpoint readonly con token (sirve JSON para el widget y el bot de Telegram).
+// Alternativa: "https://facturacion.crossfitmpo.com/v2/mobile" (HTML, con
+// token-bypass en el login). El widget entiende ambos formatos.
+const BASE_URL = "https://facturacion.crossfitmpo.com/api/bot/facturacion";
 
 // Pon true para probar el diseño sin red, con datos de ejemplo.
 const USE_MOCK = false;
