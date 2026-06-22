@@ -2,7 +2,7 @@
   "name": "Entrenos · CrossFit Metropolitano",
   "short_name": "Entrenos",
   "description": "Registra tus entrenos, WODs y records personales de CrossFit Metropolitano.",
-  "start_url": "entrenos.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

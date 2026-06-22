@@ -1,8 +1,9 @@
 /* Entrenos · CrossFit Metropolitano — service worker
    Cache-first para uso sin conexión. Sube CACHE al cambiar archivos. */
-const CACHE = "cfmp-entrenos-v1";
+const CACHE = "cfmp-entrenos-v2";
 const ASSETS = [
-  "entrenos.html",
+  "./",
+  "index.html",
   "entrenos.webmanifest",
   "assets/logo-metropolitano-argent.png"
 ];
