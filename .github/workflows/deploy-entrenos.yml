@@ -1,0 +1,48 @@
+name: Deploy Entrenos to VPS
+
+# Publica la app en el VPS por SSH. Los runners de GitHub SÍ pueden
+# alcanzar el puerto 22 del servidor (a diferencia del sandbox de Claude).
+#
+# Requiere estos Secrets del repo (Settings -> Secrets and variables -> Actions):
+#   VPS_HOST      = 82.223.108.143
+#   VPS_USER      = root
+#   VPS_SSH_KEY   = (recomendado) clave privada SSH con acceso al VPS
+#   VPS_PASSWORD  = (alternativa) contraseña SSH  ← rótala después
+#   VPS_PORT      = (opcional) puerto SSH, por defecto 22
+#
+# Lánzalo a mano desde la pestaña Actions ("Run workflow") o se dispara
+# solo al hacer push a la carpeta entrenos/ o deploy/.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/workout-tracking-app-c6g3rm]
+    paths:
+      - 'entrenos/**'
+      - 'deploy/**'
+      - '.github/workflows/deploy-entrenos.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          script_stop: true
+          script: |
+            set -e
+            BRANCH="${{ github.ref_name }}"
+            TARGET="/var/www/crossfitmpo-apps"
+            if [ -d "$TARGET/.git" ]; then
+              git -C "$TARGET" fetch origin "$BRANCH"
+              git -C "$TARGET" reset --hard "origin/$BRANCH"
+            else
+              git clone --branch "$BRANCH" https://github.com/ajamuk/crossfitmpo-apps.git "$TARGET"
+            fi
+            bash "$TARGET/deploy/deploy-entrenos.sh"

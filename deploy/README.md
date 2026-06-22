@@ -28,6 +28,20 @@ sudo bash /var/www/crossfitmpo-apps/deploy/deploy-entrenos.sh
 El script es idempotente y solo añade su propio vhost: **no toca tus
 otros sitios**. Para actualizar en el futuro, vuelve a ejecutarlo.
 
+## Opción automática — desplegar desde GitHub Actions
+
+Si no quieres entrar por SSH a mano, hay un workflow
+(`.github/workflows/deploy-entrenos.yml`) que se conecta al VPS y ejecuta
+el deploy por ti. Los runners de GitHub sí pueden alcanzar el puerto 22.
+
+1. En GitHub: **Settings → Secrets and variables → Actions → New secret**, añade:
+   - `VPS_HOST` = `82.223.108.143`
+   - `VPS_USER` = `root`
+   - `VPS_SSH_KEY` = tu clave privada SSH *(recomendado)*, **o**
+     `VPS_PASSWORD` = la contraseña *(rótala después)*.
+2. Pestaña **Actions → «Deploy Entrenos to VPS» → Run workflow**.
+3. (Sigue necesitando el registro DNS `A` del Paso 1 para el HTTPS.)
+
 ## Paso 3 — En el móvil
 
 Abre `https://entrenos.crossfitmpo.com` e instala:
