@@ -340,9 +340,56 @@
     .spacer { height: 8px; }
     .row-between { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     a.inline { color: var(--dollar-bill); }
+
+    /* ---------- Lock screen ---------- */
+    .lock {
+      position: fixed; inset: 0; z-index: 80;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: max(28px, env(safe-area-inset-top)) 22px max(28px, env(safe-area-inset-bottom));
+      background:
+        radial-gradient(circle at 50% 18%, rgba(135,177,95,0.22), transparent 42%),
+        var(--chinese-black);
+    }
+    .lock[hidden] { display: none; }
+    .lock-logo { width: 120px; height: auto; opacity: 0.95; margin-bottom: 22px; }
+    .lock h2 { margin: 0; font-size: 1.55rem; text-transform: uppercase; letter-spacing: -0.01em; text-align: center; }
+    .lock-sub { margin: 8px 0 0; color: var(--ink-soft); font-family: Arial, sans-serif; font-size: 0.86rem; letter-spacing: 0; text-align: center; min-height: 1.2em; }
+    .pin-dots { display: flex; gap: 14px; margin: 26px 0 30px; }
+    .pin-dots i {
+      width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--ink-faint);
+      transition: background 120ms ease, transform 120ms ease, border-color 120ms ease;
+    }
+    .pin-dots i.on { background: var(--dollar-bill); border-color: var(--dollar-bill); transform: scale(1.05); }
+    .pin-dots.err i { border-color: var(--danger); animation: shake 360ms ease; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+    .keypad { display: grid; grid-template-columns: repeat(3, 78px); gap: 14px; }
+    .keypad button {
+      width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--line);
+      background: var(--surface); color: var(--bright-gray); font-size: 1.9rem; font-weight: 600;
+      display: grid; place-items: center; transition: transform 100ms ease, background 100ms ease;
+    }
+    .keypad button:active { transform: scale(0.93); background: var(--surface-2); }
+    .keypad button.act { font-size: 1.4rem; }
+    .keypad button.ok { background: var(--dollar-bill); color: var(--chinese-black); border-color: transparent; }
+    .keypad button.ghostkey { background: transparent; border-color: transparent; }
+    .lock-text {
+      margin-top: 26px; background: none; border: none; color: var(--ink-soft);
+      font-family: Arial, sans-serif; font-size: 0.84rem; letter-spacing: 0; text-decoration: underline;
+    }
+    .lock-text[hidden] { display: none; }
   </style>
 </head>
 <body>
+  <!-- Lock screen (private access) -->
+  <div class="lock" id="lock" hidden>
+    <img class="lock-logo" src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano">
+    <h2 id="lock-title">Introduce tu código</h2>
+    <p class="lock-sub" id="lock-sub">App privada de entrenos</p>
+    <div class="pin-dots" id="pin-dots"></div>
+    <div class="keypad" id="keypad"></div>
+    <button class="lock-text" id="lock-cancel" hidden onclick="cancelGateSetup()">Cancelar</button>
+  </div>
+
   <main class="app">
     <div class="topbar">
       <div class="brand">
@@ -502,6 +549,12 @@
         <h3>Sonido timer</h3>
         <div class="chip-row" id="sound-chips"></div>
         <p class="tiny" style="margin:10px 0 0">Pitidos y vibración en cuentas atrás e intervalos.</p>
+      </div>
+
+      <div class="panel">
+        <h3>Código de acceso</h3>
+        <p class="tiny" id="lock-state" style="margin:0 0 12px"></p>
+        <div class="btn-row" id="lock-actions"></div>
       </div>
 
       <div class="panel">
@@ -1284,6 +1337,7 @@
       `<button class="chip ${DB.settings.unit === x ? "on" : ""}" onclick="setUnit('${x}')">${x.toUpperCase()}</button>`).join("");
     $("#sound-chips").innerHTML = [["true", "Activado"], ["false", "Silencio"]].map(([v, l]) =>
       `<button class="chip ${String(DB.settings.sound) === v ? "on" : ""}" onclick="setSound(${v})">${l}</button>`).join("");
+    renderLockSettings();
   }
   function setUnit(x) { DB.settings.unit = x; save(); renderSettings(); }
   function setSound(v) { DB.settings.sound = v; save(); renderSettings(); if (v) initAudio(); }
@@ -1338,10 +1392,126 @@
   }
 
   /* ============================================================
+     LOCK / ACCESO PRIVADO
+     Bloqueo por código en ESTE dispositivo. El hash se guarda en
+     localStorage; nunca se guarda el código en claro.
+     ============================================================ */
+  const LK_KEY = "cfmp_entrenos_lock_v1";
+  const GATE = { mode: "enter", buffer: "", first: "" };
+
+  function getLock() { try { return JSON.parse(localStorage.getItem(LK_KEY) || "null"); } catch (e) { return null; } }
+  function randSalt() { const a = new Uint8Array(8); (crypto.getRandomValues ? crypto.getRandomValues(a) : a.fill(7)); return [...a].map(b => b.toString(16).padStart(2, "0")).join(""); }
+  async function hashPin(pin, salt) {
+    const txt = salt + ":" + pin;
+    if (window.crypto && crypto.subtle) {
+      try {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt));
+        return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+      } catch (e) {}
+    }
+    let h = 0; for (let i = 0; i < txt.length; i++) { h = (h * 31 + txt.charCodeAt(i)) >>> 0; }
+    return "f" + h.toString(16);
+  }
+
+  function buildKeypad() {
+    const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "del", "0", "ok"];
+    $("#keypad").innerHTML = keys.map(k => {
+      if (k === "del") return `<button class="act ghostkey" onclick="gateKey('del')" aria-label="Borrar">⌫</button>`;
+      if (k === "ok") return `<button class="act ok" onclick="gateKey('ok')" aria-label="Aceptar">✓</button>`;
+      return `<button onclick="gateKey('${k}')">${k}</button>`;
+    }).join("");
+  }
+  function renderDots() {
+    const n = GATE.buffer.length;
+    const dots = $("#pin-dots");
+    dots.classList.remove("err");
+    dots.innerHTML = Array.from({ length: Math.max(4, n) }, (_, i) =>
+      `<i class="${i < n ? "on" : ""}"></i>`).join("");
+  }
+  function showLock(mode) {
+    GATE.mode = mode; GATE.buffer = "";
+    if (mode === "setup") GATE.first = "";
+    const titles = {
+      enter: ["Introduce tu código", "App privada de entrenos"],
+      setup: ["Crea un código", "4 a 8 dígitos · solo en este dispositivo"],
+      confirm: ["Repite el código", "Para confirmar"]
+    };
+    $("#lock-title").textContent = titles[mode][0];
+    $("#lock-sub").textContent = titles[mode][1];
+    $("#lock-cancel").hidden = (mode === "enter");
+    buildKeypad(); renderDots();
+    const lk = $("#lock"); lk.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  function hideLock() {
+    $("#lock").hidden = true;
+    document.body.style.overflow = "";
+  }
+  function cancelGateSetup() { hideLock(); go("ajustes"); }
+
+  function gateKey(k) {
+    if (k === "del") { GATE.buffer = GATE.buffer.slice(0, -1); renderDots(); return; }
+    if (k === "ok") { gateSubmit(); return; }
+    if (GATE.buffer.length >= 8) return;
+    GATE.buffer += k; buzz(12); renderDots();
+    if (GATE.buffer.length >= 8) gateSubmit();
+  }
+  function gateError() {
+    const d = $("#pin-dots"); d.classList.add("err"); buzz([40, 40, 40]);
+    setTimeout(() => { GATE.buffer = ""; renderDots(); }, 420);
+  }
+
+  async function gateSubmit() {
+    const pin = GATE.buffer;
+    if (pin.length < 4) { toast("Mínimo 4 dígitos"); gateError(); return; }
+    if (GATE.mode === "enter") {
+      const lk = getLock();
+      const h = await hashPin(pin, lk.salt);
+      if (h === lk.hash) { sessionStorage.setItem("cfmp_unlocked", "1"); hideLock(); buzz(20); }
+      else { $("#lock-sub").textContent = "Código incorrecto"; gateError(); }
+    } else if (GATE.mode === "setup") {
+      GATE.first = pin; showLock("confirm");
+    } else if (GATE.mode === "confirm") {
+      if (pin !== GATE.first) { $("#lock-sub").textContent = "No coincide, repite"; gateError(); GATE.mode = "setup"; GATE.first = ""; setTimeout(() => showLock("setup"), 460); return; }
+      const salt = randSalt();
+      const hash = await hashPin(pin, salt);
+      localStorage.setItem(LK_KEY, JSON.stringify({ hash, salt }));
+      sessionStorage.setItem("cfmp_unlocked", "1");
+      hideLock(); renderSettings(); toast("Código activado 🔒");
+    }
+  }
+
+  function gateInit() {
+    if (getLock() && sessionStorage.getItem("cfmp_unlocked") !== "1") showLock("enter");
+  }
+  function enableLock() { showLock("setup"); }
+  function changeLock() { showLock("setup"); }
+  function removeLock() {
+    if (!confirm("¿Quitar el código de acceso de este dispositivo?")) return;
+    localStorage.removeItem(LK_KEY);
+    sessionStorage.removeItem("cfmp_unlocked");
+    renderSettings(); toast("Código eliminado");
+  }
+  function lockNow() { sessionStorage.removeItem("cfmp_unlocked"); showLock("enter"); }
+
+  function renderLockSettings() {
+    const has = !!getLock();
+    $("#lock-state").textContent = has
+      ? "Protegido 🔒 — se pedirá el código al abrir la app en este dispositivo."
+      : "Sin código. Actívalo para que se pida un PIN al abrir la app en este móvil.";
+    $("#lock-actions").innerHTML = has
+      ? `<button class="btn secondary" onclick="changeLock()">Cambiar código</button>
+         <button class="btn danger" onclick="removeLock()">Quitar código</button>
+         <button class="btn ghost" style="grid-column:1/-1" onclick="lockNow()">🔒 Bloquear ahora</button>`
+      : `<button class="btn" style="grid-column:1/-1" onclick="enableLock()">🔒 Activar código</button>`;
+  }
+
+  /* ============================================================
      INIT
      ============================================================ */
   function init() {
     load();
+    gateInit();
     renderTimerModes();
     renderSettings();
     renderInicio();
