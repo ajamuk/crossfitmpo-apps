@@ -1,0 +1,26 @@
+{
+  "name": "Entrenos · CrossFit Metropolitano",
+  "short_name": "Entrenos",
+  "description": "Registra tus entrenos, WODs y records personales de CrossFit Metropolitano.",
+  "start_url": "entrenos.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/logo-metropolitano-argent.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo-metropolitano-argent.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
