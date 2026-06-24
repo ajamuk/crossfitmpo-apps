@@ -377,6 +377,24 @@
       font-family: Arial, sans-serif; font-size: 0.84rem; letter-spacing: 0; text-decoration: underline;
     }
     .lock-text[hidden] { display: none; }
+
+    /* ---------- Range slider (generator) ---------- */
+    input[type=range] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
+      border-radius: 999px; background: var(--surface-2); outline: none; margin: 16px 0 8px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 28px; height: 28px; border-radius: 50%;
+      background: var(--dollar-bill); cursor: pointer; border: 4px solid var(--chinese-black);
+      box-shadow: 0 0 0 1px var(--dollar-bill);
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--dollar-bill);
+      cursor: pointer; border: 4px solid var(--chinese-black);
+    }
+    .gen-val { color: var(--dollar-bill); font-size: 1.1rem; font-weight: 700; }
+    .gen-out { white-space: pre-line; font-family: Arial, sans-serif; font-size: 0.9rem;
+      line-height: 1.5; color: var(--ink-soft); letter-spacing: 0; }
   </style>
 </head>
 <body>
@@ -415,6 +433,10 @@
 
       <div class="btn-row full">
         <button class="btn" onclick="startSession()">＋ Empezar entreno</button>
+      </div>
+      <div class="spacer"></div>
+      <div class="btn-row full">
+        <button class="btn secondary" onclick="go('generar')">⚡ Generar entreno</button>
       </div>
       <div class="spacer"></div>
       <div class="btn-row">
@@ -482,6 +504,40 @@
         <button class="btn ghost" onclick="openRestTimer()">⏱ Descanso</button>
         <button class="btn" onclick="saveSession()">✓ Guardar</button>
       </div>
+      <div class="spacer"></div><div class="spacer"></div>
+    </section>
+
+    <!-- ============ GENERAR ============ -->
+    <section class="screen" id="screen-generar">
+      <div class="row-between" style="margin-bottom:8px">
+        <h1 class="screen-title" style="margin:0">Generar</h1>
+        <button class="btn ghost sm" onclick="go('inicio')">← Inicio</button>
+      </div>
+      <p class="screen-sub">Elige tipo, intensidad y duración. La app crea el entreno y lo puedes editar antes de guardarlo.</p>
+
+      <div class="panel">
+        <h3>Tipo de entreno</h3>
+        <div class="chip-row" id="gen-type"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Intensidad <span class="gen-val" id="gen-int-val">5/10</span></h3>
+        <input type="range" id="gen-int" min="0" max="10" step="1" value="5"
+               oninput="genState.intensity=+this.value;updateGenLabels()">
+        <div class="row-between tiny"><span>Suave</span><span>Máxima</span></div>
+      </div>
+
+      <div class="panel">
+        <h3>Duración</h3>
+        <div class="chip-row" id="gen-dur"></div>
+      </div>
+
+      <div class="btn-row full">
+        <button class="btn" onclick="generateNow()">⚡ Generar entreno</button>
+      </div>
+
+      <div class="spacer"></div>
+      <div id="gen-preview"></div>
       <div class="spacer"></div><div class="spacer"></div>
     </section>
 
@@ -722,6 +778,7 @@
     if (screen === "inicio") renderInicio();
     if (screen === "historial") renderHistorial();
     if (screen === "records") renderRecords();
+    if (screen === "generar") renderGenerator();
   }
 
   /* ============================================================
@@ -1392,6 +1449,140 @@
   }
 
   /* ============================================================
+     GENERADOR DE ENTRENAMIENTOS
+     Crea sesiones según tipo + intensidad (0-10) + duración (min).
+     El resultado es una "sesión" editable que se guarda como las demás.
+     ============================================================ */
+  const genState = { type: "crossfit", intensity: 5, duration: 20 };
+  let genResult = null;
+
+  const GEN_TYPES = [["crossfit", "CrossFit"], ["hyrox", "Hyrox"], ["fuerza", "Fuerza"]];
+  const GEN_DURS = [10, 15, 20, 30, 40, 60];
+
+  function rnd(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function sample(a, n) { const c = a.slice(), o = []; while (n-- > 0 && c.length) o.push(c.splice(Math.floor(Math.random() * c.length), 1)[0]); return o; }
+  function scale(min, max, intensity) { return Math.round(min + (max - min) * (intensity / 10)); }
+  function mkSets(n, reps) { return Array.from({ length: n }, () => ({ weight: "", reps: String(reps), done: false })); }
+
+  function renderGenerator() {
+    $("#gen-type").innerHTML = GEN_TYPES.map(([k, l]) =>
+      `<button class="chip ${genState.type === k ? "on" : ""}" onclick="genState.type='${k}';renderGenerator()">${l}</button>`).join("");
+    $("#gen-dur").innerHTML = GEN_DURS.map(d =>
+      `<button class="chip ${genState.duration === d ? "on" : ""}" onclick="genState.duration=${d};renderGenerator()">${d}'</button>`).join("");
+    $("#gen-int").value = genState.intensity;
+    updateGenLabels();
+  }
+  function updateGenLabels() { $("#gen-int-val").textContent = genState.intensity + "/10"; }
+
+  // ---- CrossFit ----
+  function genCrossfit(int, dur) {
+    const ex = [];
+    if (dur >= 35) {
+      const lift = rnd(["Sentadilla (Back Squat)", "Front Squat", "Peso muerto (Deadlift)", "Push Press", "Power Clean"]);
+      const reps = int >= 7 ? 3 : int >= 4 ? 5 : 8;
+      ex.push({ name: lift, sets: mkSets(5, reps) });
+    }
+    const pool = [
+      ["Wall Balls", 10, 24], ["Burpees", 8, 20], ["Box Jumps", 8, 20], ["Toes-to-bar", 6, 18],
+      ["Pull-ups", 6, 18], ["Thrusters", 8, 18], ["Kettlebell Swing", 10, 24], ["Double Unders", 20, 60],
+      ["Row (cal)", 8, 20], ["Power Clean", 5, 12], ["Burpees over bar", 6, 15], ["Air Squats", 15, 35]
+    ];
+    const fmt = dur <= 12 ? "For Time" : dur <= 22 ? "AMRAP" : (int >= 7 ? "EMOM" : "AMRAP");
+    let notes, format = fmt;
+    if (fmt === "For Time") {
+      const movs = sample(pool, 3);
+      const scheme = rnd([[21, 15, 9], [15, 12, 9], [27, 21, 15], [50, 40, 30]]);
+      notes = `For Time · ${scheme.join("-")} reps:\n` + movs.map(m => "• " + m[0]).join("\n");
+    } else if (fmt === "AMRAP") {
+      const movs = sample(pool, 3);
+      const mins = Math.min(dur, 20);
+      notes = `AMRAP ${mins}':\n` + movs.map(m => `• ${scale(m[1], m[2], int)} ${m[0]}`).join("\n");
+    } else {
+      const movs = sample(pool, int >= 8 ? 4 : 3);
+      notes = `EMOM ${dur}' (rota cada minuto):\n` + movs.map((m, i) => `• Min ${i + 1}: ${scale(m[1], m[2], int)} ${m[0]}`).join("\n");
+    }
+    return { exercises: ex, metcon: { format, name: "WOD generado", score: "", rx: "rx", notes }, notes: "" };
+  }
+
+  // ---- Hyrox ----
+  function genHyrox(int, dur) {
+    const stations = [
+      "Ski Erg 1000m", "Sled Push 50m", "Sled Pull 50m", "Burpee Broad Jump 80m",
+      "Row 1000m", "Farmers Carry 200m", "Sandbag Lunges 100m", "Wall Balls x75"
+    ];
+    const rounds = Math.max(2, Math.min(8, Math.round(dur / 10)));
+    const run = scale(400, 1000, int);
+    const chosen = sample(stations, Math.min(rounds, stations.length));
+    const lines = chosen.map((s, i) => `• Bloque ${i + 1}: Run ${run}m + ${s}`);
+    const notes = `Simulación Hyrox · ${chosen.length} bloques (For Time):\n` + lines.join("\n");
+    return { exercises: [], metcon: { format: "For Time", name: "Hyrox generado", score: "", rx: "rx", notes }, notes: "" };
+  }
+
+  // ---- Fuerza ----
+  function genFuerza(int, dur) {
+    const mains = ["Sentadilla (Back Squat)", "Peso muerto (Deadlift)", "Press banca (Bench)", "Press militar (Strict Press)", "Front Squat", "Power Clean"];
+    const acc = ["Pull-up con lastre", "Hip Thrust", "Zancadas", "Remo con barra", "Press militar mancuernas", "Fondos", "Curl bíceps", "Plancha", "Face pulls", "Elevaciones de gemelo"];
+    const main = rnd(mains);
+    let sets, reps, rpe;
+    if (int >= 8) { sets = 5; reps = 3; rpe = "RPE 8-9 · ~85%"; }
+    else if (int >= 5) { sets = 5; reps = 5; rpe = "RPE 7-8 · ~75-80%"; }
+    else { sets = 4; reps = 10; rpe = "RPE 6-7 · ~65%"; }
+    const ex = [{ name: main, sets: mkSets(sets, reps) }];
+    const nAcc = Math.max(1, Math.min(4, Math.round(dur / 18)));
+    sample(acc, nAcc).forEach(a => ex.push({ name: a, sets: mkSets(3, int >= 7 ? 8 : 12) }));
+    return { exercises: ex, metcon: null, notes: `Principal: ${main} ${sets}×${reps} (${rpe}). Accesorios 3 series.` };
+  }
+
+  function buildWorkout() {
+    const { type, intensity, duration } = genState;
+    const gen = type === "hyrox" ? genHyrox(intensity, duration)
+      : type === "fuerza" ? genFuerza(intensity, duration)
+      : genCrossfit(intensity, duration);
+    const typeLabel = (GEN_TYPES.find(t => t[0] === type) || [, type])[1];
+    return {
+      id: uid(), date: todayISO(),
+      title: `${typeLabel} · Int ${intensity} · ${duration}'`,
+      dur: String(duration),
+      exercises: gen.exercises, metcon: gen.metcon, notes: gen.notes
+    };
+  }
+
+  function generateNow() {
+    genResult = buildWorkout();
+    renderGenPreview();
+  }
+
+  function renderGenPreview() {
+    const s = genResult, box = $("#gen-preview");
+    if (!s) { box.innerHTML = ""; return; }
+    const exLines = (s.exercises || []).map(e => {
+      const r = e.sets.length && e.sets[0].reps ? ` — ${e.sets.length}×${e.sets[0].reps}` : "";
+      return `• ${esc(e.name)}${r}`;
+    }).join("\n");
+    const parts = [];
+    if (exLines) parts.push(`<p class="tiny" style="margin:0 0 4px">Fuerza / Skills</p><div class="gen-out">${esc(exLines)}</div>`);
+    if (s.metcon && s.metcon.notes) parts.push(`<p class="tiny" style="margin:12px 0 4px">${esc(s.metcon.format)}</p><div class="gen-out">${esc(s.metcon.notes)}</div>`);
+    if (s.notes) parts.push(`<p class="gen-out" style="margin-top:12px">${esc(s.notes)}</p>`);
+    box.innerHTML = `
+      <div class="panel" style="border-color:rgba(135,177,95,0.45)">
+        <h3>${esc(s.title)}</h3>
+        ${parts.join("")}
+        <div class="spacer"></div>
+        <div class="btn-row">
+          <button class="btn secondary" onclick="generateNow()">↻ Regenerar</button>
+          <button class="btn" onclick="useGenerated()">✓ Usar y editar</button>
+        </div>
+      </div>`;
+    box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function useGenerated() {
+    if (!genResult) return;
+    startSession(JSON.parse(JSON.stringify(genResult)));
+    toast("Entreno generado · edítalo y guarda");
+  }
+
+  /* ============================================================
      LOCK / ACCESO PRIVADO
      Bloqueo por código en ESTE dispositivo. El hash se guarda en
      localStorage; nunca se guarda el código en claro.
@@ -1514,6 +1705,7 @@
     gateInit();
     renderTimerModes();
     renderSettings();
+    renderGenerator();
     renderInicio();
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("entrenos-sw.js").catch(() => {});
