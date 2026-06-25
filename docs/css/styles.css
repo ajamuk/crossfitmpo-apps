@@ -1,0 +1,285 @@
+/* styles.css — Branding CrossFit Metropolitano · mobile-first
+   Paleta:
+     Dollar Bill   #87B15F  -> acento / CTA
+     Chinese Black #121212  -> fondo
+     Bright Gray   #EEE9E9  -> texto
+     Argent        #C4C0BF  -> secundario
+   Tipografias:
+     Bebas Neue       -> titulares
+     Oswald           -> subtitulos
+     Barlow Condensed -> cuerpo                                              */
+
+:root {
+  --acento: #87B15F;
+  --fondo: #121212;
+  --texto: #EEE9E9;
+  --secundario: #C4C0BF;
+  --panel: #1c1c1c;
+  --panel-borde: #2a2a2a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  /* deja hueco para la barra inferior fija */
+  padding-bottom: 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: 'Oswald', sans-serif; letter-spacing: .5px; }
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--panel-borde);
+  position: sticky; top: 0; z-index: 10;
+  background: var(--fondo);
+}
+.marca { line-height: 1; }
+.marca-metro, .marca-verano {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+.marca-verano { color: var(--acento); }
+.marca small {
+  display: block;
+  font-size: 12px;
+  color: var(--secundario);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.chip-usuario {
+  background: var(--panel);
+  border: 1px solid var(--panel-borde);
+  color: var(--texto);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+.chip-usuario b { color: var(--acento); }
+
+/* ---------- Vistas ---------- */
+.vista { padding: 18px; max-width: 720px; margin: 0 auto; }
+.oculto { display: none !important; }
+.titulo-vista {
+  font-size: 28px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  color: var(--texto);
+}
+
+/* ---------- Onboarding ---------- */
+.onboarding { text-align: center; padding-top: 24px; }
+.onboarding h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 54px;
+  color: var(--acento);
+  line-height: .95;
+}
+.subtitulo { color: var(--secundario); margin: 8px 0 22px; }
+
+.tarjeta {
+  background: var(--panel);
+  border: 1px solid var(--panel-borde);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tarjeta label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--secundario);
+  margin-top: 6px;
+}
+input, textarea {
+  background: var(--fondo);
+  border: 1px solid var(--panel-borde);
+  color: var(--texto);
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  width: 100%;
+}
+input:focus, textarea:focus { outline: 2px solid var(--acento); }
+
+.grupo-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.box-opcion {
+  background: var(--fondo);
+  border: 1px solid var(--panel-borde);
+  color: var(--texto);
+  border-radius: 10px;
+  padding: 14px 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.box-opcion.activo {
+  background: var(--acento);
+  color: var(--fondo);
+  border-color: var(--acento);
+  font-weight: 700;
+}
+
+/* ---------- Botones ---------- */
+.btn-cta {
+  background: var(--acento);
+  color: var(--fondo);
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.btn-cta:active { transform: scale(.98); }
+.btn-sec {
+  background: transparent;
+  color: var(--texto);
+  border: 1px solid var(--secundario);
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-sec:disabled { opacity: .35; cursor: not-allowed; }
+.btn-volver {
+  background: none; border: none; color: var(--secundario);
+  font-family: 'Oswald', sans-serif; font-size: 16px;
+  cursor: pointer; margin-bottom: 10px; padding: 0;
+}
+.error { color: #e06464; font-size: 15px; min-height: 18px; }
+
+/* ---------- Filtros ---------- */
+.filtros { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.filtro {
+  background: var(--panel);
+  border: 1px solid var(--panel-borde);
+  color: var(--secundario);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.filtro.activo { background: var(--acento); color: var(--fondo); border-color: var(--acento); font-weight: 700; }
+
+/* ---------- Lista de entrenamientos ---------- */
+.lista-entrenamientos { display: flex; flex-direction: column; gap: 10px; }
+.card-entreno {
+  background: var(--panel);
+  border: 1px solid var(--panel-borde);
+  border-left: 4px solid var(--acento);
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  position: relative;
+  transition: border-color .15s;
+}
+.card-entreno:active { border-color: var(--acento); }
+.card-entreno.hecho { border-left-color: var(--secundario); opacity: .92; }
+.card-entreno h3 { font-size: 20px; color: var(--texto); padding-right: 30px; }
+.card-meta { display: flex; gap: 8px; margin: 6px 0; flex-wrap: wrap; }
+.card-desc { color: var(--secundario); font-size: 15px; }
+.check-hecho {
+  position: absolute; top: 12px; right: 14px;
+  color: var(--acento); font-size: 20px; font-weight: 700;
+}
+.badge {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(135,177,95,.15);
+  color: var(--acento);
+  border: 1px solid rgba(135,177,95,.4);
+}
+.badge-formato { background: rgba(196,192,191,.12); color: var(--secundario); border-color: rgba(196,192,191,.35); }
+
+/* ---------- Pantalla de entreno / timer ---------- */
+.entreno-cabecera { display: flex; gap: 8px; margin-bottom: 6px; }
+.entreno-desc { color: var(--secundario); margin-bottom: 20px; }
+.timer-zona { text-align: center; padding: 10px 0 24px; }
+.timer-estado {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--secundario);
+  font-size: 16px;
+}
+.timer-display {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--acento);
+  margin: 6px 0;
+  font-variant-numeric: tabular-nums;
+}
+.timer-display.descanso { color: var(--secundario); }
+.timer-sub { color: var(--secundario); font-family: 'Oswald', sans-serif; min-height: 22px; }
+.timer-controles { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
+.registro-tiempo { color: var(--secundario); }
+.registro-tiempo strong { color: var(--acento); }
+
+/* ---------- Ranking ---------- */
+.tabla-ranking { width: 100%; border-collapse: collapse; }
+.tabla-ranking th, .tabla-ranking td {
+  text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--panel-borde);
+}
+.tabla-ranking th {
+  font-family: 'Oswald', sans-serif; font-size: 13px; text-transform: uppercase;
+  color: var(--secundario); letter-spacing: 1px;
+}
+.tabla-ranking td:last-child, .tabla-ranking th:last-child { text-align: right; }
+.tabla-ranking .pos { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--acento); }
+.tabla-ranking .yo { background: rgba(135,177,95,.08); }
+.tabla-ranking .total { font-family: 'Oswald', sans-serif; font-weight: 700; color: var(--acento); }
+.vacio { color: var(--secundario); text-align: center; padding: 24px; }
+
+/* ---------- Navegacion inferior ---------- */
+.nav-inferior {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex;
+  background: var(--panel);
+  border-top: 1px solid var(--panel-borde);
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+  z-index: 20;
+}
+.nav-btn {
+  flex: 1; background: none; border: none; color: var(--secundario);
+  font-family: 'Oswald', sans-serif; font-size: 13px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  cursor: pointer; text-transform: uppercase;
+}
+.nav-btn.activo { color: var(--acento); }
+.nav-icono { font-size: 22px; }
+
+@media (min-width: 540px) {
+  .timer-display { font-size: 120px; }
+}
