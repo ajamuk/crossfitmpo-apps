@@ -1,0 +1,15 @@
+{
+  "name": "metro-verano",
+  "version": "1.0.0",
+  "description": "App de verano CrossFit Metropolitano - catalogo de entrenamientos sin material, timers y ranking para los 3 boxes (Parla, Las Rosas, Getafe)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}

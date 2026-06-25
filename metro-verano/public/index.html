@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobile-first: la app se usa en el box desde el movil -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <title>Metro Verano · CrossFit Metropolitano</title>
+
+  <!-- Tipografias de marca via Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;600;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- Cabecera con marca y usuario activo -->
+  <header class="cabecera">
+    <div class="marca">
+      <span class="marca-metro">METRO</span><span class="marca-verano">VERANO</span>
+      <small>CrossFit Metropolitano</small>
+    </div>
+    <button id="btn-usuario" class="chip-usuario oculto" type="button"></button>
+  </header>
+
+  <!-- ============ VISTA: ONBOARDING ============ -->
+  <section id="vista-onboarding" class="vista">
+    <div class="onboarding">
+      <h1>Verano en el box</h1>
+      <p class="subtitulo">Entrena sin material en Parla, Las Rosas o Getafe. Identificate para empezar.</p>
+      <form id="form-onboarding" class="tarjeta">
+        <label for="inp-nombre">Nombre de usuario</label>
+        <input id="inp-nombre" type="text" placeholder="Ej: ana_parla" maxlength="30" autocomplete="off" required />
+
+        <label>Tu box</label>
+        <div class="grupo-boxes" id="grupo-boxes">
+          <button type="button" class="box-opcion" data-box="Parla">Parla</button>
+          <button type="button" class="box-opcion" data-box="Las Rosas">Las Rosas</button>
+          <button type="button" class="box-opcion" data-box="Getafe">Getafe</button>
+        </div>
+
+        <p class="error" id="error-onboarding"></p>
+        <button type="submit" class="btn-cta">Entrar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ VISTA: CATALOGO ============ -->
+  <section id="vista-catalogo" class="vista oculto">
+    <h2 class="titulo-vista">Catalogo de entrenamientos</h2>
+    <div class="filtros" id="filtros-categoria">
+      <button class="filtro activo" data-cat="">Todos</button>
+      <button class="filtro" data-cat="Cardio">Cardio</button>
+      <button class="filtro" data-cat="Fuerza">Fuerza</button>
+      <button class="filtro" data-cat="CrossFit">CrossFit</button>
+    </div>
+    <div id="lista-entrenamientos" class="lista-entrenamientos"></div>
+  </section>
+
+  <!-- ============ VISTA: ENTRENO / TIMER ============ -->
+  <section id="vista-entreno" class="vista oculto">
+    <button class="btn-volver" id="btn-volver-catalogo" type="button">‹ Volver</button>
+    <div class="entreno-cabecera">
+      <span class="badge" id="entreno-categoria"></span>
+      <span class="badge badge-formato" id="entreno-formato"></span>
+    </div>
+    <h2 class="titulo-vista" id="entreno-nombre"></h2>
+    <p class="entreno-desc" id="entreno-desc"></p>
+
+    <div class="timer-zona">
+      <div class="timer-estado" id="timer-estado">Listo</div>
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-sub" id="timer-sub"></div>
+      <div class="timer-controles">
+        <button class="btn-cta" id="btn-empezar">Empezar</button>
+        <button class="btn-sec" id="btn-pausar" disabled>Pausar</button>
+        <button class="btn-sec" id="btn-reset" disabled>Reset</button>
+      </div>
+    </div>
+
+    <!-- Formulario de registro: aparece al terminar -->
+    <form id="form-registro" class="tarjeta oculto">
+      <h3>Guardar entrenamiento</h3>
+      <p class="registro-tiempo">Tiempo: <strong id="registro-tiempo-val">00:00</strong></p>
+      <label for="inp-notas">Notas (opcional)</label>
+      <textarea id="inp-notas" rows="2" maxlength="200" placeholder="Como te ha ido..."></textarea>
+      <button type="submit" class="btn-cta">Guardar y marcar como hecho</button>
+    </form>
+  </section>
+
+  <!-- ============ VISTA: RANKING ============ -->
+  <section id="vista-ranking" class="vista oculto">
+    <h2 class="titulo-vista">Ranking</h2>
+    <div class="filtros" id="filtros-ranking">
+      <button class="filtro activo" data-box="">Global</button>
+      <button class="filtro" data-box="Parla">Parla</button>
+      <button class="filtro" data-box="Las Rosas">Las Rosas</button>
+      <button class="filtro" data-box="Getafe">Getafe</button>
+    </div>
+    <table class="tabla-ranking">
+      <thead>
+        <tr><th>#</th><th>Atleta</th><th>Box</th><th>Hechos</th></tr>
+      </thead>
+      <tbody id="cuerpo-ranking"></tbody>
+    </table>
+  </section>
+
+  <!-- Barra de navegacion inferior (mobile-first) -->
+  <nav class="nav-inferior oculto" id="nav-inferior">
+    <button class="nav-btn activo" data-vista="catalogo">
+      <span class="nav-icono">🏋️</span><span>Entrenos</span>
+    </button>
+    <button class="nav-btn" data-vista="ranking">
+      <span class="nav-icono">🏆</span><span>Ranking</span>
+    </button>
+  </nav>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

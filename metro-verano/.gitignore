@@ -1,0 +1,12 @@
+# Dependencias
+node_modules/
+
+# Base de datos SQLite local (se regenera con: npm run seed)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Logs de pm2
+*.log
+npm-debug.log*
