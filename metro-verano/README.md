@@ -25,10 +25,32 @@ está probado y funcionando.
 
 ## 1. Desplegar en el VPS (lo que ejecutas TÚ)
 
-Conéctate por SSH a tu VPS (`82.223.108.143`) y ejecuta:
+### Opción rápida (recomendada): un solo comando
+
+Una vez tengas el código en `~/apps/metro-verano` (ver "Colocar el código" abajo),
+solo necesitas:
 
 ```bash
-# 1) Coloca el código en ~/apps/metro-verano
+cd ~/apps/metro-verano
+./deploy.sh
+```
+
+`deploy.sh` es idempotente y hace todo lo automatizable: comprueba Node/npm,
+instala dependencias, crea/refresca la base de datos con los 60 entrenamientos,
+instala pm2 si falta, y arranca/recarga la app con pm2 (puerto 3010) guardando el
+estado. Para otro puerto: `PORT=3020 ./deploy.sh`.
+
+Después, lo único manual que queda (no lo automatiza por seguridad):
+```bash
+pm2 startup     # pega y ejecuta la línea que imprima (arranque al reiniciar)
+```
+…y, si expones con dominio, nginx + firewall + DNS (secciones 4 y 5).
+
+---
+
+### Colocar el código en el VPS
+
+```bash
 mkdir -p ~/apps
 cd ~/apps
 # Opción A: clona el repo (rama con la app) y entra en la subcarpeta
