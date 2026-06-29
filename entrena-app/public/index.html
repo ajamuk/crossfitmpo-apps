@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1" />
+  <meta name="theme-color" content="#121212" />
+  <title>Entrena · CFMP</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Plantilla del modal -->
+  <div id="modal-overlay" class="modal-overlay oculto">
+    <div id="modal" class="modal"></div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast oculto"></div>
+
+  <!-- Temporizador de descanso flotante -->
+  <div id="rest-timer" class="rest-timer oculto">
+    <span id="rest-label">Descanso</span>
+    <span id="rest-count">00:00</span>
+    <button id="rest-skip" class="rest-skip">✕</button>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/charts.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+    }
+  </script>
+</body>
+</html>

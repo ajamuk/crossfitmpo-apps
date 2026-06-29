@@ -1,0 +1,16 @@
+services:
+  entrena:
+    build: .
+    container_name: entrena
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - JWT_SECRET=${JWT_SECRET:?Define JWT_SECRET en el archivo .env}
+      - ALLOW_SIGNUP=${ALLOW_SIGNUP:-true}
+      - DATA_DIR=/data
+    volumes:
+      - entrena_data:/data
+
+volumes:
+  entrena_data:
