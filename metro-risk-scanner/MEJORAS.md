@@ -47,10 +47,12 @@ ni URL (`api/latest`, `api/refresh`, `api/inactive-refresh`, `api/ghl/open`…).
   aparece el aviso con la edad en días; con datos frescos no aparece.
   → PASA (2026-07-02): payload real → «hace 27 días» visible; datos frescos →
   oculto; informe de hace 3 días → aviso de posible fallo del proceso diario.
-- [ ] A3. Teléfono a un clic: enlace `tel:` junto al botón GHL en todas las
-  filas/tarjetas con teléfono (mismo helper `ghlButton` → `phoneActions`).
+- [x] A3. Teléfono a un clic: enlace `tel:` junto al botón GHL en todas las
+  filas/tarjetas con teléfono (helper `telLink`, prefijo +34 si falta).
   ✅ Verificación: en 390 px cada tarjeta del Trabajo diario con teléfono tiene
   `a[href^="tel:"]` pulsable.
+  → PASA (2026-07-02): 29/29 filas con teléfono → enlace tel: visible en móvil
+  (3 filas restantes no tienen teléfono en los datos); 0 errores JS.
 - [ ] A4. Navegación móvil compacta: en ≤760 px los 4 bloques de navegación se
   colapsan a una fila única de chips con scroll horizontal para que «Personas
   a escribir hoy» entre en la primera pantalla.

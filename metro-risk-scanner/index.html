@@ -581,6 +581,9 @@
 .data-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;padding:9px 12px;border:1px solid rgba(244,201,93,.55);border-radius:10px;background:rgba(244,201,93,.12);color:var(--warn,#f4c95d);font-size:.86rem;line-height:1.35}
 .data-alert-retry{border:1px solid rgba(244,201,93,.7);border-radius:8px;background:transparent;color:inherit;padding:4px 10px;font:inherit;cursor:pointer}
 .data-alert-retry:hover{background:rgba(244,201,93,.18)}
+/* Teléfonos pulsables (tel:) manteniendo la estética del texto */
+.tel-link{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}
+.tel-link:active{opacity:.7}
 </style></head>
 <body>
   
@@ -3385,7 +3388,7 @@
         <tr>
           <td><span class="daily-plain">${safe(item.center || '')}</span></td>
           <td><span class="daily-plain">${safe(item.workflowLabel)}</span></td>
-          <td class="daily-socio-cell"><button class="client-link" type="button" data-client='${clientData}'>${safe(item.name)}</button><div class="contact">${safe(item.phone || item.email || 'Sin contacto')}${ghlButton(item.phone)}</div><div class="mobile-injury-summary"><div class="mobile-meta"><span>${safe(item.workflowLabel)}</span><span>${safe(item.phone || item.email || 'Sin contacto')}</span><span>${safe(item.membership_name || 'Sin tarifa')}</span><span>${safe(nextText)}</span></div><div class="mobile-desc">${safe(reasonText)}</div><div class="mobile-note">${safe(latestText)}</div></div></td>
+          <td class="daily-socio-cell"><button class="client-link" type="button" data-client='${clientData}'>${safe(item.name)}</button><div class="contact">${item.phone ? telLink(item.phone) : safe(item.email || 'Sin contacto')}${ghlButton(item.phone)}</div><div class="mobile-injury-summary"><div class="mobile-meta"><span>${safe(item.workflowLabel)}</span><span>${item.phone ? telLink(item.phone) : safe(item.email || 'Sin contacto')}</span><span>${safe(item.membership_name || 'Sin tarifa')}</span><span>${safe(nextText)}</span></div><div class="mobile-desc">${safe(reasonText)}</div><div class="mobile-note">${safe(latestText)}</div></div></td>
           <td><span class="daily-plain muted-text">${safe(item.membership_name || 'Sin tarifa')}</span></td>
           <td><div class="daily-source-list">${sourceText}</div></td>
           <td><span class="daily-plain muted-text">${safe(labelText)}</span></td>
@@ -3425,7 +3428,7 @@
         <tr class="${isNew ? 'injury-new-row' : ''}">
           <td><span class="risk ${statusClass(item.status)}">${safe(displayStatus(item.status))}</span>${newBadge}<div class="muted">${safe(daysText(item.days_remaining))}</div></td>
           <td><span class="risk Bajo">${safe(item.center || '')}</span></td>
-          <td><button class="client-link" type="button" data-client='${clientDataAttr(injuryClient(item))}'>${safe(item.name)}</button><div class="contact">${safe(item.phone)}${ghlButton(item.phone)}</div></td>
+          <td><button class="client-link" type="button" data-client='${clientDataAttr(injuryClient(item))}'>${safe(item.name)}</button><div class="contact">${telLink(item.phone)}${ghlButton(item.phone)}</div></td>
           <td><div class="name">${safe(item.label || '')}</div><div class="muted">${safe(item.description || '')}</div></td>
           <td>${safe(formatDateEs(item.next_contact) || 'Sin fecha')}</td>
           <td class="reasons">${safe(item.latest_note || '')}</td>
@@ -3464,7 +3467,7 @@
         <tr class="${isNew ? 'injury-new-row' : ''}">
           <td><span class="risk Bajo">${safe(item.center || '')}</span></td>
           <td><span class="risk ${statusClass(item.status)}">${safe(displayStatus(item.status))}</span>${newBadge}<div class="muted">${safe(daysText(item.days_remaining))}</div></td>
-          <td><button class="client-link" type="button" data-client='${clientDataAttr(injuryClient(item))}'>${safe(item.name)}</button><div class="contact">${safe(item.phone)}${ghlButton(item.phone)}</div><div class="mobile-injury-summary"><div class="mobile-meta"><span class="risk ${statusClass(item.status)}">${safe(displayStatus(item.status))}</span>${newBadge}<span>${safe(item.phone || '')}</span><span>${safe(item.membership_name || item.tariff || 'Sin tarifa')}</span><span>${safe(formatDateEs(item.next_contact) || 'Sin fecha')}</span></div><div class="mobile-desc">${safe(item.description || '')}</div><div class="mobile-note">${safe(item.latest_note || '')}</div></div></td>
+          <td><button class="client-link" type="button" data-client='${clientDataAttr(injuryClient(item))}'>${safe(item.name)}</button><div class="contact">${telLink(item.phone)}${ghlButton(item.phone)}</div><div class="mobile-injury-summary"><div class="mobile-meta"><span class="risk ${statusClass(item.status)}">${safe(displayStatus(item.status))}</span>${newBadge}<span>${telLink(item.phone)}</span><span>${safe(item.membership_name || item.tariff || 'Sin tarifa')}</span><span>${safe(formatDateEs(item.next_contact) || 'Sin fecha')}</span></div><div class="mobile-desc">${safe(item.description || '')}</div><div class="mobile-note">${safe(item.latest_note || '')}</div></div></td>
           <td><span class="risk ${item.membership_name || item.tariff ? 'Bajo' : 'Sin.fecha'}">${safe(item.membership_name || item.tariff || 'Sin tarifa')}</span><div class="muted">${safe(item.last_membership_payment_date ? 'último pago ' + formatDateEs(item.last_membership_payment_date) : '')}</div></td>
           <td>${safe(item.type || '')}</td>
           <td><span class="risk ${item.label ? 'Bajo' : 'Sin.fecha'}">${item.label ? 'Sí' : 'No'}</span><div class="muted">${safe(item.label || 'Sin etiqueta')}</div></td>
@@ -3497,7 +3500,7 @@
         <tr>
           <td>${safe(item.center || '')}</td>
           <td>${safe(inactiveDaysText(item.days_without_class))}<div class="muted">${safe(item.contact_reason || item.workflow_status_label || '')}</div></td>
-          <td><button class="client-link" type="button" data-client='${clientData}'>${safe(item.name)}</button><div class="contact">${safe(item.phone || '')}${ghlButton(item.phone)}${item.phone && item.email ? '<br>' : ''}${safe(item.email || '')}</div><div class="mobile-inactive-summary"><div class="mobile-meta"><span>${safe(inactiveDaysText(item.days_without_class))}</span><span>${safe(item.phone || item.email || 'Sin contacto')}</span><span>${safe(item.membership_name || 'Sin tarifa')}</span><span>${safe(formatDateEs(item.last_class_at) || 'Sin registro')}</span></div><div class="mobile-desc">${safe(inactiveSummary(item))}</div><div class="mobile-note">${safe(item.membership_active ? 'tarifa activa detectada' : 'tarifa no confirmada por pagos')}</div></div></td>
+          <td><button class="client-link" type="button" data-client='${clientData}'>${safe(item.name)}</button><div class="contact">${telLink(item.phone)}${ghlButton(item.phone)}${item.phone && item.email ? '<br>' : ''}${safe(item.email || '')}</div><div class="mobile-inactive-summary"><div class="mobile-meta"><span>${safe(inactiveDaysText(item.days_without_class))}</span><span>${item.phone ? telLink(item.phone) : safe(item.email || 'Sin contacto')}</span><span>${safe(item.membership_name || 'Sin tarifa')}</span><span>${safe(formatDateEs(item.last_class_at) || 'Sin registro')}</span></div><div class="mobile-desc">${safe(inactiveSummary(item))}</div><div class="mobile-note">${safe(item.membership_active ? 'tarifa activa detectada' : 'tarifa no confirmada por pagos')}</div></div></td>
           <td><div class="name">${safe(item.membership_name || 'Sin datos')}</div></td>
           <td>${item.membership_active ? 'Sí' : 'No'}<div class="muted">${item.membership_active ? 'detectada por pagos' : 'no confirmada'}</div></td>
           <td>${safe(formatDateEs(item.last_class_at) || 'Sin registro')}</td>
@@ -3582,7 +3585,7 @@
         <tr>
           <td>${safe(formatDateEs(item.updated_at) || '')}</td>
           <td><span class="risk Bajo">${safe(item.center || '')}</span></td>
-          <td><button class="client-link" type="button" data-client='${clientDataAttr(injuryClient(item))}'>${safe(item.name)}</button><div class="contact">${safe(item.phone)}${ghlButton(item.phone)}</div></td>
+          <td><button class="client-link" type="button" data-client='${clientDataAttr(injuryClient(item))}'>${safe(item.name)}</button><div class="contact">${telLink(item.phone)}${ghlButton(item.phone)}</div></td>
           <td><div class="name">${safe(item.label || '')}</div><div class="muted">${safe(item.description || '')}</div></td>
           <td class="reasons">${safe(item.latest_note || '')}</td>
         </tr>
@@ -3593,6 +3596,14 @@
       return String(value ?? '').replace(/[&<>"']/g, (char) => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
       }[char]));
+    }
+    // Teléfono pulsable: en móvil una llamada debe estar a un toque.
+    function telLink(phone) {
+      const p = String(phone || '').trim();
+      if (!p) return '';
+      const digits = p.replace(/[^\d+]/g, '');
+      const href = digits.startsWith('+') ? digits : `+34${digits}`;
+      return `<a class="tel-link" href="tel:${href}" title="Llamar">${safe(p)}</a>`;
     }
     function ghlButton(phone) {
       const p = String(phone || '').trim();
