@@ -40,11 +40,13 @@ ni URL (`api/latest`, `api/refresh`, `api/inactive-refresh`, `api/ghl/open`…).
   → PASA (2026-07-02): 4 escenarios (500 sin caché, reintento, JSON corrupto
   con caché, red caída con caché) — 0 errores sin capturar, banner correcto,
   32 filas servidas desde caché con aviso de fecha.
-- [ ] A2. Aviso de datos obsoletos: banner cuando la foto de inactivos tenga
+- [x] A2. Aviso de datos obsoletos: banner cuando la foto de inactivos tenga
   >7 días (con edad y referencia al botón «Actualizar inactivos») y cuando el
   informe principal tenga >1 día.
   ✅ Verificación: con el payload real de producción (inactivos del 04/06)
   aparece el aviso con la edad en días; con datos frescos no aparece.
+  → PASA (2026-07-02): payload real → «hace 27 días» visible; datos frescos →
+  oculto; informe de hace 3 días → aviso de posible fallo del proceso diario.
 - [ ] A3. Teléfono a un clic: enlace `tel:` junto al botón GHL en todas las
   filas/tarjetas con teléfono (mismo helper `ghlButton` → `phoneActions`).
   ✅ Verificación: en 390 px cada tarjeta del Trabajo diario con teléfono tiene

@@ -2188,6 +2188,9 @@
             <span id="dataAlertText"></span>
             <button type="button" class="data-alert-retry" id="dataAlertRetry">Reintentar</button>
           </div>
+          <div class="data-alert" id="staleAlert" hidden>
+            <span id="staleAlertText"></span>
+          </div>
         </div>
         <div class="actions">
           <div class="segmented" aria-label="Filtro por centro global" style="margin-right: 12px;">
@@ -2874,6 +2877,36 @@
       saveDataCache(data);
     }
 
+    // Convierte las fechas que envía el backend ('dd/mm/aaaa hh:mm') a Date.
+    function parseBackendDate(text) {
+      const m = /^(\d{2})\/(\d{2})\/(\d{4})(?:\s+(\d{2}):(\d{2}))?/.exec(String(text || '').trim());
+      if (!m) return null;
+      return new Date(+m[3], +m[2] - 1, +m[1], +(m[4] || 0), +(m[5] || 0));
+    }
+
+    function updateStaleAlert(data) {
+      // Las decisiones de contacto dependen de la foto de inactividad: si es
+      // vieja, los «días sin venir» están infravalorados y hay que avisarlo.
+      const messages = [];
+      const dayMs = 24 * 60 * 60 * 1000;
+      const inactiveDate = parseBackendDate(state.inactiveGeneratedAt);
+      if (inactiveDate) {
+        const days = Math.floor((Date.now() - inactiveDate.getTime()) / dayMs);
+        if (days > 7) {
+          messages.push(`⚠️ La lista de inactividad es de hace ${days} días (${state.inactiveGeneratedAt}): los «días sin venir» reales son mayores. Pulsa «↻ Actualizar inactivos» en la vista de Inactividad.`);
+        }
+      }
+      const reportDate = parseBackendDate(data.generated_at);
+      if (reportDate) {
+        const days = Math.floor((Date.now() - reportDate.getTime()) / dayMs);
+        if (days > 1) {
+          messages.push(`⚠️ El informe principal es de hace ${days} días (${data.generated_at}): el proceso diario puede haber fallado.`);
+        }
+      }
+      $('staleAlert').hidden = messages.length === 0;
+      $('staleAlertText').textContent = messages.join(' · ');
+    }
+
     function applyData(data) {
       state.rows = data.rows || [];
       state.inactiveMembers = data.inactive_members || [];
@@ -2888,6 +2921,7 @@
         ? `Última actualización: ${data.generated_at} · ${data.report_file}`
         : 'Todavia no hay informe. Pulsa Recalcular.';
       // Descarga CSV/Informe ocultas: el bloque superior queda solo con Recalcular.
+      updateStaleAlert(data);
       recalculateScores();
       renderRows();
     }
