@@ -581,6 +581,7 @@
 .data-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;padding:9px 12px;border:1px solid rgba(244,201,93,.55);border-radius:10px;background:rgba(244,201,93,.12);color:var(--warn,#f4c95d);font-size:.86rem;line-height:1.35}
 .data-alert-retry{border:1px solid rgba(244,201,93,.7);border-radius:8px;background:transparent;color:inherit;padding:4px 10px;font:inherit;cursor:pointer}
 .data-alert-retry:hover{background:rgba(244,201,93,.18)}
+.data-alert[hidden]{display:none}
 /* Teléfonos pulsables (tel:) manteniendo la estética del texto */
 .tel-link{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}
 .tel-link:active{opacity:.7}
@@ -4548,5 +4549,16 @@
   <div class="cfmpo-menu-section"><span class="cfmpo-menu-title">Operación diaria</span><a href="https://adaptador.crossfitmpo.com/">Adaptador WOD</a><a href="https://feedbackbox.crossfitmpo.com/">Feedback Clase</a><a href="https://apps.crossfitmpo.com/eventos/">Eventos</a><a href="https://apps.crossfitmpo.com/checklist-metro-getafe-dynamic.html">Checklist apertura Getafe</a><a href="https://apps.crossfitmpo.com/checklist-metro-parla-dynamic.html">Checklist apertura Parla</a><a href="https://apps.crossfitmpo.com/checklist-metro-lasrosas-dynamic.html">Checklist apertura Las Rosas</a><a href="https://apps.crossfitmpo.com/kiosko-las-rosas/">Kiosko · Las Rosas</a></div>
   <div class="cfmpo-menu-section"><span class="cfmpo-menu-title">Seguimiento socios</span><a href="https://feedbackbox.crossfitmpo.com/bajas.html">Bajas registradas</a><a href="https://feedbackbox.crossfitmpo.com/lesionados.html">Registro Lesionados</a><a class="cfmpo-menu-primary" href="https://apps.crossfitmpo.com/metro-risk-scanner/">Risk Scanner</a></div>
   <div class="cfmpo-menu-section"><span class="cfmpo-menu-title">Equipo y soporte</span><a href="https://apps.crossfitmpo.com/mantenimiento">Mantenimiento</a><a href="https://apps.crossfitmpo.com/faq-empleados/">FAQ Equipo</a></div>
-</div></details><a class="cfmpo-nav-logout" href="https://apps.crossfitmpo.com/access-admin/logout">Salir</a></nav></header></body>
+</div></details><a class="cfmpo-nav-logout" href="https://apps.crossfitmpo.com/access-admin/logout">Salir</a></nav></header><style>
+/* A4: en móvil la navegación se colapsa a una fila de chips con scroll
+   horizontal para que «Personas a escribir hoy» entre en la primera pantalla. */
+@media(max-width:760px){
+  html body .workspace-nav{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:8px!important;margin:0 0 10px!important;padding:2px 2px 6px!important;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  html body .workspace-nav::-webkit-scrollbar{display:none}
+  html body .workspace-nav .nav-group{flex:0 0 auto!important;display:flex!important;align-items:center!important;margin:0!important;padding:4px!important}
+  html body .workspace-nav .nav-group-label{display:none!important}
+  html body .workspace-nav .tabs{display:flex!important;flex-wrap:nowrap!important;gap:6px!important}
+  html body .workspace-nav .tabs button{white-space:nowrap!important}
+}
+</style></body>
 </html>

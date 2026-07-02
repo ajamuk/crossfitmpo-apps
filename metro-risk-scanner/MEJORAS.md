@@ -53,11 +53,15 @@ ni URL (`api/latest`, `api/refresh`, `api/inactive-refresh`, `api/ghl/open`…).
   `a[href^="tel:"]` pulsable.
   → PASA (2026-07-02): 29/29 filas con teléfono → enlace tel: visible en móvil
   (3 filas restantes no tienen teléfono en los datos); 0 errores JS.
-- [ ] A4. Navegación móvil compacta: en ≤760 px los 4 bloques de navegación se
+- [x] A4. Navegación móvil compacta: en ≤760 px los 4 bloques de navegación se
   colapsan a una fila única de chips con scroll horizontal para que «Personas
   a escribir hoy» entre en la primera pantalla.
   ✅ Verificación: en 390×844 la primera tarjeta de trabajo diario es visible
   sin hacer scroll.
+  → PASA (2026-07-02): navegación de ~350 px a 70 px de alto; primera tarjeta
+  en y=593 (<844) visible sin scroll; sin scroll horizontal de página. De paso
+  se corrigió que `.data-alert{display:flex}` anulaba el atributo `hidden`
+  (los banners salían vacíos siempre): `.data-alert[hidden]{display:none}`.
 ### MEDIO
 - [ ] M1. Estado de carga + primera pintura rápida: «Cargando datos…» visible
   al arrancar y *stale-while-revalidate*: si hay caché en `localStorage` se
