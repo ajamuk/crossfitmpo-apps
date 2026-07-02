@@ -30,13 +30,16 @@ ni URL (`api/latest`, `api/refresh`, `api/inactive-refresh`, `api/ghl/open`…).
 ## Mejoras priorizadas
 
 ### ALTO
-- [ ] A1. Robustez de carga: `try/catch` + `response.ok` en `loadData()`, caché
+- [x] A1. Robustez de carga: `try/catch` + `response.ok` en `loadData()`, caché
   en `localStorage` de la última carga buena, banner visible «No se pudo
   actualizar — mostrando datos guardados de [fecha]» con botón Reintentar, y
   `catch` en el handler de «Recalcular».
   ✅ Verificación (pasa/no pasa): con API 500, JSON corrupto y sin red no hay
   excepciones sin capturar; con caché previa se ven los datos + banner; sin
   caché, banner de error con Reintentar.
+  → PASA (2026-07-02): 4 escenarios (500 sin caché, reintento, JSON corrupto
+  con caché, red caída con caché) — 0 errores sin capturar, banner correcto,
+  32 filas servidas desde caché con aviso de fecha.
 - [ ] A2. Aviso de datos obsoletos: banner cuando la foto de inactivos tenga
   >7 días (con edad y referencia al botón «Actualizar inactivos») y cuando el
   informe principal tenga >1 día.

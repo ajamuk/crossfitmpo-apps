@@ -576,7 +576,12 @@
     .risk { min-height: 26px !important; padding: 0 10px !important; }
 
   </style>
-<link rel="icon" type="image/png" href="https://apps.crossfitmpo.com/favicon.png?v=20260529"><link rel="apple-touch-icon" href="https://apps.crossfitmpo.com/apple-touch-icon.png?v=20260529"><link rel="stylesheet" href="https://apps.crossfitmpo.com/cfmpo-unified.css?v=20260629-compact-clientes-socios"></head>
+<link rel="icon" type="image/png" href="https://apps.crossfitmpo.com/favicon.png?v=20260529"><link rel="apple-touch-icon" href="https://apps.crossfitmpo.com/apple-touch-icon.png?v=20260529"><link rel="stylesheet" href="https://apps.crossfitmpo.com/cfmpo-unified.css?v=20260629-compact-clientes-socios"><style>
+/* Avisos de estado de datos (fallo de carga o datos antiguos) */
+.data-alert{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;padding:9px 12px;border:1px solid rgba(244,201,93,.55);border-radius:10px;background:rgba(244,201,93,.12);color:var(--warn,#f4c95d);font-size:.86rem;line-height:1.35}
+.data-alert-retry{border:1px solid rgba(244,201,93,.7);border-radius:8px;background:transparent;color:inherit;padding:4px 10px;font:inherit;cursor:pointer}
+.data-alert-retry:hover{background:rgba(244,201,93,.18)}
+</style></head>
 <body>
   
 <style id="client-profile-overrides">
@@ -2179,6 +2184,10 @@
         <div>
           <h1>Seguimiento de atletas: Lesionados · Inactividad</h1>
           <p class="subtitle" id="subtitle">Seguimiento operativo de lesionados y socios 7+ días sin venir.</p>
+          <div class="data-alert" id="dataAlert" hidden>
+            <span id="dataAlertText"></span>
+            <button type="button" class="data-alert-retry" id="dataAlertRetry">Reintentar</button>
+          </div>
         </div>
         <div class="actions">
           <div class="segmented" aria-label="Filtro por centro global" style="margin-right: 12px;">
@@ -2803,9 +2812,69 @@
     const $ = (id) => document.getElementById(id);
     const centerNames = ['Getafe', 'Parla', 'Las Rosas'];
 
+    // Clave de la caché local con la última carga buena de api/latest.
+    const DATA_CACHE_KEY = 'metroRiskScanner.lastGoodData';
+
+    function saveDataCache(data) {
+      // localStorage puede fallar por cuota (el payload ronda 2 MB); si pasa,
+      // seguimos sin caché en vez de romper la carga.
+      try {
+        localStorage.setItem(DATA_CACHE_KEY, JSON.stringify({ savedAt: new Date().toLocaleString('es-ES'), data }));
+      } catch (error) { /* sin espacio: la app funciona igual, solo sin respaldo offline */ }
+    }
+
+    function readDataCache() {
+      try {
+        const raw = localStorage.getItem(DATA_CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return parsed && parsed.data ? parsed : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function showDataAlert(message, withRetry) {
+      const box = $('dataAlert');
+      if (!box) return;
+      $('dataAlertText').textContent = message;
+      $('dataAlertRetry').hidden = !withRetry;
+      box.hidden = false;
+    }
+
+    function hideDataAlert() {
+      const box = $('dataAlert');
+      if (box) box.hidden = true;
+    }
+
     async function loadData() {
-      const response = await fetch('api/latest');
-      const data = await response.json();
+      // Nunca dejamos el dashboard vacío en silencio: si api/latest falla se
+      // muestran los últimos datos buenos guardados y un aviso con Reintentar.
+      let data;
+      try {
+        const response = await fetch('api/latest');
+        if (!response.ok) throw new Error(`el servidor respondió ${response.status}`);
+        data = await response.json();
+      } catch (error) {
+        // Mensaje en lenguaje claro: los usuarios son coaches, no técnicos.
+        const motivo = /respondió \d+/.test(error.message) ? error.message
+          : error.name === 'SyntaxError' ? 'respuesta no válida del servidor'
+          : 'sin conexión con el servidor';
+        const cached = readDataCache();
+        if (cached) {
+          applyData(cached.data);
+          showDataAlert(`No se pudo actualizar (${motivo}). Mostrando datos guardados de ${cached.savedAt}.`, true);
+        } else {
+          showDataAlert(`No se pudieron cargar los datos (${motivo}). Revisa la conexión y reintenta.`, true);
+        }
+        return;
+      }
+      hideDataAlert();
+      applyData(data);
+      saveDataCache(data);
+    }
+
+    function applyData(data) {
       state.rows = data.rows || [];
       state.inactiveMembers = data.inactive_members || [];
       state.inactiveGeneratedAt = data.inactive_members_generated_at || '';
@@ -4409,6 +4478,8 @@
         const response = await fetch('api/refresh', { method: 'POST' });
         if (!response.ok) throw new Error('No se pudo recalcular');
         await loadData();
+      } catch (error) {
+        alert(error.message);
       } finally {
         $('refreshBtn').disabled = false;
         $('refreshBtn').textContent = '↻ Recalcular';
@@ -4418,6 +4489,10 @@
     window.addEventListener('resize', () => {
       window.clearTimeout(headerFitTimer);
       headerFitTimer = window.setTimeout(fitTableHeaders, 80);
+    });
+    $('dataAlertRetry').addEventListener('click', () => {
+      hideDataAlert();
+      loadData();
     });
     renderControls();
     loadData();
