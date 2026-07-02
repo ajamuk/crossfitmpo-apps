@@ -1,0 +1,98 @@
+---
+---
+<header class="cabecera">
+  <div class="wrap barra">
+    <a href="/" class="logo" aria-label="CrossFit Metropolitano, inicio">
+      CrossFit <em>Metropolitano</em>
+    </a>
+    <nav aria-label="Principal">
+      <input type="checkbox" id="menu" class="menu-check" aria-hidden="true" />
+      <label for="menu" class="menu-boton" aria-hidden="true">
+        <span class="menu-linea"></span>
+        <span class="menu-linea"></span>
+        Menú
+      </label>
+      <ul class="enlaces">
+        <li><a href="/crossfit-en-getafe/">Getafe</a></li>
+        <li><a href="/crossfit-parla/">Parla</a></li>
+        <li><a href="/crossfit-las-rosas/">Las Rosas</a></li>
+        <li><a href="/crossfit-academy/">Empieza desde cero</a></li>
+        <li><a href="/preparacion-hyrox/">Hyrox</a></li>
+        <li><a href="/precios/">Precios</a></li>
+        <li class="solo-movil"><a href="/contacto/">Contacto</a></li>
+      </ul>
+    </nav>
+    <a href="#prueba" class="btn btn-verde cta-cabecera">Prueba una clase</a>
+  </div>
+</header>
+
+<style>
+  .cabecera {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--salvia) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--linea);
+  }
+  .barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 68px;
+  }
+  .logo {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo em { font-style: normal; color: var(--verde); }
+  .enlaces {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .enlaces a { text-decoration: none; color: var(--tinta-suave); }
+  .enlaces a:hover { color: var(--bosque); }
+  .cta-cabecera { min-height: 44px; padding: 10px 18px; font-size: 0.9rem; }
+  .menu-check, .menu-boton { display: none; }
+  .solo-movil { display: none; }
+
+  @media (max-width: 900px) {
+    .menu-boton {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 10px 4px;
+    }
+    .menu-linea { width: 20px; height: 2px; background: var(--bosque); display: block; }
+    .menu-linea + .menu-linea { margin-left: -28px; margin-top: 6px; }
+    .enlaces {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      flex-direction: column;
+      gap: 0;
+      background: var(--carta);
+      border-bottom: 1px solid var(--linea);
+      padding: 8px 20px 14px;
+    }
+    .enlaces a { display: block; padding: 12px 0; font-size: 1rem; }
+    .menu-check:checked ~ .enlaces { display: flex; }
+    .solo-movil { display: block; }
+    .cta-cabecera { font-size: 0.85rem; padding: 9px 14px; }
+  }
+</style>

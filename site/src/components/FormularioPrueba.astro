@@ -1,0 +1,99 @@
+---
+// Formulario de 3 campos. Al enviar abre el WhatsApp del box elegido
+// con un mensaje prellenado — sin backend.
+import { boxes } from '../data/boxes';
+
+interface Props { boxFijo?: string; }
+const { boxFijo } = Astro.props;
+---
+<section class="seccion-bosque" id="prueba">
+  <div class="wrap form-grid">
+    <div class="form-intro">
+      <span class="eyebrow">Prueba una clase</span>
+      <h2>Escríbenos. Sin compromiso. Sin presión.</h2>
+      <p class="suave">
+        Nos dices tu nombre y tu box, y te contamos cómo es la primera clase.
+        Respondemos nosotros, no un bot.
+      </p>
+      <p class="suave">
+        Si después decides que no es para ti, no pasa nada. En serio.
+      </p>
+    </div>
+    <form class="form-carta" id="form-prueba" data-boxes={JSON.stringify(Object.fromEntries(boxes.map((b) => [b.id, { nombre: b.nombre, whatsapp: b.whatsapp }])))}>
+      <div class="campo">
+        <label for="nombre">Tu nombre</label>
+        <input id="nombre" name="nombre" type="text" required autocomplete="name" placeholder="María" />
+      </div>
+      <div class="campo">
+        <label for="telefono">Tu teléfono</label>
+        <input id="telefono" name="telefono" type="tel" required autocomplete="tel" inputmode="tel" placeholder="600 000 000" />
+      </div>
+      <div class="campo">
+        <label for="box">¿Qué box te pilla mejor?</label>
+        <select id="box" name="box" required>
+          {boxes.map((b) => (
+            <option value={b.id} selected={boxFijo === b.id}>{b.nombre} — {b.direccion}</option>
+          ))}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-verde form-btn">
+        Enviar por WhatsApp
+      </button>
+      <p class="micro">
+        Al enviar se abre WhatsApp con tu mensaje ya escrito. Lo revisas y lo mandas tú.
+        Tus datos no se guardan en ninguna base de datos.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('form-prueba') as HTMLFormElement | null;
+  if (form) {
+    const boxes = JSON.parse(form.dataset.boxes || '{}');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const datos = new FormData(form);
+      const box = boxes[String(datos.get('box'))];
+      const texto = `Hola, soy ${datos.get('nombre')}. Me gustaría probar una clase en el box de ${box.nombre}. Mi teléfono es ${datos.get('telefono')}.`;
+      window.open(`https://wa.me/${box.whatsapp}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+    });
+  }
+</script>
+
+<style>
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .form-intro p { margin-top: 16px; }
+  .form-carta {
+    background: rgba(251, 250, 245, 0.06);
+    border: 1px solid rgba(236, 239, 228, 0.22);
+    border-radius: var(--radio);
+    padding: 30px;
+  }
+  .campo { display: grid; gap: 8px; margin-bottom: 18px; }
+  .campo label { font-size: 0.85rem; font-weight: 600; color: #B9C2B4; }
+  .campo input, .campo select {
+    width: 100%;
+    font: inherit;
+    color: var(--salvia);
+    background: rgba(35, 43, 33, 0.6);
+    border: 1px solid rgba(236, 239, 228, 0.28);
+    border-radius: 8px;
+    padding: 14px;
+    min-height: 52px;
+  }
+  .campo input::placeholder { color: rgba(236, 239, 228, 0.4); }
+  .campo input:focus, .campo select:focus { border-color: var(--ocre); outline: none; box-shadow: 0 0 0 2px rgba(201, 143, 45, 0.35); }
+  .campo select option { background: var(--bosque); }
+  .form-btn { width: 100%; }
+  .micro { margin-top: 14px; color: #97A192; }
+  @media (max-width: 820px) {
+    .form-grid { grid-template-columns: 1fr; gap: 30px; }
+    .form-carta { padding: 22px; }
+  }
+</style>

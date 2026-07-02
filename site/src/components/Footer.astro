@@ -1,0 +1,69 @@
+---
+import { boxes, waLink } from '../data/boxes';
+---
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div class="pie-marca">
+        <p class="logo">CrossFit <em>Metropolitano</em></p>
+        <p class="suave">Un box de CrossFit para gente normal. Tres centros en Madrid, desde 2017.</p>
+      </div>
+      {boxes.map((box) => (
+        <div class="pie-box">
+          <h3>{box.nombre}</h3>
+          <address>
+            {box.direccion}<br />
+            {box.zona}<br />
+            {box.codigoPostal} {box.localidad}
+          </address>
+          <a href={waLink(box)} rel="noopener">WhatsApp {box.nombre}</a><br />
+          <a href={box.url}>Ver el box</a>
+        </div>
+      ))}
+    </div>
+    <div class="pie-legal">
+      <p>© {new Date().getFullYear()} BOXMANIA 2017 SL</p>
+      <ul>
+        <li><a href="/aviso-legal/">Aviso legal</a></li>
+        <li><a href="/politica-de-privacidad/">Privacidad</a></li>
+        <li><a href="/politica-de-cookies/">Cookies</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .pie { background: var(--bosque); color: var(--salvia); padding: 56px 0 28px; }
+  .pie-grid {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(3, 1fr);
+    gap: 32px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(236, 239, 228, 0.18);
+  }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; }
+  .logo em { font-style: normal; color: var(--ocre); }
+  .suave { color: #B9C2B4; font-size: 0.92rem; }
+  .pie-box h3 { font-size: 1rem; margin-bottom: 10px; color: var(--ocre); }
+  address { font-style: normal; color: #B9C2B4; font-size: 0.9rem; line-height: 1.55; margin-bottom: 10px; }
+  .pie-box a { color: var(--salvia); font-size: 0.9rem; display: inline-block; padding: 3px 0; }
+  .pie-legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 22px;
+    font-size: 0.85rem;
+    color: #B9C2B4;
+  }
+  .pie-legal ul { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; margin: 0; padding: 0; }
+  .pie-legal a { color: #B9C2B4; }
+  @media (max-width: 900px) {
+    .pie-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .pie-grid { grid-template-columns: 1fr; gap: 26px; }
+  }
+</style>

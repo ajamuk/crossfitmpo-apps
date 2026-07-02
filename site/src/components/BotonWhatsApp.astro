@@ -1,0 +1,39 @@
+---
+// Botón flotante de WhatsApp, siempre visible en móvil.
+// `href` permite que cada página de box apunte a su propio número.
+import { boxes, waLink } from '../data/boxes';
+
+interface Props { href?: string; etiqueta?: string; }
+const { href = waLink(boxes[1]), etiqueta = 'Escribir por WhatsApp' } = Astro.props;
+---
+<a class="fab" href={href} rel="noopener" aria-label={etiqueta}>
+  <svg class="icono-wa" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.3-.4 0-.5.2-.7l.5-.6c.1-.2.1-.4 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.5 3.9 2.6 1.1 2.6.7 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/>
+  </svg>
+  <span>WhatsApp</span>
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--verde);
+    color: var(--carta);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 13px 20px;
+    border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(35, 43, 33, 0.28);
+  }
+  .fab:hover { background: var(--verde-oscuro); }
+  @media (min-width: 901px) {
+    .fab span { display: none; }
+    .fab { padding: 15px; }
+  }
+</style>

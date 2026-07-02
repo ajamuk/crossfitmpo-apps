@@ -1,0 +1,145 @@
+/* ============ Tokens — dirección "Tu hora" ============ */
+:root {
+  --salvia: #ECEFE4;
+  --bosque: #232B21;
+  --verde: #38683F;
+  --verde-oscuro: #2C5233;
+  --ocre: #C98F2D;
+  --ocre-oscuro: #8A5F17;
+  --carta: #FBFAF5;
+  --linea: #D6DAC8;
+  --tinta-suave: #4C554A;
+
+  --display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+  --texto: 'Work Sans', system-ui, sans-serif;
+
+  --radio: 10px;
+  --ancho: 1120px;
+}
+
+/* ============ Fuentes auto-alojadas ============ */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-800.woff2') format('woff2');
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/worksans-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/worksans-400i.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/worksans-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+/* ============ Base ============ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+body {
+  margin: 0;
+  background: var(--salvia);
+  color: var(--bosque);
+  font-family: var(--texto);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ocre); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { width: min(var(--ancho), calc(100% - 40px)); margin-inline: auto; }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: clamp(2.4rem, 6.5vw, 4.2rem); }
+h2 { font-size: clamp(1.8rem, 4.5vw, 2.9rem); }
+h3 { font-size: 1.25rem; font-weight: 600; }
+p { margin: 0; max-width: 62ch; }
+
+.eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 16px;
+}
+.suave { color: var(--tinta-suave); }
+.acento { color: var(--verde); }
+
+/* ============ Botones ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--texto);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 15px 26px;
+  min-height: 52px;
+  border-radius: var(--radio);
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-verde { background: var(--verde); color: var(--carta); border-color: var(--verde); }
+.btn-verde:hover { background: var(--verde-oscuro); }
+.btn-borde { background: transparent; color: var(--bosque); border-color: var(--bosque); }
+.btn-borde:hover { background: rgba(35, 43, 33, 0.06); }
+.micro { font-size: 0.85rem; color: var(--tinta-suave); }
+
+/* ============ Secciones ============ */
+section { padding: 72px 0; }
+.seccion-carta { background: var(--carta); }
+.seccion-bosque { background: var(--bosque); color: var(--salvia); }
+.seccion-bosque .eyebrow { color: var(--ocre); }
+.seccion-bosque .suave { color: #B9C2B4; }
+.cabecera-seccion { max-width: 720px; margin-bottom: 40px; }
+.cabecera-seccion p { margin-top: 16px; }
+
+/* ============ Tarjetas ============ */
+.tarjeta {
+  background: var(--carta);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 26px;
+}
+
+.pensamiento {
+  font-style: italic;
+  color: var(--tinta-suave);
+}
+
+.icono-wa { flex-shrink: 0; }

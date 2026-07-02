@@ -1,0 +1,264 @@
+---
+import Base from '../layouts/Base.astro';
+import FormularioPrueba from '../components/FormularioPrueba.astro';
+import { boxes, waLink } from '../data/boxes';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'CrossFit Metropolitano',
+  legalName: 'BOXMANIA 2017 SL',
+  url: 'https://www.crossfitmetropolitano.com/',
+  foundingDate: '2017',
+  description:
+    'Boxes de CrossFit y preparación HYROX en Getafe, Parla y Las Rosas (Madrid). Grupos reducidos de máximo 8 personas.',
+  location: boxes.map((b) => ({
+    '@type': 'ExerciseGym',
+    name: `CrossFit Metropolitano ${b.nombre}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: b.direccion,
+      addressLocality: b.localidad,
+      postalCode: b.codigoPostal,
+      addressCountry: 'ES',
+    },
+  })),
+};
+---
+<Base
+  title="CrossFit Madrid para gente normal | CrossFit Metropolitano"
+  description="Boxes de CrossFit en Getafe, Parla y Las Rosas. Grupos de máximo 8 personas, entrenadores que te conocen por tu nombre y clases de 1 hora exacta. Prueba una clase."
+  schema={schema}
+>
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Getafe · Parla · Las Rosas — desde 2017</span>
+      <h1>CrossFit Madrid para <span class="acento">gente normal</span></h1>
+      <div class="hero-copy">
+        <p>
+          Sé que cuando escuchas CrossFit te imaginas a gente sin camiseta gritando
+          y peleándose por ver quién levanta más hierro.
+        </p>
+        <p><strong>Ese CrossFit existe. Pero no es el nuestro.</strong></p>
+        <p class="suave">
+          Aquí entrena gente que trabaja, que tiene hijos, que llega justa de tiempo.
+          Gente que solo quiere sentirse bien y tener energía. Como tú.
+        </p>
+      </div>
+      <div class="hero-acciones">
+        <a href="#prueba" class="btn btn-verde">Prueba una clase</a>
+        <a href="#primera-clase" class="btn btn-borde">Cómo es la primera clase</a>
+        <p class="micro">Sin compromiso. Sin presión. Sin letra pequeña.</p>
+      </div>
+    </div>
+    <div class="wrap prueba-social" role="list">
+      <div role="listitem"><b>Máx. 8 personas</b><span>por clase, nadie entrena solo</span></div>
+      <div role="listitem"><b>1 hora exacta</b><span>llegas, entrenas y sigues con tu día</span></div>
+      <div role="listitem"><b>3 boxes en Madrid</b><span>Getafe, Parla y Las Rosas</span></div>
+    </div>
+  </section>
+
+  <!-- ============ Comunidad ============ -->
+  <section class="seccion-carta">
+    <div class="wrap">
+      <div class="cabecera-seccion">
+        <span class="eyebrow">Quién entrena aquí</span>
+        <h2>Para gente normal. De verdad.</h2>
+        <p>
+          En nuestras clases hay enfermeras que salen de turno, padres que aprovechan
+          la hora del cole, gente de 40 que no pisaba un gimnasio desde el instituto.
+        </p>
+        <p><strong>Nadie te va a mirar mal por hacer la versión fácil de un ejercicio. Todos empezamos por ahí.</strong></p>
+      </div>
+      <div class="objeciones">
+        <div class="tarjeta">
+          <p class="pensamiento">«Es que yo no estoy en forma»</p>
+          <p>Perfecto. Los boxes están llenos de gente que ya estaba en forma. El nuestro es para los que quieren empezar. Cada ejercicio se adapta a tu nivel de hoy, no al que te gustaría tener.</p>
+        </div>
+        <div class="tarjeta">
+          <p class="pensamiento">«No tengo tiempo»</p>
+          <p>Las clases duran 60 minutos exactos. Ni calentamientos eternos ni esperas entre máquinas. Entras, entrenas y a tu vida.</p>
+        </div>
+        <div class="tarjeta">
+          <p class="pensamiento">«Me voy a lesionar»</p>
+          <p>Te lesionas cuando nadie te mira. Aquí tu entrenador está encima de la técnica en cada clase, con 8 personas como máximo. Por eso son grupos tan pequeños.</p>
+        </div>
+        <div class="tarjeta">
+          <p class="pensamiento">«Me da vergüenza ir solo/a»</p>
+          <p>La primera clase la haces acompañado desde la puerta. Y la semana que viene ya conocerás a la mitad del grupo por su nombre. Es lo que tienen los grupos de 8.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Cómo entrenamos ============ -->
+  <section>
+    <div class="wrap como-grid">
+      <div>
+        <span class="eyebrow">Cómo entrenamos</span>
+        <h2>Grupos reducidos: máximo 8 personas</h2>
+        <p>
+          No es una promesa de marketing, es un límite real de plazas.
+          Con 8 personas tu entrenador ve todas tus repeticiones y adapta la clase a cómo llegas hoy:
+          cansado, con la espalda cargada o con ganas de más.
+        </p>
+      </div>
+      <div>
+        <span class="eyebrow">Quién te entrena</span>
+        <h2>Entrenadores certificados que te conocen por tu nombre</h2>
+        <p>
+          Nada de rutinas en una pantalla ni monitores que pasan de largo.
+          Tu entrenador sabe cómo te llamas, qué te duele y hasta dónde puedes llegar sin riesgo.
+          Entrenamiento funcional bien enseñado, desde el primer día.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Primera clase ============ -->
+  <section class="seccion-carta" id="primera-clase">
+    <div class="wrap">
+      <div class="cabecera-seccion">
+        <span class="eyebrow">Sin sorpresas</span>
+        <h2>Así es tu primera clase</h2>
+        <p>Hoy no tienes que decidir nada. Solo escribir un mensaje.</p>
+      </div>
+      <ol class="pasos">
+        <li class="tarjeta">
+          <span class="paso-num" aria-hidden="true">1</span>
+          <h3>Nos escribes por WhatsApp</h3>
+          <p>Nos dices qué box te pilla mejor y te proponemos día y hora. Respondemos nosotros, no un bot.</p>
+        </li>
+        <li class="tarjeta">
+          <span class="paso-num" aria-hidden="true">2</span>
+          <h3>Vienes a probar</h3>
+          <p>Una clase normal, adaptada a tu nivel. Con ropa cómoda vale. No hace falta haber entrenado nunca.</p>
+        </li>
+        <li class="tarjeta">
+          <span class="paso-num" aria-hidden="true">3</span>
+          <h3>Tú decides</h3>
+          <p>Si te ha gustado, te contamos precios y horarios. Si no, aquí no ha pasado nada. Sin llamadas insistentes.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ Boxes ============ -->
+  <section>
+    <div class="wrap">
+      <div class="cabecera-seccion">
+        <span class="eyebrow">Dónde estamos</span>
+        <h2>Tres boxes en Madrid: Getafe, Parla y Las Rosas</h2>
+        <p>Los tres con el mismo método, los mismos grupos de 8 y preparación HYROX.</p>
+      </div>
+      <div class="boxes-grid">
+        {boxes.map((box) => (
+          <article class="tarjeta box-carta">
+            <h3>{box.nombre}</h3>
+            <p class="suave">{box.direccion} · {box.zona}</p>
+            <div class="box-acciones">
+              <a class="btn btn-verde" href={waLink(box)} rel="noopener">WhatsApp</a>
+              <a class="btn btn-borde" href={box.url}>Ver el box</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Programas ============ -->
+  <section class="seccion-carta">
+    <div class="wrap programas-grid">
+      <article class="tarjeta programa">
+        <span class="eyebrow">¿Nunca has entrenado?</span>
+        <h3>CrossFit Academy</h3>
+        <p>
+          Nuestra clase de iniciación desde cero. Aprendes los movimientos con calma,
+          en un grupo de máximo 8 personas que también acaba de empezar.
+        </p>
+        <a href="/crossfit-academy/" class="btn btn-borde">Empezar desde cero</a>
+      </article>
+      <article class="tarjeta programa">
+        <span class="eyebrow">¿Tienes un objetivo concreto?</span>
+        <h3>Preparación HYROX</h3>
+        <p>
+          Si te ha picado el gusanillo de HYROX, te preparamos en los tres boxes.
+          Sin dejar de ser gente normal con trabajo e hijos.
+        </p>
+        <a href="/preparacion-hyrox/" class="btn btn-borde">Cómo lo preparamos</a>
+      </article>
+    </div>
+  </section>
+
+  <FormularioPrueba />
+</Base>
+
+<style>
+  .hero { padding: 88px 0 0; }
+  .hero h1 { max-width: 16ch; }
+  .hero-copy { margin-top: 26px; display: grid; gap: 12px; }
+  .hero-copy p { font-size: 1.15rem; max-width: 54ch; }
+  .hero-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 32px; }
+  .hero-acciones .micro { width: 100%; }
+  .prueba-social {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 56px;
+    padding-bottom: 56px;
+  }
+  .prueba-social div {
+    background: var(--carta);
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    padding: 16px 20px;
+  }
+  .prueba-social b { display: block; font-family: var(--display); font-weight: 600; font-size: 1.05rem; color: var(--verde); }
+  .prueba-social span { font-size: 0.88rem; color: var(--tinta-suave); }
+
+  .objeciones { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .objeciones .pensamiento { font-size: 1.15rem; margin-bottom: 12px; }
+
+  .como-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .como-grid p { margin-top: 18px; }
+
+  .pasos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    counter-reset: paso;
+  }
+  .paso-num {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--verde);
+    color: var(--carta);
+    font-family: var(--display);
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .pasos h3 { margin-bottom: 10px; }
+
+  .boxes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .box-carta h3 { font-size: 1.5rem; font-weight: 800; }
+  .box-carta .suave { margin: 8px 0 20px; }
+  .box-acciones { display: flex; flex-wrap: wrap; gap: 10px; }
+  .box-acciones .btn { min-height: 46px; padding: 10px 18px; font-size: 0.92rem; }
+
+  .programas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .programa h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+  .programa p { margin-bottom: 22px; }
+
+  @media (max-width: 900px) {
+    .hero { padding-top: 56px; }
+    .prueba-social, .pasos, .boxes-grid { grid-template-columns: 1fr; }
+    .objeciones, .como-grid, .programas-grid { grid-template-columns: 1fr; gap: 26px; }
+  }
+</style>

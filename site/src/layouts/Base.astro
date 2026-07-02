@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BotonWhatsApp from '../components/BotonWhatsApp.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** JSON-LD adicional (p. ej. LocalBusiness del box) */
+  schema?: object;
+  /** href del botón flotante de WhatsApp */
+  whatsappHref?: string;
+}
+
+const { title, description, schema, whatsappHref } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_ES" />
+    <link rel="preload" href="/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/worksans-400.woff2" as="font" type="font/woff2" crossorigin />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+    <BotonWhatsApp href={whatsappHref} />
+  </body>
+</html>
+
+<style>
+  .saltar {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--bosque);
+    color: var(--carta);
+    padding: 12px 18px;
+    z-index: 100;
+  }
+  .saltar:focus { left: 0; }
+</style>
