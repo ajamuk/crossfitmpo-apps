@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+
+<title>index</title>
+<script src="support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face { font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/anton.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-style: normal; font-weight: 200 800; font-display: swap; src: url("fonts/manrope.woff2") format("woff2"); }
+html { background: #0E0E0D; }
+body { margin: 0; background: #0E0E0D; }
+@keyframes hintFloat { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(8px); opacity: 1; } }
+</style>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+</helmet>
+
+<div style="font-family:Manrope,system-ui,sans-serif;color:#FFFCF7;background:#0E0E0D;overflow-x:clip" data-screen-label="Demo motion Academy Las Rosas">
+
+  <!-- ═══ ESCENA 1: cámara sobre la foto, 4 fases ═══ -->
+  <section id="escena" style="position:relative;height:460svh">
+    <div style="position:sticky;top:0;height:100svh;overflow:hidden;background:#0E0E0D">
+      <img id="foto" src="assets/cfmp-training.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;will-change:transform,filter" />
+      <div id="velo" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,rgba(14,14,13,0.25),rgba(14,14,13,0.85) 85%)"></div>
+
+      <header style="position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1140px;margin:0 auto;padding:22px 24px;box-sizing:border-box">
+        <img src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano" style="height:32px;width:auto" />
+        <button onclick="{{ openWhatsApp }}" style="border:1px solid rgba(248,245,242,0.35);background:rgba(14,14,13,0.4);color:#FFFCF7;font-family:Manrope,sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;padding:10px 18px;border-radius:999px;cursor:pointer" style-hover="border-color:#88AF60;color:#88AF60">WhatsApp</button>
+      </header>
+
+      <!-- fase 1: título -->
+      <div class="fase" id="fase1" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;padding:24px;pointer-events:none">
+        <span style="display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;max-width:100%;line-height:1.4;border:1px solid rgba(248,245,242,0.22);background:rgba(14,14,13,0.45);color:#88AF60;font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:8px 14px;border-radius:999px">CrossFit Metropolitano · Las Rosas</span>
+        <h1 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(3.4rem,11vw,8.5rem);line-height:0.92;letter-spacing:0.01em;text-transform:uppercase;text-wrap:balance">CrossFit<br /><span style="color:#88AF60">Academy</span></h1>
+        <p style="margin:0;max-width:420px;font-size:1.05rem;line-height:1.6;color:rgba(248,245,242,0.75)">La forma de empezar CrossFit cuando nunca has hecho CrossFit.</p>
+      </div>
+
+      <!-- fase 2 -->
+      <div class="fase" id="fase2" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:12px;padding:0 24px 14svh;max-width:1140px;margin:0 auto;box-sizing:border-box;opacity:0;pointer-events:none">
+        <h2 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2.6rem,7vw,5.5rem);line-height:0.95;text-transform:uppercase">Primero,<br /><span style="color:#88AF60">técnica.</span></h2>
+        <p style="margin:0;max-width:380px;font-size:1.05rem;line-height:1.6;color:rgba(248,245,242,0.8)">Aprender a moverte antes de mover peso. Nadie te suelta una barra y buena suerte.</p>
+      </div>
+
+      <!-- fase 3 -->
+      <div class="fase" id="fase3" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:12px;padding:0 24px 14svh;max-width:1140px;margin:0 auto;box-sizing:border-box;text-align:right;opacity:0;pointer-events:none">
+        <h2 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2.6rem,7vw,5.5rem);line-height:0.95;text-transform:uppercase">Máximo<br /><span style="color:#88AF60">8 personas.</span></h2>
+        <p style="margin:0;max-width:380px;font-size:1.05rem;line-height:1.6;color:rgba(248,245,242,0.8)">Un coach que te ve en cada repetición y te corrige antes de que cojas vicios.</p>
+      </div>
+
+      <!-- fase 4: cierre + CTA -->
+      <div class="fase" id="fase4" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:24px;opacity:0;pointer-events:none">
+        <h2 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(3rem,9vw,7rem);line-height:0.94;text-transform:uppercase;text-wrap:balance">Sin ir<br /><span style="color:#88AF60">vendido.</span></h2>
+        <p style="margin:0;max-width:440px;font-size:1.08rem;line-height:1.6;color:rgba(248,245,242,0.8)">Grupos pequeños, desde lo básico y a tu ritmo, en Las Rosas (San Blas).</p>
+        <button onclick="{{ openWhatsApp }}" style="pointer-events:auto;border:0;background:#88AF60;color:#0E0E0D;font-family:Manrope,sans-serif;font-weight:800;font-size:1.05rem;padding:17px 32px;border-radius:999px;cursor:pointer" style-hover="background:#9CC275">Reserva tu plaza por WhatsApp</button>
+      </div>
+
+      <!-- hint de scroll -->
+      <div id="hint" style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(248,245,242,0.6);font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;pointer-events:none">
+        <span>Desliza</span>
+        <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="animation:hintFloat 1.6s ease-in-out infinite"><path d="M8 2v16" /><path d="M2 13l6 6 6-6" /></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ESCENA 2: manifiesto con revelado de palabras ═══ -->
+  <section style="background:#0E0E0D;padding:22svh 24px">
+    <div style="max-width:900px;margin:0 auto">
+      <p style="margin:0 0 26px;color:#88AF60;font-weight:800;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase">Por qué existe Academy</p>
+      <p id="mani-texto" style="margin:0;font-family:Manrope,sans-serif;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.7rem);line-height:1.35;text-wrap:pretty">"No soy de CrossFit" suele significar "nadie me lo ha explicado bien". Academy existe para explicártelo bien: a tu ritmo, desde lo básico y con alguien mirándote solo a ti.</p>
+    </div>
+  </section>
+
+  <!-- ═══ ESCENA 3: tres pilares ═══ -->
+  <section style="background:#EFE9E9;color:#171715;padding:110px 24px">
+    <div style="max-width:1140px;margin:0 auto">
+      <h2 style="margin:0 0 48px;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.02;text-transform:uppercase;letter-spacing:0.01em;text-wrap:balance">Lo que te llevas de Academy</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <sc-for list="{{ pilares }}" as="p" hint-placeholder-count="3">
+          <article class="pilar" style="background:#FFFCF7;border:1px solid rgba(14,14,13,0.12);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;gap:12px">
+            <span style="font-family:Anton,Impact,sans-serif;font-size:1.05rem;color:#48662F;letter-spacing:0.08em">{{ p.num }}</span>
+            <h3 style="margin:0;font-size:1.28rem;font-weight:800;line-height:1.25;text-wrap:balance">{{ p.titulo }}</h3>
+            <p style="margin:0;font-size:0.98rem;line-height:1.6;color:rgba(23,23,21,0.7);text-wrap:pretty">{{ p.texto }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA FINAL ═══ -->
+  <section style="position:relative;background:#0E0E0D;color:#FFFCF7;padding:120px 24px;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(136,175,96,0.22),transparent 40%)"></div>
+    <div style="position:relative;max-width:780px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px">
+      <img src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano" style="height:44px;width:auto;opacity:0.9" />
+      <h2 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2.4rem,5.5vw,4rem);line-height:1;text-transform:uppercase;letter-spacing:0.01em;text-wrap:balance">Todo el mundo del box empezó un día como tú</h2>
+      <button onclick="{{ openWhatsApp }}" style="border:0;background:#88AF60;color:#0E0E0D;font-family:Manrope,sans-serif;font-weight:800;font-size:1.05rem;padding:18px 34px;border-radius:999px;cursor:pointer" style-hover="background:#9CC275">Escríbenos por WhatsApp</button>
+      <p style="margin:0;font-size:0.85rem;color:rgba(248,245,242,0.5)">CrossFit Metropolitano Las Rosas · San Blas, Madrid</p>
+    </div>
+  </section>
+
+  <footer style="background:#0E0E0D;border-top:1px solid rgba(248,245,242,0.12);color:rgba(248,245,242,0.45);font-size:0.8rem;padding:20px 24px;text-align:center">
+    <span>© {{ anio }} CrossFit Metropolitano · CrossFit Academy en Las Rosas, Madrid</span>
+  </footer>
+</div>
+</x-dc>
+<script data-dc-script type="text/dc-logic">
+class Component extends DCLogic {
+  componentDidMount() {
+    // Los scripts de <helmet> cargan en orden pero de forma asíncrona:
+    // esperamos a que gsap/ScrollTrigger/Lenis existan antes de animar.
+    const listo = () => window.gsap && window.ScrollTrigger && window.Lenis;
+    const iniciar = () => {
+      if (!listo()) { setTimeout(iniciar, 40); return; }
+      this.montarAnimaciones();
+    };
+    iniciar();
+  }
+
+  montarAnimaciones() {
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+
+    const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Scroll con inercia (desactivable para capturas con window.__dcNoLenis)
+    if (!reducido && window.__dcNoLenis !== true) {
+      const lenis = new window.Lenis();
+      lenis.on('scroll', window.ScrollTrigger.update);
+      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }
+
+    // Revelado de palabras del manifiesto: trocea el texto en <span>s.
+    const mani = document.getElementById('mani-texto');
+    const palabras = mani.textContent.split(/\s+/).filter(Boolean);
+    mani.innerHTML = palabras
+      .map((w) => '<span style="color:rgba(248,245,242,0.16)">' + w + '</span>')
+      .join(' ');
+    const spans = mani.querySelectorAll('span');
+
+    if (reducido) {
+      // Sin animaciones: estado final legible.
+      gsap.set('#fase1', { opacity: 1 });
+      gsap.set('#fase4', { opacity: 0 });
+      gsap.set('#hint', { opacity: 0 });
+      gsap.set('#escena', { height: '100svh' });
+      spans.forEach((s) => { s.style.color = '#FFFCF7'; });
+      return;
+    }
+
+    // ── Escena 1: cámara sobre la foto + fases de texto ──────────────
+    // Puntos de interés de la foto: manos/tiza (arriba centro-dcha),
+    // kettlebell (abajo dcha). La "cámara" es scale + translate.
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: '#escena',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.6,
+      },
+    });
+
+    tl.set('#foto', { scale: 1.12, xPercent: 0, yPercent: 0 }, 0)
+      // hint y fase 1 se van pronto
+      .to('#hint', { opacity: 0, duration: 0.05 }, 0.02)
+      .to('#fase1', { opacity: 0, scale: 0.96, duration: 0.1 }, 0.06)
+      // viaje A: hacia las manos y la tiza
+      .to('#foto', { scale: 1.75, xPercent: -12, yPercent: 16, duration: 0.24 }, 0.08)
+      .to('#fase2', { opacity: 1, duration: 0.08 }, 0.18)
+      .to('#fase2', { opacity: 0, duration: 0.08 }, 0.34)
+      // viaje B: hacia la kettlebell
+      .to('#foto', { scale: 1.55, xPercent: -30, yPercent: -14, duration: 0.24 }, 0.4)
+      .to('#fase3', { opacity: 1, duration: 0.08 }, 0.5)
+      .to('#fase3', { opacity: 0, duration: 0.08 }, 0.66)
+      // viaje C: zoom out, oscurece y cierra
+      .to('#foto', { scale: 1.15, xPercent: 0, yPercent: 0, filter: 'brightness(0.55)', duration: 0.22 }, 0.72)
+      .to('#velo', { opacity: 1.4, duration: 0.2 }, 0.74)
+      .to('#fase4', { opacity: 1, duration: 0.1 }, 0.84);
+
+    // ── Escena 2: palabras que se encienden al pasar ─────────────────
+    gsap.to(spans, {
+      color: '#FFFCF7',
+      stagger: 0.6,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#mani-texto',
+        start: 'top 78%',
+        end: 'top 30%',
+        scrub: 0.4,
+      },
+    });
+
+    // ── Escena 3: tarjetas que suben al entrar ───────────────────────
+    gsap.utils.toArray('.pilar').forEach((card, i) => {
+      gsap.fromTo(card,
+        { y: 56, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.7, delay: i * 0.12, ease: 'power2.out',
+          scrollTrigger: { trigger: card, start: 'top 88%', toggleActions: 'play none none reverse' },
+        });
+    });
+  }
+
+  renderVals() {
+    return {
+      anio: String(new Date().getFullYear()),
+
+      openWhatsApp: () => {
+        const msg = 'Hola, quiero información sobre CrossFit Academy en Las Rosas';
+        window.open('https://wa.me/34604840858?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      },
+
+      pilares: [
+        {
+          num: '01',
+          titulo: 'Una base que sirve para años',
+          texto: 'Sentadilla, bisagra, empujar, traccionar. Los patrones que lo sostienen todo, aprendidos con calma y bien.',
+        },
+        {
+          num: '02',
+          titulo: 'Confianza en el box',
+          texto: 'Cuando pases a las clases normales ya sabrás qué hacer, cómo se llama y cómo se hace. Sin sentirte perdido.',
+        },
+        {
+          num: '03',
+          titulo: 'Un sitio al que volver',
+          texto: 'Grupos pequeños, gente que empezó como tú y una hora al día que es solo tuya. Eso es lo que engancha.',
+        },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
