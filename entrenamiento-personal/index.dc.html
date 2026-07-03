@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>index</title>
+<script src="support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face { font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/anton.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-style: normal; font-weight: 200 800; font-display: swap; src: url("fonts/manrope.woff2") format("woff2"); }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #0E0E0D; }
+</style>
+</helmet>
+
+<div style="font-family:Manrope,system-ui,sans-serif;color:#171715;background:#EFE9E9;overflow-x:hidden" data-screen-label="Landing Entrenamiento Personal">
+
+  <!-- ═══ HERO ═══ -->
+  <section style="position:relative;min-height:min(92svh,880px);display:flex;flex-direction:column;background:#0E0E0D;color:#FFFCF7;overflow:hidden">
+    <img src="assets/cfmp-training.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.5" />
+    <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(14,14,13,0.94) 25%,rgba(14,14,13,0.55) 60%,rgba(14,14,13,0.25) 100%)"></div>
+
+    <header style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1140px;width:100%;margin:0 auto;padding:22px 24px;box-sizing:border-box">
+      <img src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano" style="height:34px;width:auto" />
+      <button onclick="{{ openWhatsApp }}" style="border:1px solid rgba(248,245,242,0.35);background:transparent;color:#FFFCF7;font-family:Manrope,sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;padding:10px 18px;border-radius:999px;cursor:pointer" style-hover="border-color:#88AF60;color:#88AF60">WhatsApp</button>
+    </header>
+
+    <div style="position:relative;flex:1;display:flex;align-items:center;max-width:1140px;width:100%;margin:0 auto;padding:40px 24px 80px;box-sizing:border-box">
+      <div style="max-width:640px;display:flex;flex-direction:column;align-items:flex-start;gap:22px">
+        <span style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:9px;max-width:100%;line-height:1.4;border:1px solid rgba(248,245,242,0.22);background:rgba(248,245,242,0.07);color:#88AF60;font-size:0.78rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:8px 14px;border-radius:999px">
+          <span style="width:7px;height:7px;border-radius:50%;background:#88AF60;box-shadow:0 0 0 5px rgba(136,175,96,0.18)"></span>
+          <span>Entrenamiento personal · Getafe · Parla · Las Rosas</span>
+        </span>
+        <h1 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2.9rem,7vw,5.4rem);line-height:0.96;letter-spacing:0.01em;text-transform:uppercase;text-wrap:balance">
+          <span>Un coach solo para ti.</span><br />
+          <span style="color:#88AF60">Un plan solo para ti.</span>
+        </h1>
+        <p style="margin:0;max-width:480px;font-size:1.12rem;line-height:1.6;color:rgba(248,245,242,0.82);text-wrap:pretty">
+          Una hora en la que nadie más importa: tu técnica, tus cargas, tu ritmo. Sin rutinas de internet ni máquinas al azar. Con un coach que conoce tu historia y ajusta cada sesión a lo que necesitas ese día.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+          <button onclick="{{ openWhatsApp }}" style="border:0;background:#88AF60;color:#0E0E0D;font-family:Manrope,sans-serif;font-weight:800;font-size:1rem;padding:16px 28px;border-radius:999px;cursor:pointer" style-hover="background:#9CC275">Quiero mi valoración gratis</button>
+          <a href="#como-funciona" style="display:inline-flex;align-items:center;border:1px solid rgba(248,245,242,0.35);color:#FFFCF7;font-weight:700;font-size:1rem;padding:16px 28px;border-radius:999px;text-decoration:none" style-hover="border-color:#FFFCF7">Ver cómo funciona</a>
+        </div>
+        <p style="margin:4px 0 0;font-size:0.85rem;color:rgba(248,245,242,0.55)">Sin compromiso. Te escribimos por WhatsApp y te contamos cómo empezar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PARA QUIÉN ═══ -->
+  <section style="background:#EFE9E9;padding:88px 24px">
+    <div style="max-width:1140px;margin:0 auto">
+      <p style="margin:0 0 10px;color:#48662F;font-weight:800;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase">Para quién tiene sentido</p>
+      <h2 style="margin:0 0 14px;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.02;text-transform:uppercase;letter-spacing:0.01em;text-wrap:balance">El personal no es para "los que ya saben"</h2>
+      <p style="margin:0 0 44px;max-width:560px;font-size:1.05rem;line-height:1.65;color:rgba(23,23,21,0.7);text-wrap:pretty">Es justo al revés: es la forma más rápida y segura de empezar, de volver o de desatascarte cuando llevas tiempo igual.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <sc-for list="{{ perfiles }}" as="p" hint-placeholder-count="3">
+          <article style="background:#FFFCF7;border:1px solid rgba(14,14,13,0.12);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;gap:12px">
+            <span style="font-family:Anton,Impact,sans-serif;font-size:1.05rem;color:#48662F;letter-spacing:0.08em">{{ p.num }}</span>
+            <h3 style="margin:0;font-size:1.28rem;font-weight:800;line-height:1.25;text-wrap:balance">{{ p.titulo }}</h3>
+            <p style="margin:0;font-size:0.98rem;line-height:1.6;color:rgba(23,23,21,0.7);text-wrap:pretty">{{ p.texto }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CÓMO FUNCIONA ═══ -->
+  <section id="como-funciona" style="background:#0E0E0D;color:#FFFCF7;padding:92px 24px">
+    <div style="max-width:1140px;margin:0 auto">
+      <p style="margin:0 0 10px;color:#88AF60;font-weight:800;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase">Cómo funciona</p>
+      <h2 style="margin:0 0 48px;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.02;text-transform:uppercase;letter-spacing:0.01em;max-width:700px;text-wrap:balance">Tres pasos. Ninguno da miedo.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-top:1px solid rgba(248,245,242,0.16)">
+        <sc-for list="{{ pasos }}" as="s" hint-placeholder-count="3">
+          <div style="padding:34px 28px 34px 0;border-bottom:1px solid rgba(248,245,242,0.16);display:flex;flex-direction:column;gap:14px;margin-right:28px">
+            <span style="font-family:Anton,Impact,sans-serif;font-size:2.6rem;line-height:1;color:#88AF60">{{ s.num }}</span>
+            <h3 style="margin:0;font-size:1.22rem;font-weight:800;text-wrap:balance">{{ s.titulo }}</h3>
+            <p style="margin:0;font-size:0.97rem;line-height:1.62;color:rgba(248,245,242,0.65);text-wrap:pretty">{{ s.texto }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:36px 0 0;font-size:1rem;color:rgba(248,245,242,0.6)">La valoración inicial es gratis y no te compromete a nada. Si no encaja, te lo decimos nosotros.</p>
+    </div>
+  </section>
+
+  <!-- ═══ FORMATOS ═══ -->
+  <section style="background:#EFE9E9;padding:88px 24px">
+    <div style="max-width:1140px;margin:0 auto">
+      <p style="margin:0 0 10px;color:#48662F;font-weight:800;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase">Formatos</p>
+      <h2 style="margin:0 0 44px;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.02;text-transform:uppercase;letter-spacing:0.01em;text-wrap:balance">Elige cómo quieres entrenar</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <sc-for list="{{ formatos }}" as="f" hint-placeholder-count="3">
+          <article style="background:#FFFCF7;border:1px solid rgba(14,14,13,0.12);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;gap:12px">
+            <h3 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:1.5rem;text-transform:uppercase;letter-spacing:0.02em">{{ f.titulo }}</h3>
+            <p style="margin:0;flex:1;font-size:0.98rem;line-height:1.6;color:rgba(23,23,21,0.7);text-wrap:pretty">{{ f.texto }}</p>
+            <span style="font-size:0.85rem;font-weight:700;color:#48662F">{{ f.nota }}</span>
+          </article>
+        </sc-for>
+      </div>
+      <p style="margin:32px 0 0;font-size:0.98rem;color:rgba(23,23,21,0.65)">Los precios dependen del formato y del número de sesiones. Pregúntanos por WhatsApp y te lo contamos claro, sin letra pequeña.</p>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section style="background:#FFFCF7;padding:88px 24px">
+    <div style="max-width:780px;margin:0 auto">
+      <p style="margin:0 0 10px;color:#48662F;font-weight:800;font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase">Dudas normales</p>
+      <h2 style="margin:0 0 36px;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2rem,4.5vw,3rem);line-height:1.02;text-transform:uppercase;letter-spacing:0.01em;text-wrap:balance">Lo que nos pregunta todo el mundo</h2>
+      <div style="border-top:1px solid rgba(14,14,13,0.15)">
+        <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="4">
+          <div style="border-bottom:1px solid rgba(14,14,13,0.15)">
+            <button onclick="{{ q.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:0;padding:20px 4px;cursor:pointer;text-align:left;font-family:Manrope,sans-serif;font-size:1.08rem;font-weight:800;color:#171715" style-hover="color:#48662F">
+              <span>{{ q.pregunta }}</span>
+              <span style="font-family:Anton,sans-serif;font-size:1.3rem;color:#48662F;flex-shrink:0">{{ q.icono }}</span>
+            </button>
+            <sc-if value="{{ q.abierta }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:0 40px 22px 4px;font-size:1rem;line-height:1.65;color:rgba(23,23,21,0.72);text-wrap:pretty">{{ q.respuesta }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA FINAL ═══ -->
+  <section style="position:relative;background:#0E0E0D;color:#FFFCF7;padding:110px 24px;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(136,175,96,0.22),transparent 40%)"></div>
+    <div style="position:relative;max-width:780px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px">
+      <img src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano" style="height:44px;width:auto;opacity:0.9" />
+      <h2 style="margin:0;font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(2.4rem,5.5vw,4rem);line-height:1;text-transform:uppercase;letter-spacing:0.01em;text-wrap:balance">Llevas tiempo diciéndote que lo harás</h2>
+      <p style="margin:0;max-width:520px;font-size:1.08rem;line-height:1.65;color:rgba(248,245,242,0.75);text-wrap:pretty">Escríbenos y reserva tu valoración inicial gratuita. Te contamos horarios, precios y en qué centro te viene mejor. Y si no encaja, no pasa nada.</p>
+      <button onclick="{{ openWhatsApp }}" style="border:0;background:#88AF60;color:#0E0E0D;font-family:Manrope,sans-serif;font-weight:800;font-size:1.05rem;padding:18px 34px;border-radius:999px;cursor:pointer" style-hover="background:#9CC275">Escríbenos por WhatsApp</button>
+      <p style="margin:0;font-size:0.85rem;color:rgba(248,245,242,0.5)">Getafe (El Bercial) · Parla · Las Rosas (San Blas)</p>
+    </div>
+  </section>
+
+  <footer style="background:#0E0E0D;border-top:1px solid rgba(248,245,242,0.12);color:rgba(248,245,242,0.45);font-size:0.8rem;padding:20px 24px;text-align:center">
+    <span>© {{ anio }} CrossFit Metropolitano · Entrenamiento personal en Madrid Sur</span>
+  </footer>
+</div>
+</x-dc>
+<script data-dc-script type="text/dc-logic">
+class Component extends DCLogic {
+  state = { faqAbierta: -1 };
+
+  renderVals() {
+    const abrir = (i) => () =>
+      this.setState((s) => ({ faqAbierta: s.faqAbierta === i ? -1 : i }));
+
+    const faqsData = [
+      {
+        pregunta: '¿Necesito experiencia o estar en forma?',
+        respuesta: 'No. De hecho, el personal es la mejor puerta de entrada si nunca has entrenado o llevas años parado. Empezamos desde tu nivel real, no desde el de Instagram.',
+      },
+      {
+        pregunta: '¿Dónde se hacen las sesiones?',
+        respuesta: 'En cualquiera de nuestros tres centros: Getafe (El Bercial), Parla y Las Rosas (San Blas). Tú eliges el que mejor te encaje por casa o por trabajo.',
+      },
+      {
+        pregunta: 'Vengo de una lesión, ¿puedo entrenar?',
+        respuesta: 'Casi siempre sí, y suele ser lo más recomendable. Adaptamos ejercicios, cargas y ritmo, y si hace falta nos coordinamos con tu fisio. Lo importante es contarlo todo en la valoración inicial.',
+      },
+      {
+        pregunta: '¿Puedo combinarlo con las clases del box?',
+        respuesta: 'Sí, y es una combinación muy habitual: sesiones personales para trabajar tu técnica o tu objetivo concreto, y clases para el resto de la semana.',
+      },
+      {
+        pregunta: '¿Cuántas sesiones a la semana necesito?',
+        respuesta: 'Depende de tu objetivo y de tu vida. Hay gente con una sesión semanal y gente con tres. Dos días bien hechos ganan a cero días perfectos.',
+      },
+    ];
+
+    return {
+      anio: String(new Date().getFullYear()),
+
+      openWhatsApp: () => {
+        const msg = 'Hola, quiero información sobre el entrenamiento personal de CrossFit Metropolitano';
+        window.open('https://wa.me/34604840858?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      },
+
+      perfiles: [
+        {
+          num: '01',
+          titulo: 'Empiezas de cero (o casi)',
+          texto: 'Nadie te suelta una barra y buena suerte. Aprendes los movimientos desde el principio, con alguien mirándote solo a ti. Sin grupo, sin compararte, sin ir vendido.',
+        },
+        {
+          num: '02',
+          titulo: 'Vuelves de una lesión o de un parón',
+          texto: 'Progresiones seguras, cargas ajustadas y un coach que sabe cuándo apretar y cuándo no. Si hace falta, hablamos con tu fisio.',
+        },
+        {
+          num: '03',
+          titulo: 'Tienes un objetivo concreto',
+          texto: 'Tu primera dominada, unas oposiciones, un HYROX o simplemente moverte sin dolor. Un objetivo concreto se entrena con un plan concreto.',
+        },
+      ],
+
+      pasos: [
+        {
+          num: '1',
+          titulo: 'Valoración inicial gratuita',
+          texto: 'Nos cuentas tu punto de partida: historial, lesiones, horarios y objetivo. Te vemos moverte. De aquí sale el plan.',
+        },
+        {
+          num: '2',
+          titulo: 'Plan a tu medida',
+          texto: 'Tu coach diseña las sesiones para ti: qué trabajar, en qué orden y a qué ritmo. Nada de plantillas genéricas.',
+        },
+        {
+          num: '3',
+          titulo: 'Entrenas uno a uno',
+          texto: 'Cada sesión con tu coach encima: técnica, cargas y ajustes según cómo llegas ese día. Una hora que va al grano.',
+        },
+      ],
+
+      formatos: [
+        {
+          titulo: 'Individual',
+          texto: 'Tú y tu coach. La opción más directa cuando quieres avanzar rápido, cuidar una lesión o trabajar algo muy específico.',
+          nota: 'Sesiones de 1 hora · horario a convenir',
+        },
+        {
+          titulo: 'Dúo',
+          texto: 'Con tu pareja, un amigo o quien te dé la excusa perfecta para no fallar. Misma atención, sesión compartida.',
+          nota: '2 personas · mismo coach',
+        },
+        {
+          titulo: 'Personal + clases',
+          texto: 'Sesiones personales para tu técnica u objetivo y clases del box para el resto de la semana. Lo mejor de las dos cosas.',
+          nota: 'La combinación más habitual',
+        },
+      ],
+
+      faqs: faqsData.map((f, i) => ({
+        pregunta: f.pregunta,
+        respuesta: f.respuesta,
+        abierta: this.state.faqAbierta === i,
+        icono: this.state.faqAbierta === i ? '–' : '+',
+        toggle: abrir(i),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
