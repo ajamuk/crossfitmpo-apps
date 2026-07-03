@@ -1,0 +1,59 @@
+name: Deploy beta landing to VPS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/skill-installation-5gztm6]
+    paths: ['entrenamiento-personal/**']
+
+concurrency: deploy-beta
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comprobar secreto
+        run: |
+          if [ -z "${{ secrets.VPS_PASSWORD }}" ]; then
+            echo "::error::Falta el secreto VPS_PASSWORD. Añádelo en Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Instalar sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+
+      - name: Subir archivos
+        env:
+          SSHPASS: ${{ secrets.VPS_PASSWORD }}
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=accept-new root@82.223.108.143 'mkdir -p /var/www/pt-beta'
+          sshpass -e scp -o StrictHostKeyChecking=accept-new -r entrenamiento-personal/. root@82.223.108.143:/var/www/pt-beta/
+
+      - name: Configurar sitio nginx (solo por IP, con noindex)
+        env:
+          SSHPASS: ${{ secrets.VPS_PASSWORD }}
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=accept-new root@82.223.108.143 'bash -s' <<'EOS'
+          set -e
+          cat > /etc/nginx/sites-available/pt-beta <<'CONF'
+          server {
+              listen 80;
+              server_name 82.223.108.143;
+              root /var/www/pt-beta;
+              index index.dc.html;
+              add_header X-Robots-Tag "noindex, nofollow, noarchive" always;
+          }
+          CONF
+          ln -sf /etc/nginx/sites-available/pt-beta /etc/nginx/sites-enabled/pt-beta
+          nginx -t
+          systemctl reload nginx
+          EOS
+
+      - name: Smoke test
+        run: |
+          sleep 2
+          curl -sSf -o /dev/null -w "HTTP %{http_code}\n" http://82.223.108.143/
+          curl -sS http://82.223.108.143/ | grep -qi "entrenamiento personal" && echo "OK: la beta responde"
+          curl -sSI http://82.223.108.143/ | grep -i x-robots-tag
