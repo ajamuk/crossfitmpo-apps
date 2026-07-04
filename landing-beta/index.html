@@ -2,300 +2,869 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CrossFit Metropolitano Madrid | CrossFit en Getafe, Parla y Las Rosas</title>
-  <meta name="description" content="CrossFit Metropolitano: CrossFit en Getafe, Parla y Las Rosas para gente normal. CrossFit desde cero, grupos reducidos, entrenadores certificados y preparación HYROX en Madrid." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CrossFit Metropolitano | CrossFit en Getafe, Parla y Las Rosas (Madrid)</title>
+  <meta name="description" content="CrossFit Metropolitano: entrenamiento funcional y CrossFit para gente normal en Getafe, Parla y Las Rosas. Empieza desde cero con grupos reducidos, coaches certificados y preparación HYROX en Madrid." />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:title" content="CrossFit Metropolitano — CrossFit para gente normal" />
-  <meta property="og:description" content="Tres boxes en Madrid: Getafe, Parla y Las Rosas. Empieza desde cero, sin postureo y con entrenadores pendientes de ti." />
+  <meta property="og:description" content="Tres boxes en Madrid: Getafe, Parla y Las Rosas. Entrena una hora, con coach, en grupos reducidos. Desde cero y sin postureo." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/cfmp-training.jpg" />
+  <meta name="theme-color" content="#0E0E0D" />
   <link rel="icon" href="/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --black:#0E0E0D;
-      --ink:#171715;
+      --ink:#0E0E0D;
+      --ink-2:#17150F;
       --paper:#EFE9E9;
-      --white:#FFFCF7;
+      --paper-2:#E4DEDD;
+      --white:#FBF8F4;
       --stone:#C3BFBE;
       --green:#88AF60;
-      --green-dark:#48662F;
-      --line:rgba(14,14,13,.22);
-      --line-light:rgba(248,245,242,.22);
+      --green-dark:#3F5C29;
+      --line:rgba(14,14,13,.14);
+      --line-strong:rgba(14,14,13,.30);
+      --line-dark:rgba(251,248,244,.16);
+      --muted:rgba(14,14,13,.62);
+      --muted-2:rgba(14,14,13,.46);
+      --ease:cubic-bezier(.22,.61,.36,1);
+      --gutter:clamp(18px,4vw,44px);
+      --shell:1280px;
     }
+
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--paper);color:var(--black);font-family:Manrope,system-ui,sans-serif;line-height:1.45;overflow-x:hidden}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{
+      margin:0;background:var(--paper);color:var(--ink);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      font-size:17px;line-height:1.6;font-weight:400;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+      overflow-x:hidden;font-feature-settings:"ss01","cv05";
+    }
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
-    .wrap{width:min(1240px,calc(100% - 36px));margin-inline:auto}
-    .display{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;letter-spacing:-.015em;line-height:.86;margin:0}
-    .eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--green-dark)}
-    .muted{color:rgba(14,14,13,.72)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;border:2px solid currentColor;padding:1rem 1.2rem;font-weight:950;text-transform:uppercase;letter-spacing:.03em;transition:transform .18s ease,background .18s ease,color .18s ease;min-height:52px}
-    .btn:hover{transform:translateY(-2px)}
-    .btn:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--green);outline-offset:3px}
-    ::placeholder{color:rgba(248,245,242,.46)}
-    .btn-dark{background:var(--black);color:var(--white);border-color:var(--black)}
-    .btn-light{background:var(--white);color:var(--black);border-color:var(--white)}
-    .btn-outline{background:transparent;color:var(--black)}
+    button{font:inherit}
+    ::selection{background:var(--green);color:var(--ink)}
+    :focus-visible{outline:2.5px solid var(--green-dark);outline-offset:3px}
 
-    .site-header{position:sticky;top:0;z-index:30;background:rgba(239,233,233,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-    .topbar{height:34px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.13em;color:rgba(14,14,13,.72)}
-    .topbar strong{color:var(--black)}
-    .nav{height:76px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:26px}
-    .brand{display:flex;align-items:center;gap:16px;min-width:0}
-    .brand-block{width:44px;height:44px;background:var(--black);color:var(--green);display:grid;place-items:center;font-family:Anton;font-size:1.65rem;line-height:1}
-    .brand img{width:190px;filter:invert(1) saturate(0) brightness(.12)}
-    .navlinks{justify-self:center;display:flex;align-items:center;gap:24px;font-size:.86rem;font-weight:950;text-transform:uppercase;letter-spacing:.05em}
-    .navlinks a{border-bottom:2px solid transparent;padding:8px 0;color:rgba(14,14,13,.74)}
-    .navlinks a:hover{color:var(--black);border-bottom-color:var(--green-dark)}
-    .nav-mobile{display:none;border-top:1px solid var(--line);overflow:auto;gap:20px;padding:10px 0;font-size:.78rem;text-transform:uppercase;font-weight:950;letter-spacing:.05em;color:rgba(14,14,13,.7)}
+    .shell{width:min(var(--shell),100% - (var(--gutter) * 2));margin-inline:auto}
+    .display{font-family:Anton,Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:.9;margin:0}
+    .eyebrow{
+      font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--green-dark);display:inline-flex;align-items:center;gap:.6rem;
+    }
+    .eyebrow::before{content:"";width:22px;height:2px;background:var(--green-dark);display:inline-block}
+    .eyebrow--ondark{color:var(--green)}
+    .eyebrow--ondark::before{background:var(--green)}
+    .lead{font-size:clamp(1.05rem,1.4vw,1.22rem);color:var(--muted);max-width:52ch;line-height:1.55}
+    .kicker-num{font-family:Anton;font-size:.85rem;letter-spacing:.04em;color:var(--muted-2)}
 
-    .hero{display:grid;grid-template-columns:1.08fr .92fr;min-height:calc(100vh - 110px);border-bottom:1px solid var(--line)}
-    .hero-media{position:relative;min-height:680px;background:var(--black);overflow:hidden}
-    .hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.12)}
-    .hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.68)),linear-gradient(90deg,rgba(0,0,0,.25),transparent)}
-    .media-label{position:absolute;left:26px;bottom:26px;z-index:2;color:var(--white);display:grid;gap:10px;max-width:520px}
-    .media-label b{font-family:Anton;text-transform:uppercase;font-size:clamp(3rem,7vw,6.8rem);line-height:.84;font-weight:400}
-    .media-label span{font-weight:900;color:rgba(248,245,242,.78);max-width:420px}
-    .hero-copy{padding:48px clamp(24px,4vw,60px);display:flex;flex-direction:column;justify-content:space-between;background:var(--paper)}
-    .hero-copy-top{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding-bottom:22px;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:950;color:rgba(14,14,13,.70)}
-    .hero-copy h1{font-size:clamp(4.6rem,10vw,9.6rem);margin:46px 0 22px}
-    .hero-copy .soft{color:transparent;-webkit-text-stroke:1.5px var(--black)}
-    .lead{font-size:clamp(1.12rem,1.7vw,1.42rem);max-width:690px;margin:0 0 18px;color:rgba(14,14,13,.78);font-weight:650}
-    .lead strong{color:var(--black)}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
-    .proof{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:42px}
-    .proof div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 14px;background:rgba(255,255,255,.22)}
-    .proof b{display:block;font-family:Anton;font-size:2rem;line-height:1;color:var(--black);font-weight:400}
-    .proof span{display:block;margin-top:6px;color:rgba(14,14,13,.70);font-size:.83rem;font-weight:850}
+    /* Buttons */
+    .btn{
+      --bg:var(--ink);--fg:var(--white);--bd:var(--ink);
+      display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+      background:var(--bg);color:var(--fg);border:1.5px solid var(--bd);
+      padding:.95rem 1.5rem;font-size:.82rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+      min-height:52px;cursor:pointer;transition:transform .3s var(--ease),background .25s var(--ease),color .25s var(--ease),box-shadow .3s var(--ease);
+      position:relative;overflow:hidden;
+    }
+    .btn .arw{transition:transform .3s var(--ease)}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(14,14,13,.18)}
+    .btn:hover .arw{transform:translateX(4px)}
+    .btn--green{--bg:var(--green);--fg:var(--ink);--bd:var(--green)}
+    .btn--outline{--bg:transparent;--fg:var(--ink);--bd:var(--line-strong)}
+    .btn--outline:hover{--bg:var(--ink);--fg:var(--white);--bd:var(--ink)}
+    .btn--ghost-light{--bg:transparent;--fg:var(--white);--bd:var(--line-dark)}
+    .btn--ghost-light:hover{--bg:var(--white);--fg:var(--ink);--bd:var(--white)}
 
-    .lead-form-section{background:var(--black);color:var(--white);border-bottom:1px solid var(--line-light)}
-    .form-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border-left:1px solid var(--line-light);border-right:1px solid var(--line-light)}
-    .form-intro{padding:48px clamp(22px,4vw,52px);border-right:1px solid var(--line-light)}
-    .form-intro h2{font-size:clamp(3rem,6vw,6rem);margin:12px 0 22px}
-    .form-intro p{font-size:1.1rem;color:rgba(248,245,242,.78);max-width:510px;font-weight:700}
-    .form-card{padding:42px clamp(20px,4vw,54px)}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .field{display:grid;gap:8px;margin-bottom:14px}
-    .field label{font-size:.76rem;color:rgba(248,245,242,.74);font-weight:950;text-transform:uppercase;letter-spacing:.12em}
-    .field input,.field select{width:100%;border:1px solid var(--line-light);background:#171715;color:var(--white);padding:16px 14px;font:inherit;outline:none;min-height:56px}
-    .field input:focus,.field select:focus{border-color:var(--green);box-shadow:inset 0 -3px 0 var(--green)}
-    .field select option{background:#171715}
-    .micro{font-size:.78rem;color:rgba(248,245,242,.48);margin-top:12px}
-    .success{display:none;margin-top:14px;border:1px solid rgba(136,175,96,.5);background:rgba(136,175,96,.16);padding:14px;color:var(--white);font-weight:900}
+    /* ============ HEADER ============ */
+    .topbar{background:var(--ink);color:var(--stone)}
+    .topbar .shell{display:flex;align-items:center;justify-content:space-between;height:38px;
+      font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+    .topbar b{color:var(--white);font-weight:700}
+    .topbar .tb-right{display:flex;gap:1.4rem;align-items:center}
+    .topbar a:hover{color:var(--green)}
+    .tb-hide{color:var(--green)}
 
-    section{padding:88px 0;border-bottom:1px solid var(--line)}
-    .section-head{display:grid;grid-template-columns:1fr minmax(280px,430px);gap:28px;align-items:end;margin-bottom:34px}
-    .section-head h2{font-size:clamp(3.2rem,7vw,7.8rem)}
-    .section-head p{font-size:1.03rem;font-weight:750;color:rgba(14,14,13,.72)}
-    .performance-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
-    .image-panel{position:relative;min-height:620px;background:var(--black);overflow:hidden;color:var(--white)}
-    .image-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.86) contrast(1.12) brightness(.82)}
-    .image-panel:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.82))}
-    .image-panel-content{position:absolute;left:28px;right:28px;bottom:28px;z-index:2}
-    .image-panel-content h2{font-size:clamp(3rem,6vw,6.4rem);margin:0 0 14px}
-    .image-panel-content p{max-width:620px;color:rgba(248,245,242,.76);font-weight:800}
-    .stack{display:grid;gap:20px}
-    .statement{border:1px solid var(--line);padding:30px;background:var(--white);display:flex;flex-direction:column;justify-content:space-between;min-height:300px}
-    .statement h3{font-family:Anton;text-transform:uppercase;font-weight:400;font-size:clamp(2.1rem,4vw,4rem);line-height:.92;margin:0 0 18px}
-    .statement p{color:rgba(14,14,13,.74);font-weight:750;margin:0}
-    .mini-proof{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:24px}
-    .mini-proof div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px}
-    .mini-proof b{display:block;color:var(--green-dark);text-transform:uppercase;font-size:.82rem}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line)}
-    .card{min-height:300px;padding:26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}
-    .card .num{font-family:Anton;font-size:4rem;line-height:1;color:var(--green-dark)}
-    .card h3{font-size:1.35rem;margin:16px 0 10px;text-transform:uppercase;line-height:1.1}
-    .card p{color:rgba(14,14,13,.72);font-weight:700;margin:0}
-    .split{display:grid;grid-template-columns:.88fr 1.12fr;gap:20px;align-items:stretch}
-    .quote-panel{background:var(--black);color:var(--white);padding:34px;display:flex;align-items:end;min-height:460px}
-    .quote-panel p{font-family:Anton;text-transform:uppercase;font-size:clamp(3rem,6vw,6.4rem);line-height:.9;margin:0}
-    .list{display:grid;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-    .item{display:grid;grid-template-columns:58px 1fr;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}
-    .tick{display:grid;place-items:center;background:var(--black);color:var(--green);font-weight:950;font-size:1.1rem}
-    .item div{padding:22px}
-    .item b{display:block;text-transform:uppercase;margin-bottom:6px}
-    .item span{color:rgba(14,14,13,.72);font-weight:700}
+    .site-header{position:sticky;top:0;z-index:60;background:rgba(239,233,233,.86);backdrop-filter:saturate(1.4) blur(16px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;height:74px}
+    .brand{display:flex;align-items:center;gap:.85rem;flex-shrink:0}
+    .brand__logo{height:26px;width:auto;filter:brightness(0)}
+    .brand__tag{display:none}
+    .navlinks{display:flex;align-items:center;gap:2rem;margin-left:auto}
+    .navlinks a{font-size:.82rem;font-weight:600;letter-spacing:.02em;color:var(--muted);position:relative;padding:.4rem 0}
+    .navlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--green-dark);transition:right .3s var(--ease)}
+    .navlinks a:hover{color:var(--ink)}
+    .navlinks a:hover::after{right:0}
+    .nav__cta{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+    .nav__cta .btn{min-height:46px;padding:.7rem 1.2rem}
+    .burger{display:none;width:46px;height:46px;border:1.5px solid var(--line-strong);background:transparent;flex-direction:column;gap:5px;align-items:center;justify-content:center;cursor:pointer}
+    .burger span{width:20px;height:2px;background:var(--ink);transition:.3s var(--ease)}
 
-    .dark-section{background:var(--black);color:var(--white);border-bottom:1px solid var(--line-light)}
-    .dark-section .eyebrow{color:var(--green)}
-    .dark-section .section-head p{color:rgba(248,245,242,.76)}
-    .centers{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
-    .center{min-height:380px;padding:28px;border-right:1px solid var(--line-light);border-bottom:1px solid var(--line-light);display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015))}
-    .center h3{font-family:Anton;text-transform:uppercase;font-size:clamp(2.8rem,4vw,4.5rem);line-height:.88;font-weight:400;margin:0 0 14px}
-    .center p{color:rgba(248,245,242,.78);font-weight:750}
-    .tagrow{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
-    .tag{font-size:.76rem;font-weight:950;text-transform:uppercase;border-right:1px solid var(--line-light);border-bottom:1px solid var(--line-light);padding:.55rem .7rem;color:rgba(248,245,242,.76)}
+    .mobile-menu{display:none}
 
-    .hyrox-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-    .hyrox-copy h2{font-size:clamp(3.2rem,7vw,7.4rem);margin:10px 0 24px}
-    .hyrox-copy p{font-size:1.18rem;font-weight:750;color:rgba(14,14,13,.7)}
-    .hyrox-list{border-left:1px solid var(--line);border-top:1px solid var(--line)}
-    .hyrox-list .item{grid-template-columns:70px 1fr}
+    /* ============ HERO ============ */
+    .hero{position:relative;background:var(--ink);color:var(--white);overflow:hidden}
+    .hero__grid{display:grid;grid-template-columns:1.05fr .95fr;min-height:min(90vh,820px)}
+    .hero__copy{padding:clamp(38px,6vw,84px) var(--gutter) clamp(38px,5vw,72px);display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+    .hero__copy{padding-left:max(var(--gutter),calc((100vw - var(--shell))/2 + var(--gutter)))}
+    .hero__eyebrow{color:var(--green);letter-spacing:.24em}
+    .hero__eyebrow::before{background:var(--green)}
+    .hero h1{font-size:clamp(3.5rem,7.5vw,6.9rem);margin:1.4rem 0 0;letter-spacing:-.01em}
+    .hero h1 .ln{display:block}
+    .hero h1 .stroke{color:transparent;-webkit-text-stroke:1.4px var(--stone)}
+    .hero__lead{margin:1.8rem 0 0;max-width:42ch;color:rgba(251,248,244,.74);font-size:clamp(1.02rem,1.3vw,1.16rem);line-height:1.55}
+    .hero__lead b{color:var(--white);font-weight:600}
+    .hero__actions{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.2rem}
+    .hero__meta{display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid var(--line-dark)}
+    .hero__meta div span{display:block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(251,248,244,.5);font-weight:600}
+    .hero__meta div b{font-family:Anton;font-size:1.9rem;font-weight:400;line-height:1;margin-top:.35rem;display:block}
+    .hero__meta div b em{color:var(--green);font-style:normal}
+    .hero__media{position:relative;overflow:hidden;background:#000}
+    .hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;filter:contrast(1.06) saturate(.92) brightness(.9)}
+    .hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(14,14,13,.35) 22%,transparent 55%),linear-gradient(0deg,rgba(14,14,13,.55),transparent 45%)}
+    .hero__tag{position:absolute;right:var(--gutter);bottom:calc(var(--gutter) + 34px);z-index:3;text-align:right}
+    .hero__tag span{display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(251,248,244,.6);font-weight:600}
+    .hero__tag b{font-family:Anton;font-weight:400;text-transform:uppercase;font-size:clamp(1.4rem,2.4vw,2.2rem);line-height:1;color:var(--white)}
 
-    .faq{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--line);border-top:1px solid var(--line)}
-    .faq details{background:var(--white);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:0}
-    .faq summary{cursor:pointer;font-weight:900;text-transform:none;letter-spacing:-.01em;line-height:1.18;list-style:none;padding:22px 22px 20px;display:flex;gap:18px;justify-content:space-between}
-    .faq summary::-webkit-details-marker{display:none}
-    .faq summary:after{content:"+";font-family:Anton;font-size:1.8rem;line-height:1;color:var(--green-dark)}
-    .faq details[open] summary:after{content:"–"}
-    .faq p{color:rgba(14,14,13,.74);font-weight:650;margin:0;padding:0 22px 22px}
-    .final{background:var(--green);color:var(--black);padding:90px 0}
-    .final-box{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end}
-    .final .eyebrow{color:var(--black)}
-    .final h2{font-size:clamp(4rem,8vw,9rem)}
-    .final p{font-weight:850;max-width:620px;font-size:1.12rem;color:rgba(14,14,13,.80)}
-    .footer{background:var(--black);color:rgba(248,245,242,.55);padding:28px 0;font-size:.88rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-    .private{position:fixed;right:12px;bottom:12px;z-index:40;background:var(--black);color:var(--green);border:1px solid var(--green);padding:.6rem .75rem;font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em}
+    /* Ticker */
+    .ticker{background:var(--green);color:var(--ink);overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+    .ticker__track{display:flex;gap:0;white-space:nowrap;animation:marq 34s linear infinite;will-change:transform}
+    .ticker__track span{font-family:Anton;font-weight:400;text-transform:uppercase;font-size:1.1rem;letter-spacing:.02em;padding:.75rem 1.6rem;display:inline-flex;align-items:center;gap:1.6rem}
+    .ticker__track span::after{content:"●";font-size:.5rem;color:var(--green-dark)}
+    @keyframes marq{to{transform:translateX(-50%)}}
+    @media (prefers-reduced-motion:reduce){.ticker__track{animation:none}}
 
-    @media(max-width:980px){
-      .nav{grid-template-columns:1fr auto}.brand img{width:156px}.navlinks{display:none}.nav-mobile{display:flex}.hero,.form-grid,.performance-grid,.split,.hyrox-grid,.final-box{grid-template-columns:1fr}.hero-media{min-height:440px;order:2}.hero-copy{order:1}.hero-copy h1{font-size:clamp(4rem,18vw,8rem)}.proof,.cards,.centers,.faq{grid-template-columns:1fr}.section-head{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.image-panel{min-height:440px}.private{display:none}.topbar{font-size:.62rem}.topbar span:last-child{display:none}
+    /* ============ GENERIC SECTION ============ */
+    section{position:relative}
+    .band{padding:clamp(64px,9vw,120px) 0}
+    .section-head{display:grid;grid-template-columns:1fr;gap:1.1rem;margin-bottom:clamp(38px,5vw,64px);max-width:760px}
+    .section-head h2{font-size:clamp(2.6rem,5.5vw,4.9rem)}
+    .section-head--split{max-width:none;grid-template-columns:1.2fr .8fr;align-items:end;gap:2.5rem}
+    .section-head--split p{align-self:end;margin:0}
+
+    /* Manifesto */
+    .manifesto{background:var(--ink);color:var(--white)}
+    .manifesto .shell{padding:clamp(64px,9vw,120px) 0}
+    .manifesto__quote{font-family:Anton;font-weight:400;text-transform:uppercase;line-height:.98;
+      font-size:clamp(2rem,4.4vw,4.1rem);letter-spacing:.002em;max-width:20ch}
+    .manifesto__quote em{color:var(--green);font-style:normal}
+    .manifesto__foot{display:flex;flex-wrap:wrap;gap:1.4rem 3rem;align-items:center;margin-top:2.6rem;padding-top:1.8rem;border-top:1px solid var(--line-dark);color:rgba(251,248,244,.6);font-size:.9rem}
+    .manifesto__foot b{color:var(--white);font-weight:600}
+
+    /* Método / steps */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink)}
+    .step{padding:2.4rem 1.8rem 2.6rem;border-bottom:2px solid var(--ink);position:relative;background:transparent;transition:background .3s var(--ease)}
+    .step:not(:last-child){border-right:1px solid var(--line)}
+    .step:hover{background:var(--white)}
+    .step__n{font-family:Anton;font-size:2.6rem;font-weight:400;color:var(--green-dark);line-height:1}
+    .step h3{font-size:1.32rem;font-weight:700;margin:1.1rem 0 .7rem;letter-spacing:-.01em}
+    .step p{margin:0;color:var(--muted);font-size:.98rem}
+    .step__tag{display:inline-block;margin-top:1.2rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--green-dark);border:1px solid var(--line);padding:.35rem .6rem}
+
+    /* Features / diferenciadores */
+    .feat-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,64px);align-items:center}
+    .feat-media{position:relative;aspect-ratio:4/5;background:var(--ink);overflow:hidden}
+    .feat-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.05) brightness(.92)}
+    .feat-media__badge{position:absolute;left:0;bottom:0;background:var(--green);color:var(--ink);padding:1rem 1.3rem;max-width:75%}
+    .feat-media__badge b{font-family:Anton;font-weight:400;text-transform:uppercase;font-size:1.5rem;line-height:.95;display:block}
+    .feat-media__badge span{font-size:.8rem;font-weight:600}
+    .feat-list{display:grid;gap:0;border-top:1px solid var(--line)}
+    .feat-item{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;padding:1.5rem .2rem;border-bottom:1px solid var(--line);align-items:start}
+    .feat-item__ic{width:44px;height:44px;border:1.5px solid var(--ink);display:grid;place-items:center;flex-shrink:0}
+    .feat-item__ic svg{width:22px;height:22px}
+    .feat-item h3{margin:0 0 .35rem;font-size:1.14rem;font-weight:700;letter-spacing:-.01em}
+    .feat-item p{margin:0;color:var(--muted);font-size:.96rem}
+
+    /* Centros */
+    .centers{background:var(--ink);color:var(--white)}
+    .centers .eyebrow{color:var(--green)}
+    .centers .eyebrow::before{background:var(--green)}
+    .centers .section-head h2{color:var(--white)}
+    .centers .section-head p{color:rgba(251,248,244,.66)}
+    .center-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-dark);border-left:1px solid var(--line-dark)}
+    .center{border-right:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);padding:2rem 1.7rem 2.1rem;display:flex;flex-direction:column;min-height:340px;transition:background .3s var(--ease)}
+    .center:hover{background:rgba(251,248,244,.04)}
+    .center__top{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+    .center h3{font-family:Anton;font-weight:400;text-transform:uppercase;font-size:clamp(2.2rem,3.2vw,3.1rem);line-height:.9;margin:0}
+    .center__idx{font-family:Anton;font-weight:400;color:var(--green);font-size:1rem}
+    .center__addr{margin:1.1rem 0 0;color:rgba(251,248,244,.7);font-size:.95rem;line-height:1.5}
+    .center__addr b{color:var(--white);font-weight:600;display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.3rem;color:var(--green)}
+    .center__tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.3rem 0 1.6rem}
+    .center__tags span{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;border:1px solid var(--line-dark);padding:.3rem .55rem;color:rgba(251,248,244,.72)}
+    .center__link{margin-top:auto;display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+    .center__link .arw{transition:transform .3s var(--ease)}
+    .center:hover .center__link .arw{transform:translateX(4px)}
+
+    /* HYROX */
+    .hyrox-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+    .hyrox h2{font-size:clamp(2.8rem,6vw,5.4rem);margin:1.1rem 0 1.4rem}
+    .hyrox__stations{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:2rem}
+    .hyrox__stations div{background:var(--paper);padding:1.1rem 1.2rem}
+    .hyrox__stations b{font-family:Anton;font-weight:400;font-size:1.4rem;color:var(--green-dark);display:block;line-height:1}
+    .hyrox__stations span{font-size:.85rem;color:var(--muted);margin-top:.35rem;display:block}
+    .hyrox__panel{background:var(--ink);color:var(--white);padding:clamp(28px,4vw,48px);align-self:stretch;display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
+    .hyrox__panel .num{font-family:Anton;font-weight:400;font-size:clamp(4rem,9vw,7rem);line-height:.85;color:var(--green)}
+    .hyrox__panel p{color:rgba(251,248,244,.72);margin:0}
+    .hyrox__steps{display:grid;gap:0;border-top:1px solid var(--line-dark)}
+    .hyrox__steps div{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line-dark)}
+    .hyrox__steps b{font-family:Anton;font-weight:400;color:var(--green);font-size:1.1rem}
+    .hyrox__steps span{color:rgba(251,248,244,.8);font-size:.95rem}
+
+    /* Precios / planes */
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);border-left:1px solid var(--line)}
+    .plan{border-right:1px solid var(--line);border-bottom:2px solid var(--ink);padding:2.1rem 1.8rem 2.2rem;display:flex;flex-direction:column;background:transparent;transition:background .3s var(--ease)}
+    .plan:hover{background:var(--white)}
+    .plan--feat{background:var(--ink);color:var(--white)}
+    .plan--feat:hover{background:var(--ink-2)}
+    .plan__name{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--green-dark)}
+    .plan--feat .plan__name{color:var(--green)}
+    .plan__price{font-family:Anton;font-weight:400;font-size:clamp(2.6rem,4vw,3.4rem);line-height:.9;margin:1rem 0 .2rem}
+    .plan__price small{font-family:Inter;font-size:.9rem;font-weight:600;color:var(--muted)}
+    .plan--feat .plan__price small{color:rgba(251,248,244,.6)}
+    .plan__note{font-size:.85rem;color:var(--muted);margin:0 0 1.4rem}
+    .plan--feat .plan__note{color:rgba(251,248,244,.66)}
+    .plan ul{list-style:none;margin:0 0 1.8rem;padding:0;display:grid;gap:.7rem}
+    .plan li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;font-size:.92rem;color:var(--muted);align-items:start}
+    .plan--feat li{color:rgba(251,248,244,.82)}
+    .plan li::before{content:"";width:16px;height:16px;margin-top:.28rem;background:var(--green);
+      -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;flex-shrink:0}
+    .plan .btn{margin-top:auto;width:100%}
+    .plan__badge{align-self:flex-start;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;background:var(--green);color:var(--ink);padding:.28rem .55rem;margin-bottom:1rem}
+
+    /* Testimonios */
+    .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-left:1px solid var(--line)}
+    .quote{border-right:1px solid var(--line);border-top:2px solid var(--ink);padding:2rem 1.8rem 2.1rem;display:flex;flex-direction:column}
+    .quote__stars{color:var(--green-dark);letter-spacing:.15em;font-size:.9rem}
+    .quote p{font-size:1.05rem;line-height:1.5;margin:1.1rem 0 1.6rem;font-weight:500}
+    .quote__by{margin-top:auto;display:flex;align-items:center;gap:.8rem}
+    .quote__av{width:38px;height:38px;background:var(--ink);color:var(--green);display:grid;place-items:center;font-family:Anton;font-size:1.1rem;flex-shrink:0}
+    .quote__by b{display:block;font-size:.92rem;font-weight:700}
+    .quote__by span{font-size:.78rem;color:var(--muted-2)}
+
+    /* Lead form */
+    .lead-form{background:var(--ink);color:var(--white)}
+    .lf-grid{display:grid;grid-template-columns:.95fr 1.05fr}
+    .lf-intro{padding:clamp(48px,7vw,96px) var(--gutter);padding-left:max(var(--gutter),calc((100vw - var(--shell))/2 + var(--gutter)));display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--line-dark)}
+    .lf-intro h2{font-size:clamp(2.6rem,5vw,4.6rem);margin:1.2rem 0 1.4rem;color:var(--white)}
+    .lf-intro p{color:rgba(251,248,244,.72);max-width:44ch;margin:0}
+    .lf-intro__list{display:flex;flex-direction:column;gap:.9rem;margin-top:2rem}
+    .lf-intro__list div{display:flex;gap:.8rem;align-items:center;font-size:.95rem;color:rgba(251,248,244,.86)}
+    .lf-intro__list b{color:var(--green);font-family:Anton;font-weight:400;font-size:1.1rem}
+    .lf-form{padding:clamp(40px,6vw,80px) var(--gutter);padding-right:max(var(--gutter),calc((100vw - var(--shell))/2 + var(--gutter)));display:flex;flex-direction:column;justify-content:center}
+    .lf-form__row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .field{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+    .field label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:rgba(251,248,244,.66)}
+    .field input,.field select{width:100%;background:var(--ink-2);border:1px solid var(--line-dark);color:var(--white);padding:.95rem 1rem;font:inherit;font-size:.98rem;min-height:54px;transition:border-color .2s,box-shadow .2s}
+    .field input::placeholder{color:rgba(251,248,244,.36)}
+    .field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:inset 0 -2px 0 var(--green)}
+    .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2388AF60' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem}
+    .field select option{background:var(--ink)}
+    .lf-form .btn{width:100%;margin-top:.4rem}
+    .lf-micro{font-size:.78rem;color:rgba(251,248,244,.44);margin:1rem 0 0;display:flex;gap:.5rem;align-items:flex-start}
+    .lf-success{display:none;margin-top:1rem;border:1px solid rgba(136,175,96,.5);background:rgba(136,175,96,.14);padding:1rem;font-weight:600;font-size:.92rem}
+
+    /* FAQ */
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,56px)}
+    details.q{border-bottom:1px solid var(--line)}
+    details.q summary{cursor:pointer;list-style:none;padding:1.35rem 0;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;font-weight:600;font-size:1.06rem;letter-spacing:-.01em}
+    details.q summary::-webkit-details-marker{display:none}
+    details.q summary .pm{width:26px;height:26px;flex-shrink:0;position:relative}
+    details.q summary .pm::before,details.q summary .pm::after{content:"";position:absolute;background:var(--green-dark);transition:transform .3s var(--ease);top:50%;left:50%}
+    details.q summary .pm::before{width:14px;height:2px;transform:translate(-50%,-50%)}
+    details.q summary .pm::after{width:2px;height:14px;transform:translate(-50%,-50%)}
+    details.q[open] summary .pm::after{transform:translate(-50%,-50%) scaleY(0)}
+    details.q p{margin:0;padding:0 0 1.4rem;color:var(--muted);font-size:.98rem;max-width:56ch}
+
+    /* Final CTA */
+    .final{background:var(--green);color:var(--ink);position:relative;overflow:hidden}
+    .final .shell{padding:clamp(64px,9vw,120px) 0;position:relative;z-index:2}
+    .final__wm{position:absolute;right:-2%;bottom:-14%;font-family:Anton;font-size:min(38vw,520px);line-height:.7;color:rgba(14,14,13,.06);pointer-events:none;z-index:1;user-select:none}
+    .final h2{font-size:clamp(3rem,7vw,6.4rem);max-width:16ch}
+    .final p{max-width:46ch;font-size:1.1rem;margin:1.4rem 0 2.2rem;color:rgba(14,14,13,.78)}
+    .final__actions{display:flex;flex-wrap:wrap;gap:.9rem}
+    .final .btn--outline{--bd:rgba(14,14,13,.4)}
+
+    /* Footer */
+    .footer{background:var(--ink);color:rgba(251,248,244,.62)}
+    .footer .shell{padding:clamp(48px,6vw,80px) 0 2rem}
+    .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid var(--line-dark)}
+    .foot-brand img{height:22px;filter:none;opacity:.95;margin-bottom:1.2rem}
+    .foot-brand p{max-width:34ch;font-size:.92rem;color:rgba(251,248,244,.56);margin:0 0 1.4rem}
+    .foot-social{display:flex;gap:.6rem}
+    .foot-social a{width:40px;height:40px;border:1px solid var(--line-dark);display:grid;place-items:center;transition:.25s var(--ease)}
+    .foot-social a:hover{background:var(--green);border-color:var(--green)}
+    .foot-social svg{width:18px;height:18px;fill:currentColor}
+    .foot-social a:hover svg{fill:var(--ink)}
+    .foot-col h4{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin:0 0 1.1rem;font-weight:700}
+    .foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:.7rem}
+    .foot-col a,.foot-col li{font-size:.9rem;color:rgba(251,248,244,.6)}
+    .foot-col a:hover{color:var(--white)}
+    .foot-col li b{display:block;color:var(--white);font-weight:600;font-size:.82rem}
+    .foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;padding-top:1.6rem;font-size:.78rem;color:rgba(251,248,244,.44)}
+    .foot-bottom a:hover{color:var(--white)}
+    .foot-legal{display:flex;flex-wrap:wrap;gap:1.3rem}
+
+    .badge-beta{position:fixed;right:12px;bottom:12px;z-index:80;background:var(--ink);color:var(--green);border:1px solid var(--green);padding:.5rem .7rem;font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+
+    /* Reveal animation */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal.in{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width:1080px){
+      .hero__grid{grid-template-columns:1fr}
+      .hero__media{min-height:360px;order:-1}
+      .hero__media img{object-position:center 35%}
+      .hero__media::after{background:linear-gradient(0deg,var(--ink),rgba(14,14,13,.15) 55%,transparent)}
+      .hero__tag{display:none}
+      .hero__copy{padding-left:var(--gutter);padding-right:var(--gutter);padding-top:clamp(32px,6vw,48px)}
+      .feat-wrap{grid-template-columns:1fr}
+      .feat-media{aspect-ratio:16/10;max-height:460px}
+      .hyrox-grid{grid-template-columns:1fr}
+      .lf-grid{grid-template-columns:1fr}
+      .lf-intro{border-right:none;border-bottom:1px solid var(--line-dark);padding-left:var(--gutter)}
+      .lf-form{padding-right:var(--gutter)}
+    }
+    @media (max-width:820px){
+      body{font-size:16px}
+      .navlinks{display:none}
+      .nav__cta .btn{display:none}
+      .burger{display:flex}
+      .topbar .tb-right span:first-child{display:none}
+      .steps{grid-template-columns:1fr}
+      .step:not(:last-child){border-right:none}
+      .center-grid{grid-template-columns:1fr}
+      .plans{grid-template-columns:1fr}
+      .plan{border-right:1px solid var(--line)}
+      .quotes{grid-template-columns:1fr}
+      .quote{border-right:1px solid var(--line);border-top:1px solid var(--line)}
+      .quote:first-child{border-top:2px solid var(--ink)}
+      .faq-grid{grid-template-columns:1fr;gap:0}
+      .section-head--split{grid-template-columns:1fr;align-items:start}
+      .hyrox__stations{grid-template-columns:1fr}
+      .foot-top{grid-template-columns:1fr 1fr;gap:2rem}
+      .foot-brand{grid-column:1 / -1}
+      .badge-beta{display:none}
+      /* mobile menu */
+      .mobile-menu{display:block;position:fixed;inset:0;z-index:70;background:var(--ink);color:var(--white);padding:calc(74px + env(safe-area-inset-top)) var(--gutter) var(--gutter);transform:translateY(-100%);transition:transform .4s var(--ease);opacity:0;pointer-events:none}
+      .mobile-menu.open{transform:none;opacity:1;pointer-events:auto}
+      .mobile-menu a{display:block;font-family:Anton;font-weight:400;text-transform:uppercase;font-size:2rem;padding:.7rem 0;border-bottom:1px solid var(--line-dark)}
+      .mobile-menu .btn{margin-top:1.6rem;width:100%;font-family:Inter}
+      body.menu-open{overflow:hidden}
+    }
+    @media (max-width:480px){
+      .hero__meta{gap:1.4rem}
+      .foot-top{grid-template-columns:1fr}
+      .foot-bottom{flex-direction:column;align-items:flex-start}
+      .lf-form__row{grid-template-columns:1fr}
     }
   </style>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SportsActivityLocation","name":"CrossFit Metropolitano","url":"https://crossfitmetropolitano.com/","sport":["CrossFit","Entrenamiento funcional","HYROX"],"areaServed":["Getafe","Parla","Las Rosas","Madrid"],"department":[{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Getafe","address":"Avda. de la Paz 35, El Bercial, Getafe"},{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Parla","address":"C. Roma 18, Parla"},{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Las Rosas","address":"C. de Sofía 30, San Blas, Madrid"}]}
+  {"@context":"https://schema.org","@type":"SportsActivityLocation","name":"CrossFit Metropolitano","url":"https://crossfitmetropolitano.com/","image":"https://crossfitmetropolitano.com/assets/cfmp-training.jpg","sport":["CrossFit","Entrenamiento funcional","HYROX"],"areaServed":["Getafe","Parla","Las Rosas","Madrid"],"foundingDate":"2017","department":[{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Getafe","address":{"@type":"PostalAddress","streetAddress":"Avda. de la Paz 35, El Bercial","addressLocality":"Getafe","addressRegion":"Madrid","addressCountry":"ES"}},{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Parla","address":{"@type":"PostalAddress","streetAddress":"C. Roma 18","addressLocality":"Parla","addressRegion":"Madrid","addressCountry":"ES"}},{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Las Rosas","address":{"@type":"PostalAddress","streetAddress":"C. de Sofía 30, San Blas","addressLocality":"Madrid","addressRegion":"Madrid","addressCountry":"ES"}}]}
   </script>
 </head>
 <body>
-  <div class="private">Beta privada · noindex</div>
-  <header class="site-header">
-    <div class="wrap topbar"><strong>CrossFit Metropolitano</strong><span>Getafe / Parla / Las Rosas</span></div>
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="CrossFit Metropolitano"><span class="brand-block">M</span><img src="/assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano"></a>
-      <nav class="navlinks" aria-label="Navegación principal"><a href="#desde-cero">Desde cero</a><a href="#centros">Centros</a><a href="#hyrox">HYROX</a><a href="#faq">Dudas</a></nav>
-      <a class="btn btn-dark" href="#prueba">Probar clase</a>
+  <span class="badge-beta">Beta privada · noindex</span>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="shell">
+      <span><b>CrossFit Metropolitano</b> · Madrid</span>
+      <div class="tb-right">
+        <span>Getafe · Parla · Las Rosas</span>
+        <a href="https://wa.me/34604840858" class="tb-hide">WhatsApp 604 840 858</a>
+      </div>
     </div>
-    <nav class="wrap nav-mobile" aria-label="Navegación móvil"><a href="#desde-cero">Desde cero</a><a href="#centros">Centros</a><a href="#hyrox">HYROX</a><a href="#faq">Dudas</a></nav>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="CrossFit Metropolitano — inicio">
+        <img class="brand__logo" src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano">
+      </a>
+      <nav class="navlinks" aria-label="Navegación principal">
+        <a href="#metodo">Método</a>
+        <a href="#centros">Centros</a>
+        <a href="#hyrox">HYROX</a>
+        <a href="#precios">Tarifas</a>
+        <a href="#faq">Dudas</a>
+      </nav>
+      <div class="nav__cta">
+        <a class="btn btn--green" href="#prueba">Prueba gratis <span class="arw">→</span></a>
+      </div>
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Menú móvil">
+    <a href="#metodo">Método</a>
+    <a href="#centros">Centros</a>
+    <a href="#hyrox">HYROX</a>
+    <a href="#precios">Tarifas</a>
+    <a href="#faq">Dudas</a>
+    <a class="btn btn--green" href="#prueba" style="font-size:.85rem">Prueba una clase gratis →</a>
+  </nav>
+
   <main id="top">
+    <!-- HERO -->
     <section class="hero" aria-label="CrossFit Metropolitano">
-      <div class="hero-media">
-        <img src="assets/cfmp-training.jpg" alt="Entrenamiento funcional en CrossFit Metropolitano" loading="eager">
-        <div class="media-label"><b>Sin postureo.</b><span>Trabajo real, coach pendiente y una clase que se adapta a tu punto de partida.</span></div>
-      </div>
-      <div class="hero-copy">
-        <div>
-          <div class="hero-copy-top"><span>CrossFit Madrid</span><span>Desde 2017</span></div>
-          <h1 class="display">CrossFit para <span class="soft">gente normal</span></h1>
-          <p class="lead">Sé que cuando escuchas CrossFit te imaginas a gente sin camiseta gritando y peleándose por ver quién levanta más hierro. <strong>Ese CrossFit existe. Pero no es el nuestro.</strong></p>
-          <p class="lead">Aquí entrenas una hora. Con coach. Con grupos reducidos. Y con una idea sencilla: <strong>que vuelvas mañana sin sentir que esto no es para ti.</strong></p>
-          <div class="hero-actions"><a class="btn btn-dark" href="#prueba">Quiero probar sin compromiso</a><a class="btn btn-outline" href="#desde-cero">Ver si esto es para mí</a></div>
-        </div>
-        <div class="proof" aria-label="Pruebas de confianza"><div><b>3</b><span>Boxes: Getafe, Parla y Las Rosas</span></div><div><b>8</b><span>Máximo en Academy para empezar bien</span></div><div><b>60'</b><span>Entrena sin perder la mañana</span></div></div>
-      </div>
-    </section>
-
-    <section class="lead-form-section" id="prueba">
-      <div class="wrap form-grid">
-        <div class="form-intro"><div class="eyebrow">Primer paso</div><h2 class="display">Prueba una clase. Sin compromiso raro.</h2><p>Déjanos tus datos y te escribimos por WhatsApp. Te diremos qué centro te viene mejor y cómo empezar sin ir vendido el primer día.</p></div>
-        <form class="form-card" id="leadForm" aria-label="Formulario para probar una clase">
-          <div class="form-row"><div class="field"><label for="name">Nombre</label><input id="name" name="name" required autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="phone">WhatsApp</label><input id="phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="Ej. 600 000 000"></div></div>
-          <div class="form-row"><div class="field"><label for="center">Centro</label><select id="center" name="center" required><option value="">Elige centro</option><option>Getafe</option><option>Parla</option><option>Las Rosas</option><option>No lo tengo claro</option></select></div><div class="field"><label for="goal">¿Qué buscas?</label><select id="goal" name="goal"><option>Empezar desde cero</option><option>Volver a entrenar</option><option>Preparación HYROX</option><option>Ganar fuerza y salud</option><option>No lesionarme y moverme mejor</option></select></div></div>
-          <button class="btn btn-light" style="width:100%;margin-top:8px" type="submit">Quiero que me escribáis</button>
-          <div class="micro">Beta privada: este formulario prepara un WhatsApp. La página no guarda tus datos.</div>
-          <div class="success" id="success">Perfecto. Se ha preparado el mensaje para el equipo Metro.</div>
-        </form>
-      </div>
-    </section>
-
-    <section class="performance" id="desde-cero">
-      <div class="wrap performance-grid">
-        <article class="image-panel"><img src="assets/cfmp-training.jpg" alt="Clase de CrossFit desde cero en Madrid" loading="lazy"><div class="image-panel-content"><div class="eyebrow">Esto es Metro</div><h2 class="display">Entrenar fuerte no significa entrenar como un loco</h2><p>Significa que alguien te mira, te corrige y te adapta el ejercicio cuando toca. Eso es lo que cambia todo.</p></div></article>
-        <div class="stack">
-          <div class="statement"><div><h3>Vienes cansado. Sales con otra cabeza.</h3><p>Trabajas. Tienes mil cosas. Y aun así necesitas una hora para ti. No para competir con nadie. Para volver a sentir que tu cuerpo responde.</p></div><div class="mini-proof"><div><b>CrossFit Academy</b><span>Para empezar sin ir perdido.</span></div><div><b>Coaches encima</b><span>La técnica va antes que el ego.</span></div></div></div>
-          <div class="statement"><div><h3>No hace falta saber hacer nada.</h3><p>Si puedes venir, escuchar y dejarte guiar, podemos empezar. Lo demás se aprende. Paso a paso. Sin teatro.</p></div><a class="btn btn-outline" href="#prueba">Que me digan cómo empezar</a></div>
+      <div class="shell" style="max-width:none;width:100%;padding:0">
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <span class="eyebrow hero__eyebrow">CrossFit en Madrid · Desde 2017</span>
+            <h1 class="display">
+              <span class="ln">CrossFit</span>
+              <span class="ln">para gente</span>
+              <span class="ln stroke">normal.</span>
+            </h1>
+            <p class="hero__lead">Cuando piensas en CrossFit te imaginas gente gritando y peleándose por levantar más hierro. <b>Ese CrossFit existe, pero no es el nuestro.</b> Aquí entrenas una hora, con coach, en grupos reducidos. Y vuelves mañana.</p>
+            <div class="hero__actions">
+              <a class="btn btn--green" href="#prueba">Prueba una clase gratis <span class="arw">→</span></a>
+              <a class="btn btn--ghost-light" href="#metodo">Cómo funciona</a>
+            </div>
+            <div class="hero__meta">
+              <div><span>Centros</span><b><em>3</em> en Madrid</b></div>
+              <div><span>Grupos</span><b>Máx. <em>8</em></b></div>
+              <div><span>Duración</span><b><em>60'</em> por clase</b></div>
+            </div>
+          </div>
+          <div class="hero__media">
+            <img src="assets/cfmp-training.jpg" alt="Atleta preparando una serie con kettlebell en CrossFit Metropolitano" loading="eager" fetchpriority="high">
+            <div class="hero__tag">
+              <span>Trabajo real</span>
+              <b>Sin postureo</b>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <div class="section-head"><div><div class="eyebrow">CrossFit desde cero</div><h2 class="display">No tienes que estar en forma para empezar</h2></div><p>De hecho, vienes precisamente para eso. Para moverte mejor, tener más energía y encontrar un sitio donde no te miren raro por no saber.</p></div>
-        <div class="cards">
-          <article class="card"><div class="num">01</div><h3>Primero técnica. Luego apretamos.</h3><p>No te soltamos una barra y buena suerte. Primero aprendes a moverte. Luego ya subimos una marcha.</p></article>
-          <article class="card"><div class="num">02</div><h3>Grupos reducidos. Coach encima.</h3><p>La gracia no es sufrir por sufrir. La gracia es que alguien te corrija antes de que hagas una tontería.</p></article>
-          <article class="card"><div class="num">03</div><h3>Una hora que no le debes a nadie.</h3><p>Trabajas. Tienes familia. Tienes poco tiempo. Por eso la clase dura una hora y va al grano.</p></article>
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Entrenamiento funcional</span><span>CrossFit desde cero</span><span>Grupos reducidos</span><span>Preparación HYROX</span><span>Coaches certificados</span><span>Getafe · Parla · Las Rosas</span>
+        <span>Entrenamiento funcional</span><span>CrossFit desde cero</span><span>Grupos reducidos</span><span>Preparación HYROX</span><span>Coaches certificados</span><span>Getafe · Parla · Las Rosas</span>
+      </div>
+    </div>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto">
+      <div class="shell">
+        <span class="eyebrow eyebrow--ondark reveal">Esto es Metro</span>
+        <p class="manifesto__quote reveal" style="margin-top:1.6rem">Entrenar fuerte no significa entrenar como un loco. Significa que alguien te <em>mira, te corrige y te adapta</em> el ejercicio cuando toca.</p>
+        <div class="manifesto__foot reveal">
+          <span><b>No competimos contigo.</b> Te acompañamos.</span>
+          <span>Programación propia · Técnica antes que ego · Comunidad sin teatro</span>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="wrap split">
-        <div class="quote-panel"><p>“No soy de CrossFit” suele significar “nadie me lo ha explicado bien”.</p></div>
-        <div class="list">
-          <div class="item"><span class="tick">✓</span><div><b>Entrenadores certificados</b><span>Te acompañan, adaptan ejercicios y corrigen técnica desde el primer día. Sin miradas raras.</span></div></div>
-          <div class="item"><span class="tick">✓</span><div><b>Entrenamiento funcional</b><span>Fuerza, cardio, movilidad y salud real. No postureo. No promesas mágicas. Trabajo.</span></div></div>
-          <div class="item"><span class="tick">✓</span><div><b>Comunidad sin teatro</b><span>No es un gimnasio donde cada uno va a lo suyo con cascos. Aquí se crea equipo. Y eso engancha.</span></div></div>
+    <!-- MÉTODO -->
+    <section class="band" id="metodo">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="eyebrow">Cómo empiezas</span>
+          <h2 class="display">No tienes que estar en forma para empezar</h2>
+          <p class="lead">De hecho, vienes precisamente para eso. Te llevamos paso a paso, sin prisas y sin ir vendido el primer día.</p>
+        </div>
+        <div class="steps reveal">
+          <article class="step">
+            <div class="step__n">01</div>
+            <h3>Escríbenos y ven a probar</h3>
+            <p>Reservas tu primera clase gratis por WhatsApp. Te decimos qué centro y qué horario te vienen mejor.</p>
+            <span class="step__tag">Sin compromiso</span>
+          </article>
+          <article class="step">
+            <div class="step__n">02</div>
+            <h3>Empiezas en la Academy</h3>
+            <p>Grupos de máximo 8 personas para aprender los movimientos básicos. Primero técnica, luego intensidad.</p>
+            <span class="step__tag">CrossFit Academy</span>
+          </article>
+          <article class="step">
+            <div class="step__n">03</div>
+            <h3>Entrenas y progresas</h3>
+            <p>Clases de una hora con coach encima. La misma sesión, adaptada a tu nivel. Y una comunidad que engancha.</p>
+            <span class="step__tag">Clases diarias</span>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="dark-section" id="centros">
-      <div class="wrap">
-        <div class="section-head"><div><div class="eyebrow">Tres centros en Madrid</div><h2 class="display">CrossFit en Getafe, Parla y Las Rosas</h2></div><p>El mejor box es el que puedes sostener en tu semana. Por eso estamos cerca de donde vives o trabajas.</p></div>
-        <div class="centers">
-          <article class="center"><div><h3>CrossFit en Getafe</h3><p>En El Bercial, para quien lleva tiempo diciéndose: <em>“algún día vuelvo a entrenar”</em>. Algún día puede ser esta semana.</p></div><div class="tagrow"><span class="tag">Avda. de la Paz 35</span><span class="tag">Academy</span><span class="tag">HYROX</span></div></article>
-          <article class="center"><div><h3>CrossFit en Parla</h3><p>El sitio para romper el mito. No necesitas experiencia. Necesitas venir, escuchar al coach y empezar por lo básico.</p></div><div class="tagrow"><span class="tag">C. Roma 18</span><span class="tag">Desde cero</span><span class="tag">Grupos reducidos</span></div></article>
-          <article class="center"><div><h3>CrossFit en Las Rosas</h3><p>Una hora al día que es solo tuya. En San Blas, con entrenamiento funcional y coach pendiente de cada detalle.</p></div><div class="tagrow"><span class="tag">C. de Sofía 30</span><span class="tag">Madrid</span><span class="tag">Salud</span></div></article>
+    <!-- DIFERENCIADORES -->
+    <section class="band" style="padding-top:0">
+      <div class="shell">
+        <div class="feat-wrap">
+          <div class="feat-media reveal">
+            <img src="assets/cfmp-training.jpg" alt="Detalle de entrenamiento de fuerza en CrossFit Metropolitano">
+            <div class="feat-media__badge">
+              <b>Coach<br>encima</b>
+              <span>La técnica va antes que el ego.</span>
+            </div>
+          </div>
+          <div class="reveal">
+            <span class="eyebrow">Por qué Metro</span>
+            <h2 class="display" style="font-size:clamp(2.2rem,4.4vw,3.8rem);margin:1rem 0 .4rem">“No soy de CrossFit” casi siempre significa “nadie me lo ha explicado bien”</h2>
+            <div class="feat-list">
+              <div class="feat-item">
+                <div class="feat-item__ic" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0E0E0D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                </div>
+                <div><h3>Entrenadores certificados</h3><p>Te acompañan, adaptan cada ejercicio y corrigen técnica desde el primer día. Sin miradas raras.</p></div>
+              </div>
+              <div class="feat-item">
+                <div class="feat-item__ic" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0E0E0D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M6 20V4M18 20v-7"/></svg>
+                </div>
+                <div><h3>Entrenamiento funcional real</h3><p>Fuerza, cardio, movilidad y salud. No promesas mágicas ni postureo. Trabajo bien programado.</p></div>
+              </div>
+              <div class="feat-item">
+                <div class="feat-item__ic" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0E0E0D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div><h3>Comunidad sin teatro</h3><p>No es un gimnasio donde cada uno va a lo suyo con cascos. Aquí se hace equipo, y eso es lo que engancha.</p></div>
+              </div>
+              <div class="feat-item">
+                <div class="feat-item__ic" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#0E0E0D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <div><h3>Una hora que va al grano</h3><p>Trabajas, tienes familia y poco tiempo. Por eso la clase dura 60 minutos: calientas, entrenas y sigues con tu día.</p></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="hyrox">
-      <div class="wrap hyrox-grid">
-        <div class="hyrox-copy"><div class="eyebrow">Preparación HYROX en Madrid</div><h2 class="display">HYROX, pero bien preparado</h2><p>SkiErg, trineo, burpees, wall balls… HYROX parece simple hasta que lo haces sin plan. En CrossFit Metropolitano entrenas con estructura, material y coaches que saben adaptar el proceso.</p></div>
-        <div class="hyrox-list">
-          <div class="item"><span class="tick">1</span><div><b>Base de fuerza</b><span>Para que las estaciones no te destrocen a mitad de carrera.</span></div></div>
-          <div class="item"><span class="tick">2</span><div><b>Motor real</b><span>Cardio útil, no solo correr por correr.</span></div></div>
-          <div class="item"><span class="tick">3</span><div><b>Estrategia</b><span>Aprendes a llegar al día de la prueba sabiendo lo que haces.</span></div></div>
+    <!-- CENTROS -->
+    <section class="centers band" id="centros">
+      <div class="shell">
+        <div class="section-head section-head--split reveal">
+          <div>
+            <span class="eyebrow">Tres centros en Madrid</span>
+            <h2 class="display" style="margin-top:1rem">CrossFit en Getafe, Parla y Las Rosas</h2>
+          </div>
+          <p class="lead" style="color:rgba(251,248,244,.66)">El mejor box es el que puedes sostener en tu semana. Por eso estamos cerca de donde vives o trabajas.</p>
+        </div>
+        <div class="center-grid reveal">
+          <article class="center">
+            <div class="center__top"><h3>Getafe</h3><span class="center__idx">01</span></div>
+            <p class="center__addr"><b>Dirección</b>Avda. de la Paz 35<br>El Bercial · Getafe</p>
+            <div class="center__tags"><span>Academy</span><span>HYROX</span><span>Desde cero</span></div>
+            <a class="center__link" href="https://maps.google.com/?q=CrossFit+Metropolitano+Getafe+Avda+de+la+Paz+35" target="_blank" rel="noopener">Cómo llegar <span class="arw">→</span></a>
+          </article>
+          <article class="center">
+            <div class="center__top"><h3>Parla</h3><span class="center__idx">02</span></div>
+            <p class="center__addr"><b>Dirección</b>C. Roma 18<br>Parla · Madrid</p>
+            <div class="center__tags"><span>Academy</span><span>Grupos reducidos</span><span>Salud</span></div>
+            <a class="center__link" href="https://maps.google.com/?q=CrossFit+Metropolitano+Parla+Calle+Roma+18" target="_blank" rel="noopener">Cómo llegar <span class="arw">→</span></a>
+          </article>
+          <article class="center">
+            <div class="center__top"><h3>Las Rosas</h3><span class="center__idx">03</span></div>
+            <p class="center__addr"><b>Dirección</b>C. de Sofía 30<br>San Blas · Madrid</p>
+            <div class="center__tags"><span>Funcional</span><span>HYROX</span><span>Comunidad</span></div>
+            <a class="center__link" href="https://maps.google.com/?q=CrossFit+Metropolitano+Las+Rosas+Calle+Sofia+30+Madrid" target="_blank" rel="noopener">Cómo llegar <span class="arw">→</span></a>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="faq">
-      <div class="wrap">
-        <div class="section-head"><div><div class="eyebrow">Dudas normales</div><h2 class="display">Antes de escribirnos, seguramente estés pensando esto</h2></div><p>No son excusas. Son dudas normales cuando llevas tiempo sin entrenar o cuando CrossFit te suena a algo que no va contigo.</p></div>
-        <div class="faq">
-          <details open><summary>¿Y si nunca he hecho CrossFit?</summary><p>Mejor. Así empiezas sin vicios. Para eso existe CrossFit Academy: iniciación, grupos pequeños y técnica desde cero. Nadie espera que sepas hacerlo el primer día.</p></details>
-          <details><summary>¿Tengo que estar en forma para empezar?</summary><p>No. Vienes precisamente para ponerte en forma. Si ya estuvieras perfecto, no necesitarías un box. Empezamos desde tu nivel real, no desde el de Instagram.</p></details>
-          <details><summary>¿Me puedo lesionar?</summary><p>Te puedes lesionar entrenando mal, con prisa o copiando al de al lado. Aquí el coach adapta peso, ritmo y movimiento. Primero técnica. Luego intensidad.</p></details>
-          <details><summary>¿Y si no puedo seguir el ritmo de la clase?</summary><p>Entonces se adapta. Mismo entrenamiento, versión distinta. No todos hacen lo mismo con el mismo peso. Esa es la gracia de tener un coach mirando.</p></details>
-          <details><summary>¿Es para gente muy joven?</summary><p>No. Entrena gente que trabaja, tiene hijos, horarios complicados y quiere cuidarse sin convertir el deporte en otra obligación imposible.</p></details>
-          <details><summary>¿Voy a sentirme fuera de lugar?</summary><p>Es normal pensarlo. Pero aquí viene mucha gente con la misma frase en la cabeza: <em>“esto no es para mí”</em>. A los pocos días cambia por: <em>“ojalá hubiera empezado antes”</em>.</p></details>
-          <details><summary>¿Cuánto dura una clase?</summary><p>Una hora. Calentamiento, técnica, entrenamiento y vuelta a la calma. Vienes, entrenas y sigues con tu día. Sin perder la mañana.</p></details>
-          <details><summary>¿Qué es CrossFit Academy?</summary><p>Es la puerta de entrada. Grupos pequeños, máximo 8 personas, para aprender los movimientos básicos antes de meterte en clases normales. Sin prisas y sin ir vendido.</p></details>
-          <details><summary>¿Puedo entrenar si tengo poca movilidad o molestias?</summary><p>Depende de la molestia, claro. Pero casi todo se puede adaptar. Lo importante es contarlo antes de empezar para que el coach te dé una versión segura.</p></details>
-          <details><summary>¿Y si solo puedo venir dos días por semana?</summary><p>Dos días bien hechos ganan a cero días perfectos. Si tu vida ahora da para dos, empezamos con dos. Lo importante es sostenerlo.</p></details>
-          <details><summary>¿También preparáis HYROX?</summary><p>Sí. Tenemos preparación HYROX en Madrid, Getafe, Parla y Las Rosas. Pero no hace falta querer competir para entrenar aquí. HYROX es una opción, no una obligación.</p></details>
-          <details><summary>¿Es caro?</summary><p>Somos más caros que un gimnasio estándar, sí. Pero aquí tienes programación, coach, comunidad y una razón real para volver. Eso es lo que pagas.</p></details>
+    <!-- HYROX -->
+    <section class="band hyrox" id="hyrox">
+      <div class="shell">
+        <div class="hyrox-grid">
+          <div class="reveal">
+            <span class="eyebrow">Preparación HYROX en Madrid</span>
+            <h2 class="display">HYROX, pero bien preparado</h2>
+            <p class="lead">SkiErg, trineo, burpees, wall balls… HYROX parece simple hasta que lo haces sin plan. Aquí entrenas con estructura, material y coaches que saben adaptar el proceso a tu punto de partida.</p>
+            <div class="hyrox__stations">
+              <div><b>Fuerza</b><span>Para que las estaciones no te destrocen a mitad de carrera.</span></div>
+              <div><b>Motor</b><span>Cardio útil, no solo correr por correr.</span></div>
+              <div><b>Técnica</b><span>Trineo, wall balls y burpees sin fugas de energía.</span></div>
+              <div><b>Estrategia</b><span>Llegas al día de la prueba sabiendo lo que haces.</span></div>
+            </div>
+          </div>
+          <div class="hyrox__panel reveal">
+            <div>
+              <div class="num">8</div>
+              <p style="margin-top:.6rem">estaciones, 8 kilómetros y una sola idea: llegar entero al final. Te preparamos para las tres — competir, terminar o simplemente probarte.</p>
+            </div>
+            <div class="hyrox__steps">
+              <div><b>01</b><span>Evaluamos tu nivel real de fuerza y motor.</span></div>
+              <div><b>02</b><span>Programación específica junto a tus clases.</span></div>
+              <div><b>03</b><span>Simulacros para llegar con estrategia al día D.</span></div>
+            </div>
+            <a class="btn btn--green" href="#prueba" style="width:100%">Quiero preparar HYROX <span class="arw">→</span></a>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- PRECIOS -->
+    <section class="centers band" id="precios" style="background:var(--paper);color:var(--ink)">
+      <div class="shell">
+        <div class="section-head section-head--split reveal">
+          <div>
+            <span class="eyebrow">Tarifas</span>
+            <h2 class="display" style="margin-top:1rem;color:var(--ink)">Elige cómo quieres entrenar</h2>
+          </div>
+          <p class="lead">Somos más caros que un gimnasio estándar, sí. Pero aquí pagas programación, coach, comunidad y una razón real para volver.</p>
+        </div>
+        <div class="plans reveal">
+          <article class="plan">
+            <span class="plan__name">Básico</span>
+            <div class="plan__price">2 días <small>/ semana</small></div>
+            <p class="plan__note">Para empezar con cabeza y sostenerlo.</p>
+            <ul>
+              <li>2 clases por semana</li>
+              <li>Acceso a CrossFit Academy</li>
+              <li>Coach en todas las sesiones</li>
+              <li>App de reservas</li>
+            </ul>
+            <a class="btn btn--outline" href="#prueba">Consultar tarifa</a>
+          </article>
+          <article class="plan plan--feat">
+            <span class="plan__badge">El más elegido</span>
+            <span class="plan__name">Ilimitado</span>
+            <div class="plan__price">Sin límite <small>/ mes</small></div>
+            <p class="plan__note">Ven los días que quieras. El favorito del box.</p>
+            <ul>
+              <li>Clases ilimitadas</li>
+              <li>CrossFit Academy y clases open</li>
+              <li>Preparación HYROX incluida</li>
+              <li>Acceso a los 3 centros</li>
+            </ul>
+            <a class="btn btn--green" href="#prueba">Quiero esta <span class="arw">→</span></a>
+          </article>
+          <article class="plan">
+            <span class="plan__name">Bono / Drop-in</span>
+            <div class="plan__price">Flexible <small>/ visita</small></div>
+            <p class="plan__note">De paso por Madrid o con semanas irregulares.</p>
+            <ul>
+              <li>Bonos de sesiones sueltas</li>
+              <li>Drop-in para visitantes</li>
+              <li>Sin permanencia</li>
+              <li>Reserva por WhatsApp</li>
+            </ul>
+            <a class="btn btn--outline" href="#prueba">Consultar tarifa</a>
+          </article>
+        </div>
+        <p class="lead" style="margin-top:1.6rem;font-size:.86rem;color:var(--muted-2)">Las cuotas exactas dependen del centro. Escríbenos y te pasamos las tarifas actualizadas de Getafe, Parla o Las Rosas.</p>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="band" style="padding-top:0">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="eyebrow">Lo que cuentan</span>
+          <h2 class="display">Casi todos entraron pensando “esto no es para mí”</h2>
+        </div>
+        <div class="quotes reveal">
+          <blockquote class="quote">
+            <div class="quote__stars" aria-label="5 sobre 5">★★★★★</div>
+            <p>“Llevaba años sin hacer deporte y pensaba que me iba a sentir fuera de lugar. A la semana ya no quería faltar. El coach está encima de verdad.”</p>
+            <div class="quote__by"><span class="quote__av">M</span><span><b>Marta G.</b><span>CrossFit Getafe</span></span></div>
+          </blockquote>
+          <blockquote class="quote">
+            <div class="quote__stars" aria-label="5 sobre 5">★★★★★</div>
+            <p>“Vengo antes de trabajar, entreno una hora y me cambia el día. No hay postureo, hay gente normal con ganas de cuidarse.”</p>
+            <div class="quote__by"><span class="quote__av">D</span><span><b>David R.</b><span>CrossFit Las Rosas</span></span></div>
+          </blockquote>
+          <blockquote class="quote">
+            <div class="quote__stars" aria-label="5 sobre 5">★★★★★</div>
+            <p>“Empecé en la Academy desde cero y acabé preparando mi primer HYROX. Nunca pensé que lo diría, pero ahora es mi rato favorito de la semana.”</p>
+            <div class="quote__by"><span class="quote__av">L</span><span><b>Laura P.</b><span>CrossFit Parla</span></span></div>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEAD FORM -->
+    <section class="lead-form" id="prueba">
+      <div class="shell" style="max-width:none;width:100%;padding:0">
+        <div class="lf-grid">
+          <div class="lf-intro">
+            <span class="eyebrow eyebrow--ondark">Primer paso</span>
+            <h2 class="display">Prueba una clase. Gratis y sin compromiso.</h2>
+            <p>Déjanos tus datos y te escribimos por WhatsApp. Te decimos qué centro te viene mejor y cómo empezar sin ir vendido el primer día.</p>
+            <div class="lf-intro__list">
+              <div><b>01</b> Eliges centro y te reservamos hueco.</div>
+              <div><b>02</b> Vienes a probar una clase real, adaptada a ti.</div>
+              <div><b>03</b> Decides tú. Sin presión ni letra pequeña.</div>
+            </div>
+          </div>
+          <form class="lf-form" id="leadForm" aria-label="Formulario para probar una clase gratis">
+            <div class="lf-form__row">
+              <div class="field">
+                <label for="name">Nombre</label>
+                <input id="name" name="name" required autocomplete="name" placeholder="Tu nombre">
+              </div>
+              <div class="field">
+                <label for="phone">WhatsApp</label>
+                <input id="phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="600 000 000">
+              </div>
+            </div>
+            <div class="lf-form__row">
+              <div class="field">
+                <label for="center">Centro</label>
+                <select id="center" name="center" required>
+                  <option value="">Elige centro</option>
+                  <option>Getafe</option>
+                  <option>Parla</option>
+                  <option>Las Rosas</option>
+                  <option>Aún no lo tengo claro</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="goal">¿Qué buscas?</label>
+                <select id="goal" name="goal">
+                  <option>Empezar desde cero</option>
+                  <option>Volver a entrenar</option>
+                  <option>Preparación HYROX</option>
+                  <option>Ganar fuerza y salud</option>
+                  <option>Moverme mejor sin lesionarme</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn--green" type="submit">Reservar mi clase gratis <span class="arw">→</span></button>
+            <p class="lf-micro"><span>ℹ</span> Beta privada: este formulario abre un WhatsApp con tu mensaje. La página no guarda tus datos.</p>
+            <div class="lf-success" id="success">Perfecto. Hemos preparado tu mensaje para el equipo Metro. ¡Nos vemos en el box!</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="band" id="faq">
+      <div class="shell">
+        <div class="section-head reveal">
+          <span class="eyebrow">Dudas normales</span>
+          <h2 class="display">Seguramente estés pensando esto</h2>
+          <p class="lead">No son excusas. Son las mismas dudas que tiene casi todo el mundo antes de empezar.</p>
+        </div>
+        <div class="faq-grid reveal">
+          <div>
+            <details class="q" open><summary>¿Y si nunca he hecho CrossFit? <span class="pm"></span></summary><p>Mejor. Así empiezas sin vicios. Para eso existe la Academy: iniciación, grupos pequeños y técnica desde cero. Nadie espera que sepas hacerlo el primer día.</p></details>
+            <details class="q"><summary>¿Tengo que estar en forma? <span class="pm"></span></summary><p>No. Vienes precisamente para ponerte en forma. Empezamos desde tu nivel real, no desde el de Instagram.</p></details>
+            <details class="q"><summary>¿Me puedo lesionar? <span class="pm"></span></summary><p>Te lesionas entrenando mal, con prisa o copiando al de al lado. Aquí el coach adapta peso, ritmo y movimiento. Primero técnica, luego intensidad.</p></details>
+            <details class="q"><summary>¿Y si no sigo el ritmo de la clase? <span class="pm"></span></summary><p>Se adapta. Mismo entrenamiento, versión distinta. No todos hacen lo mismo con el mismo peso. Esa es la gracia de tener un coach mirando.</p></details>
+            <details class="q"><summary>¿Cuánto dura una clase? <span class="pm"></span></summary><p>Una hora: calentamiento, técnica, entrenamiento y vuelta a la calma. Vienes, entrenas y sigues con tu día.</p></details>
+          </div>
+          <div>
+            <details class="q"><summary>¿Qué es CrossFit Academy? <span class="pm"></span></summary><p>La puerta de entrada. Grupos de máximo 8 personas para aprender los movimientos básicos antes de las clases normales. Sin prisas y sin ir vendido.</p></details>
+            <details class="q"><summary>¿Y si solo puedo venir dos días? <span class="pm"></span></summary><p>Dos días bien hechos ganan a cero días perfectos. Si tu vida ahora da para dos, empezamos con dos. Lo importante es sostenerlo.</p></details>
+            <details class="q"><summary>¿Puedo entrenar con molestias o poca movilidad? <span class="pm"></span></summary><p>Depende de la molestia, pero casi todo se adapta. Lo importante es contarlo antes de empezar para darte una versión segura.</p></details>
+            <details class="q"><summary>¿También preparáis HYROX? <span class="pm"></span></summary><p>Sí, en Getafe, Parla y Las Rosas. Pero no hace falta querer competir para entrenar aquí: HYROX es una opción, no una obligación.</p></details>
+            <details class="q"><summary>¿Es para gente muy joven? <span class="pm"></span></summary><p>No. Entrena gente que trabaja, tiene hijos y horarios complicados y quiere cuidarse sin que el deporte sea otra obligación imposible.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
     <section class="final">
-      <div class="wrap final-box">
-        <div><div class="eyebrow">CrossFit Madrid</div><h2 class="display">Llevas tiempo diciéndote que lo harás</h2><p>Hoy puede ser el día en que dejes de decírtelo y empieces a hacerlo. Escríbenos. Sin compromiso. Sin presión.</p></div>
-        <a class="btn btn-dark" href="#prueba">Quiero probar una clase</a>
+      <div class="final__wm" aria-hidden="true">M</div>
+      <div class="shell">
+        <span class="eyebrow" style="color:var(--ink)">CrossFit Madrid</span>
+        <h2 class="display" style="margin-top:1.2rem">Llevas tiempo diciéndote que lo harás</h2>
+        <p>Hoy puede ser el día en que dejes de decírtelo. Escríbenos, ven a probar una clase y decide tú. Sin compromiso. Sin presión.</p>
+        <div class="final__actions">
+          <a class="btn" href="#prueba">Prueba una clase gratis <span class="arw">→</span></a>
+          <a class="btn btn--outline" href="https://wa.me/34604840858">Escribir por WhatsApp</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer"><div class="wrap">CrossFit Metropolitano · Beta privada de landing principal · Getafe · Parla · Las Rosas</div></footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="shell">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <img src="assets/logo-metropolitano-argent.png" alt="CrossFit Metropolitano">
+          <p>Entrenamiento funcional y CrossFit para gente normal en Getafe, Parla y Las Rosas. Desde 2017 en Madrid.</p>
+          <div class="foot-social">
+            <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.86s0 3.6-.07 4.86c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.86.07s-3.6 0-4.86-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.86c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 3.4a6.4 6.4 0 1 0 0 12.8 6.4 6.4 0 0 0 0-12.8zm0 10.56a4.16 4.16 0 1 1 0-8.32 4.16 4.16 0 0 1 0 8.32zm6.65-10.8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg></a>
+            <a href="https://wa.me/34604840858" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.24-3.23-.67-2.72-1.07-4.46-3.84-4.6-4.02-.13-.18-1.1-1.46-1.1-2.79s.7-1.98.95-2.25c.24-.27.53-.34.7-.34l.5.01c.16 0 .38-.06.59.45.24.57.8 1.98.87 2.12.07.14.12.31.02.5-.1.18-.15.29-.29.45-.14.16-.3.36-.43.48-.14.14-.29.29-.12.57.16.27.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.6-.07.16-.18.7-.81.88-1.09.18-.28.36-.23.61-.14.25.09 1.6.76 1.87.9.28.14.46.2.53.32.07.11.07.64-.17 1.32z"/></svg></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h4>Centros</h4>
+          <ul>
+            <li><b>Getafe</b>Avda. de la Paz 35, El Bercial</li>
+            <li><b>Parla</b>C. Roma 18</li>
+            <li><b>Las Rosas</b>C. de Sofía 30, San Blas</li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#metodo">Método</a></li>
+            <li><a href="#centros">Centros</a></li>
+            <li><a href="#hyrox">HYROX</a></li>
+            <li><a href="#precios">Tarifas</a></li>
+            <li><a href="#faq">Dudas</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/34604840858">WhatsApp · 604 840 858</a></li>
+            <li><a href="mailto:hola@crossfitmetropolitano.com">hola@crossfitmetropolitano.com</a></li>
+            <li><a href="#prueba">Prueba una clase gratis</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year">2026</span> CrossFit Metropolitano · Getafe · Parla · Las Rosas</span>
+        <div class="foot-legal">
+          <a href="#">Aviso legal</a>
+          <a href="#">Privacidad</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script>
+    // Mobile menu
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('mobileMenu');
+    function closeMenu(){menu.classList.remove('open');document.body.classList.remove('menu-open');burger.setAttribute('aria-expanded','false');}
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      document.body.classList.toggle('menu-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lead form -> WhatsApp
     const form = document.getElementById('leadForm');
     const success = document.getElementById('success');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(form).entries());
-      const message = `Hola, quiero probar una clase en CrossFit Metropolitano.\n\nNombre: ${data.name}\nWhatsApp: ${data.phone}\nCentro: ${data.center}\nObjetivo: ${data.goal}\n\nVengo desde la landing beta.`;
+      const d = Object.fromEntries(new FormData(form).entries());
+      const msg = `Hola, quiero probar una clase gratis en CrossFit Metropolitano.\n\nNombre: ${d.name}\nWhatsApp: ${d.phone}\nCentro: ${d.center}\nObjetivo: ${d.goal}`;
       success.style.display = 'block';
-      window.open(`https://wa.me/34604840858?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+      window.open(`https://wa.me/34604840858?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   </script>
 </body>
