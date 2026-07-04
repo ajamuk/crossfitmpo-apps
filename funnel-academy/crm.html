@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pipeline Academy | CRM de leads · CrossFit Metropolitano</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#0E0E0D;--ink:#171715;--paper:#EFE9E9;--white:#FFFCF7;
+      --green:#88AF60;--green-dark:#48662F;--red:#B4533A;
+      --line:rgba(14,14,13,.22);--line-light:rgba(248,245,242,.22);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--black);font-family:Manrope,system-ui,sans-serif;line-height:1.4;font-size:14px}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer}
+    .wrap{width:min(1400px,calc(100% - 28px));margin-inline:auto}
+    .display{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;letter-spacing:-.015em;line-height:.9;margin:0}
+    .eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--green-dark)}
+
+    header.top{background:var(--black);color:var(--white);padding:18px 0;border-bottom:3px solid var(--green)}
+    header.top .wrap{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    header.top h1{font-size:clamp(1.8rem,4vw,2.6rem)}
+    .top-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border:2px solid currentColor;padding:.55rem .9rem;font-weight:900;text-transform:uppercase;letter-spacing:.03em;font-size:.74rem;background:transparent;color:inherit}
+    .btn-green{background:var(--green);color:var(--black);border-color:var(--green)}
+    .btn-light{background:var(--white);color:var(--black);border-color:var(--white)}
+
+    .metrics{display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line);margin:18px auto}
+    .metric{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);padding:12px 14px}
+    .metric b{display:block;font-family:Anton;font-size:1.7rem;line-height:1;font-weight:400}
+    .metric span{display:block;margin-top:4px;font-size:.7rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em;color:rgba(14,14,13,.62)}
+    .metric.hl b{color:var(--green-dark)}
+
+    .board{display:grid;grid-template-columns:repeat(6,minmax(210px,1fr));gap:12px;padding-bottom:30px;overflow-x:auto}
+    .col{background:rgba(255,255,255,.55);border:1px solid var(--line);min-height:300px;display:flex;flex-direction:column}
+    .col-head{padding:10px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:var(--white);position:sticky;top:0}
+    .col-head b{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em}
+    .col-head .count{font-family:Anton;font-size:1rem;color:var(--green-dark)}
+    .col.won .col-head{background:var(--green);color:var(--black)}
+    .col.won .col-head .count{color:var(--black)}
+    .col.lost .col-head{background:#d9cfcc}
+    .col-body{padding:10px;display:grid;gap:8px;align-content:start;flex:1}
+
+    .lead-card{background:var(--white);border:1px solid var(--line);padding:10px 12px;position:relative}
+    .lead-card b{display:block;font-size:.92rem}
+    .lead-card .meta{font-size:.74rem;color:rgba(14,14,13,.62);font-weight:700;margin-top:2px}
+    .lead-card .age{position:absolute;top:8px;right:10px;font-size:.68rem;font-weight:900;color:rgba(14,14,13,.5)}
+    .lead-card .age.warn{color:var(--red)}
+    .lead-card .notes{font-size:.76rem;margin-top:6px;color:rgba(14,14,13,.72);font-style:italic}
+    .card-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+    .chip{border:1px solid var(--line);background:var(--paper);padding:.25rem .5rem;font-size:.68rem;font-weight:900;text-transform:uppercase}
+    .chip.wa{background:var(--green);border-color:var(--green)}
+    .chip.fwd{background:var(--black);color:var(--white);border-color:var(--black)}
+    .chip.del{color:var(--red)}
+
+    dialog{border:2px solid var(--black);background:var(--white);padding:0;width:min(440px,92vw)}
+    dialog::backdrop{background:rgba(14,14,13,.55)}
+    .dlg-head{background:var(--black);color:var(--white);padding:14px 18px}
+    .dlg-body{padding:18px;display:grid;gap:10px}
+    .dlg-body label{font-size:.7rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:rgba(14,14,13,.6)}
+    .dlg-body input,.dlg-body select,.dlg-body textarea{width:100%;border:1px solid var(--line);padding:10px;font:inherit;background:var(--paper)}
+    .dlg-foot{padding:0 18px 18px;display:flex;gap:8px;justify-content:end}
+
+    .empty{padding:30px 14px;text-align:center;color:rgba(14,14,13,.45);font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+    @media (max-width:1100px){.metrics{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" style="color:var(--green)">Herramienta interna · Funnel Academy</div>
+        <h1 class="display">Pipeline de leads</h1>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn-green" id="addBtn">+ Nuevo lead</button>
+        <button class="btn" id="exportBtn" style="color:var(--white)">Exportar CSV</button>
+        <a class="btn" href="playbook.html" style="color:var(--white)">Playbook</a>
+        <a class="btn" href="index.html" style="color:var(--white)">Ver landing</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="metrics" id="metrics"></div>
+    <div class="board" id="board"></div>
+  </div>
+
+  <dialog id="leadDlg">
+    <div class="dlg-head"><b class="display" style="font-size:1.3rem" id="dlgTitle">Nuevo lead</b></div>
+    <form method="dialog" class="dlg-body" id="dlgForm">
+      <div><label>Nombre</label><input name="name" required></div>
+      <div><label>WhatsApp</label><input name="phone" required inputmode="tel" placeholder="600000000"></div>
+      <div><label>Centro</label><select name="center"><option>Getafe</option><option>Parla</option><option>Las Rosas</option><option>No lo tengo claro</option></select></div>
+      <div><label>Objetivo</label><select name="goal"><option>Empezar desde cero</option><option>Volver a entrenar</option><option>Perder peso y ganar salud</option><option>Ganar fuerza</option><option>Preparación HYROX</option></select></div>
+      <div><label>Origen</label><select name="source"><option>landing-academy</option><option>instagram</option><option>google</option><option>referido</option><option>walk-in</option><option>otro</option></select></div>
+      <div><label>Notas</label><textarea name="notes" rows="2" placeholder="Ej. prefiere tardes, amiga de Laura…"></textarea></div>
+      <div class="dlg-foot" style="padding:0">
+        <button class="btn" value="cancel" style="border-color:var(--line)">Cancelar</button>
+        <button class="btn btn-green" value="ok" id="dlgSave">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const KEY = 'cfmpo_funnel_leads';
+    const STAGES = [
+      { id:'lead',      label:'Lead nuevo',      sla:1 },
+      { id:'contacted', label:'Contactado',      sla:2 },
+      { id:'booked',    label:'Clase agendada',  sla:5 },
+      { id:'attended',  label:'Clase hecha',     sla:2 },
+      { id:'won',       label:'SOCIO 🎉',        sla:0 },
+      { id:'lost',      label:'Perdido',         sla:0 },
+    ];
+    // Plantilla de WhatsApp que corresponde enviar en cada etapa (guion del playbook)
+    const WA_TEMPLATES = {
+      lead:      n => `¡Hola ${n}! Soy del equipo de CrossFit Academy 💪 Hemos recibido tu solicitud de clase gratis. ¿Te viene bien esta semana? Tengo hueco mañana y pasado, dime cuál prefieres y te guardo la plaza.`,
+      contacted: n => `¡Hola ${n}! Te escribí por tu clase gratis de la Academy y no quiero que pierdas la plaza (los grupos son de 12). ¿Qué día te viene mejor esta semana? Con que me digas mañana o tarde te lo cuadro yo.`,
+      booked:    n => `¡${n}! Mañana es el día 🔥 Te esperamos en tu clase gratis. Recuerda: ropa cómoda, agua y llegar 10 min antes. Pregunta por tu coach de Academy en recepción. ¿Todo confirmado?`,
+      attended:  n => `¡Hola ${n}! Un placer entrenar contigo ayer 💪 Como te comentó tu coach, si te unes esta semana mantienes tu plaza en el grupo de Academy y la matrícula te sale GRATIS. ¿Te la guardo? Cualquier duda de cuotas u horarios, dispara.`,
+      won:       n => `¡Bienvenido/a oficialmente a la familia, ${n}! 🎉 Ya tienes tu plaza de Academy. Nos vemos en tu primera semana. Si un amigo/a quiere empezar contigo, su clase de prueba también es gratis: tráetelo.`,
+      lost:      n => `¡Hola ${n}! Hace un tiempo pediste probar CrossFit con nosotros y no cuadró. Abrimos nuevo grupo de Academy este mes y me he acordado de ti: tu clase gratis sigue disponible. ¿Le damos otra oportunidad? 😊`,
+    };
+
+    const load = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+    const save = (leads) => localStorage.setItem(KEY, JSON.stringify(leads));
+
+    const daysIn = (lead) => {
+      const ref = lead.stageAt || lead.createdAt;
+      return Math.floor((Date.now() - new Date(ref).getTime()) / 86400000);
+    };
+
+    function render(){
+      const leads = load();
+      const board = document.getElementById('board');
+      board.innerHTML = '';
+      STAGES.forEach((stage, si) => {
+        const items = leads.filter(l => l.stage === stage.id);
+        const col = document.createElement('div');
+        col.className = 'col' + (stage.id==='won'?' won':stage.id==='lost'?' lost':'');
+        col.innerHTML = `<div class="col-head"><b>${stage.label}</b><span class="count">${items.length}</span></div>`;
+        const body = document.createElement('div');
+        body.className = 'col-body';
+        if (!items.length) body.innerHTML = '<div class="empty">Vacío</div>';
+        items.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).forEach(lead => {
+          const d = daysIn(lead);
+          const warn = stage.sla && d >= stage.sla;
+          const card = document.createElement('div');
+          card.className = 'lead-card';
+          card.innerHTML = `
+            <span class="age ${warn?'warn':''}" title="Días en esta etapa">${d}d ${warn?'⚠':''}</span>
+            <b>${esc(lead.name)}</b>
+            <div class="meta">${esc(lead.center||'')} · ${esc(lead.goal||'')} · ${esc(lead.source||'')}</div>
+            ${lead.notes ? `<div class="notes">${esc(lead.notes)}</div>` : ''}
+            <div class="card-actions">
+              <a class="chip wa" target="_blank" rel="noopener" href="https://wa.me/${(lead.phone||'').replace(/\D/g,'').replace(/^(6|7|9)/,'34$1')}?text=${encodeURIComponent(WA_TEMPLATES[stage.id](lead.name.split(' ')[0]))}">WhatsApp</a>
+              ${si < STAGES.length-2 ? `<button class="chip fwd" data-id="${lead.id}" data-next="${STAGES[si+1].id}">→ ${STAGES[si+1].label.replace(' 🎉','')}</button>` : ''}
+              ${stage.id!=='lost'&&stage.id!=='won' ? `<button class="chip" data-id="${lead.id}" data-next="lost">Perdido</button>` : ''}
+              ${stage.id==='lost' ? `<button class="chip fwd" data-id="${lead.id}" data-next="lead">Reactivar</button>` : ''}
+              <button class="chip" data-edit="${lead.id}">✎</button>
+              <button class="chip del" data-del="${lead.id}">✕</button>
+            </div>`;
+          body.appendChild(card);
+        });
+        col.appendChild(body);
+        board.appendChild(col);
+      });
+      renderMetrics(leads);
+    }
+
+    function renderMetrics(leads){
+      const count = id => leads.filter(l=>l.stage===id).length;
+      const reached = id => { // llegó a esta etapa o más allá (aprox por etapa actual + won)
+        const order = STAGES.findIndex(s=>s.id===id);
+        return leads.filter(l=>{
+          const cur = STAGES.findIndex(s=>s.id===l.stage);
+          return l.stage!=='lost' ? cur>=order : (l.maxStage!=null && l.maxStage>=order);
+        }).length;
+      };
+      const total = leads.length;
+      const won = count('won');
+      const pct = (a,b) => b ? Math.round(a/b*100)+'%' : '—';
+      document.getElementById('metrics').innerHTML = `
+        <div class="metric"><b>${total}</b><span>Leads totales</span></div>
+        <div class="metric"><b>${reached('contacted')}</b><span>Contactados (${pct(reached('contacted'),total)})</span></div>
+        <div class="metric"><b>${reached('booked')}</b><span>Clase agendada (${pct(reached('booked'),total)})</span></div>
+        <div class="metric"><b>${reached('attended')}</b><span>Clase hecha (${pct(reached('attended'),total)})</span></div>
+        <div class="metric hl"><b>${won}</b><span>Socios (${pct(won,total)})</span></div>
+        <div class="metric"><b>${count('lost')}</b><span>Perdidos · reactivables</span></div>`;
+    }
+
+    const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    document.getElementById('board').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const leads = load();
+      if (btn.dataset.del){
+        if (!confirm('¿Eliminar este lead definitivamente?')) return;
+        save(leads.filter(l=>l.id!==btn.dataset.del)); render(); return;
+      }
+      if (btn.dataset.edit){
+        openDialog(leads.find(l=>l.id===btn.dataset.edit)); return;
+      }
+      if (btn.dataset.next){
+        const lead = leads.find(l=>l.id===btn.dataset.id);
+        lead.stage = btn.dataset.next;
+        lead.stageAt = new Date().toISOString();
+        const idx = STAGES.findIndex(s=>s.id===lead.stage);
+        lead.maxStage = Math.max(lead.maxStage ?? 0, idx);
+        (lead.history = lead.history||[]).push({stage:lead.stage, at:lead.stageAt});
+        save(leads); render();
+      }
+    });
+
+    const dlg = document.getElementById('leadDlg');
+    const dlgForm = document.getElementById('dlgForm');
+    let editingId = null;
+    function openDialog(lead){
+      editingId = lead?.id || null;
+      document.getElementById('dlgTitle').textContent = lead ? 'Editar lead' : 'Nuevo lead';
+      dlgForm.reset();
+      if (lead) ['name','phone','center','goal','source','notes'].forEach(k=>{ if(dlgForm[k]) dlgForm[k].value = lead[k]||''; });
+      dlg.showModal();
+    }
+    document.getElementById('addBtn').addEventListener('click', ()=>openDialog(null));
+    dlgForm.addEventListener('submit', e => {
+      if (e.submitter?.value !== 'ok') return;
+      const data = Object.fromEntries(new FormData(dlgForm).entries());
+      const leads = load();
+      if (editingId){
+        Object.assign(leads.find(l=>l.id===editingId), data);
+      } else {
+        leads.push({ id:'L'+Date.now(), ...data, stage:'lead', maxStage:0,
+          createdAt:new Date().toISOString(), stageAt:new Date().toISOString(), history:[] });
+      }
+      save(leads); render();
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', ()=>{
+      const leads = load();
+      const cols = ['name','phone','center','goal','source','stage','notes','createdAt'];
+      const csv = [cols.join(';')].concat(
+        leads.map(l => cols.map(c=>`"${String(l[c]??'').replace(/"/g,'""')}"`).join(';'))
+      ).join('\n');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8'}));
+      a.download = `leads-academy-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    });
+
+    render();
+  </script>
+</body>
+</html>

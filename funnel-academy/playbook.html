@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playbook del Funnel | CrossFit Academy · CrossFit Metropolitano</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#0E0E0D;--ink:#171715;--paper:#EFE9E9;--white:#FFFCF7;
+      --green:#88AF60;--green-dark:#48662F;--red:#B4533A;
+      --line:rgba(14,14,13,.22);--line-light:rgba(248,245,242,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--black);font-family:Manrope,system-ui,sans-serif;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1080px,calc(100% - 32px));margin-inline:auto}
+    .display{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;letter-spacing:-.015em;line-height:.9;margin:0}
+    .eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--green-dark)}
+
+    header.top{background:var(--black);color:var(--white);padding:44px 0 36px;border-bottom:3px solid var(--green)}
+    header.top h1{font-size:clamp(2.4rem,6vw,4.6rem);margin:10px 0 12px}
+    header.top p{color:rgba(248,245,242,.75);font-weight:750;max-width:640px;margin:0}
+    .toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+    .toc a{border:1px solid var(--line-light);padding:.45rem .8rem;font-size:.74rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+    .toc a:hover{border-color:var(--green);color:var(--green)}
+
+    section{padding:56px 0;border-bottom:1px solid var(--line)}
+    h2.display{font-size:clamp(2rem,4.5vw,3.4rem);margin:8px 0 22px}
+    h3{text-transform:uppercase;font-size:1.05rem;letter-spacing:.03em;margin:28px 0 10px}
+    p.intro{font-weight:750;color:rgba(14,14,13,.75);max-width:760px}
+
+    .funnel-map{display:grid;gap:0;border:1px solid var(--line);margin-top:20px}
+    .stage-row{display:grid;grid-template-columns:180px 1fr 190px;border-bottom:1px solid var(--line);background:var(--white)}
+    .stage-row:last-child{border-bottom:none}
+    .stage-row > div{padding:16px 18px}
+    .stage-row .st{background:var(--black);color:var(--white);display:flex;flex-direction:column;justify-content:center}
+    .stage-row .st b{font-family:Anton;text-transform:uppercase;font-size:1.15rem;font-weight:400}
+    .stage-row .st span{font-size:.72rem;color:var(--green);font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+    .stage-row .kpi{background:rgba(136,175,96,.14);border-left:1px solid var(--line);font-weight:850;font-size:.85rem;display:flex;flex-direction:column;justify-content:center}
+    .stage-row .kpi b{font-family:Anton;font-size:1.5rem;color:var(--green-dark);font-weight:400}
+    .stage-row .act{font-weight:700;font-size:.93rem;color:rgba(14,14,13,.8)}
+    .stage-row .act .tool{display:inline-block;background:var(--black);color:var(--green);padding:.1rem .45rem;font-size:.7rem;font-weight:900;text-transform:uppercase;margin-right:6px}
+
+    .msg{border:1px solid var(--line);background:var(--white);margin:14px 0}
+    .msg-head{background:var(--black);color:var(--white);padding:10px 16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+    .msg-head b{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+    .msg-head span{font-size:.72rem;color:var(--green);font-weight:900;text-transform:uppercase}
+    .msg-body{padding:16px 18px;font-size:.95rem;white-space:pre-line;font-weight:600}
+    .msg.email .msg-head{background:var(--green-dark)}
+
+    table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);font-size:.9rem}
+    th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+    th{background:var(--black);color:var(--white);text-transform:uppercase;font-size:.72rem;letter-spacing:.08em}
+    td b.obj{color:var(--red)}
+    .tbl-scroll{overflow-x:auto}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .panel{border:1px solid var(--line);background:var(--white);padding:20px}
+    .panel h4{margin:0 0 10px;text-transform:uppercase;font-size:.9rem}
+    .panel ul{margin:0;padding-left:18px;font-weight:700;font-size:.9rem;color:rgba(14,14,13,.8)}
+    .panel li{margin-bottom:6px}
+
+    .rule{border:1px solid var(--green-dark);background:rgba(136,175,96,.14);padding:14px 18px;font-weight:850;margin:16px 0}
+    .rule b{color:var(--green-dark);text-transform:uppercase;font-size:.78rem;letter-spacing:.08em;display:block;margin-bottom:4px}
+
+    footer{background:var(--black);color:rgba(248,245,242,.55);padding:26px 0;font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;text-align:center}
+    @media (max-width:820px){.stage-row{grid-template-columns:1fr}.stage-row .kpi{border-left:none;border-top:1px solid var(--line)}.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--green)">Herramienta interna · Uso del equipo</div>
+      <h1 class="display">Playbook del funnel Academy</h1>
+      <p>Todo el sistema de conversión lead → socio en un solo documento: mapa del funnel, KPIs, secuencias de WhatsApp y email, guion de la clase de prueba, objeciones y reactivación.</p>
+      <nav class="toc">
+        <a href="#mapa">Mapa del funnel</a>
+        <a href="#secuencia">Secuencia WhatsApp</a>
+        <a href="#email">Secuencia email</a>
+        <a href="#prueba">Clase de prueba</a>
+        <a href="#objeciones">Objeciones</a>
+        <a href="#reactivacion">Reactivación</a>
+        <a href="#ads">Copy para anuncios</a>
+        <a href="crm.html">→ Abrir CRM</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="mapa">
+    <div class="wrap">
+      <div class="eyebrow">1 · El sistema</div>
+      <h2 class="display">Mapa del funnel y KPIs objetivo</h2>
+      <p class="intro">Cada lead pasa por 5 etapas. Cada etapa tiene UNA acción responsable y un plazo máximo (SLA). Si un lead lleva más días del SLA en una etapa, el CRM lo marca con ⚠ — es tu prioridad del día.</p>
+      <div class="funnel-map">
+        <div class="stage-row">
+          <div class="st"><b>Lead nuevo</b><span>SLA: contactar &lt; 1h</span></div>
+          <div class="act"><span class="tool">Landing</span><span class="tool">CRM</span>Entra por el formulario de la landing (o Instagram/referido: se añade a mano). La velocidad lo es todo: un lead contactado en menos de 5 minutos convierte el doble que uno contactado al día siguiente.</div>
+          <div class="kpi"><b>&gt;90%</b>de leads contactados el mismo día</div>
+        </div>
+        <div class="stage-row">
+          <div class="st"><b>Contactado</b><span>SLA: agendar &lt; 48h</span></div>
+          <div class="act"><span class="tool">WhatsApp</span>Objetivo único del mensaje: cerrar día y hora de la clase gratis. Ofrece siempre 2 opciones concretas ("¿mañana a las 18:00 o el jueves a las 19:00?"), nunca preguntes "¿cuándo te viene bien?".</div>
+          <div class="kpi"><b>60–70%</b>de contactados agendan clase</div>
+        </div>
+        <div class="stage-row">
+          <div class="st"><b>Clase agendada</b><span>SLA: clase &lt; 5 días</span></div>
+          <div class="act"><span class="tool">WhatsApp</span><span class="tool">Calendar</span>Recordatorio 24h antes y 2h antes. El no-show es el mayor agujero del funnel: el recordatorio con pregunta ("¿todo confirmado?") obliga a responder y reduce no-shows a la mitad.</div>
+          <div class="kpi"><b>&gt;75%</b>de agendados asisten (show-rate)</div>
+        </div>
+        <div class="stage-row">
+          <div class="st"><b>Clase hecha</b><span>SLA: oferta &lt; 24h</span></div>
+          <div class="act"><span class="tool">Coach</span><span class="tool">WhatsApp</span>El cierre ocurre EN el box, cara a cara, justo después de la clase (ver guion abajo). El WhatsApp del día siguiente solo remata: recuerda la oferta de matrícula gratis con fecha límite (su misma semana).</div>
+          <div class="kpi"><b>50–60%</b>de asistentes se hacen socios</div>
+        </div>
+        <div class="stage-row">
+          <div class="st"><b>SOCIO</b><span>Onboarding Academy</span></div>
+          <div class="act"><span class="tool">Academy</span>Empieza el programa de 4 semanas. Pide el referido en la semana 2 (cuando está más motivado) y la reseña de Google al acabar la Academy. Un socio contento es tu mejor canal de captación.</div>
+          <div class="kpi"><b>~25%</b>conversión global lead → socio</div>
+        </div>
+      </div>
+      <div class="rule"><b>La regla de oro</b>Con 40 leads/mes y estos ratios, salen ~10 socios nuevos al mes por box. Si un mes falla, mira las métricas del CRM: el porcentaje que más caiga respecto al objetivo te dice exactamente qué etapa arreglar.</div>
+    </div>
+  </section>
+
+  <section id="secuencia" style="background:var(--white)">
+    <div class="wrap">
+      <div class="eyebrow">2 · Seguimiento</div>
+      <h2 class="display">Secuencia de WhatsApp</h2>
+      <p class="intro">Estos mensajes están integrados en el CRM: el botón "WhatsApp" de cada tarjeta abre el mensaje que toca según la etapa. Personaliza siempre la primera línea si sabes algo del lead (su objetivo, quién le refirió…).</p>
+
+      <div class="msg"><div class="msg-head"><b>D+0 · Primer contacto (en menos de 1 hora)</b><span>Etapa: Lead nuevo</span></div><div class="msg-body">¡Hola {nombre}! Soy {tu nombre}, del equipo de CrossFit Academy 💪 Hemos recibido tu solicitud de clase gratis en {centro}.
+
+¿Te viene bien esta semana? Tengo hueco {día 1} a las {hora} o {día 2} a las {hora}. Dime cuál prefieres y te guardo la plaza.</div></div>
+
+      <div class="msg"><div class="msg-head"><b>D+1 · Si no responde</b><span>Etapa: Contactado</span></div><div class="msg-body">¡Hola {nombre}! Te escribí ayer por tu clase gratis de la Academy y no quiero que pierdas la plaza (los grupos son de solo 12 personas).
+
+Con que me digas "mañanas" o "tardes" te cuadro yo el mejor hueco 😊</div></div>
+
+      <div class="msg"><div class="msg-head"><b>D+3 · Segundo toque (romper el silencio)</b><span>Etapa: Contactado</span></div><div class="msg-body">{nombre}, seré breve 😄 Sé que empezar es lo que más cuesta — por eso la primera clase es gratis y sin compromiso.
+
+Si esta semana no puedes, dime solo "la semana que viene" y te reservo hueco. Y si has cambiado de idea, dímelo también y no te molesto más. ¿Trato?</div></div>
+
+      <div class="msg"><div class="msg-head"><b>D+7 · Último toque (cerrar o soltar)</b><span>Etapa: Contactado → Perdido</span></div><div class="msg-body">¡Hola {nombre}! Último mensaje, prometido 🙌 Cierro los grupos de Academy de este mes y tenías una plaza pedida.
+
+Si quieres usarla, respóndeme hoy y es tuya. Si no, sin problema: te guardo el contacto por si más adelante te animas. ¡Un abrazo!</div></div>
+
+      <div class="msg"><div class="msg-head"><b>24h antes de la clase · Recordatorio</b><span>Etapa: Clase agendada</span></div><div class="msg-body">¡{nombre}! Mañana es el día 🔥 Clase gratis a las {hora} en {centro}.
+
+Recuerda: ropa cómoda, agua y llegar 10 minutos antes. Pregunta por {coach} en recepción — te estará esperando.
+
+¿Todo confirmado? 👍</div></div>
+
+      <div class="msg"><div class="msg-head"><b>2h antes · Toque final anti no-show</b><span>Etapa: Clase agendada</span></div><div class="msg-body">¡Nos vemos en un rato, {nombre}! {coach} ya tiene tu evaluación preparada. Cualquier cosa, este es mi número directo 💪</div></div>
+
+      <div class="msg"><div class="msg-head"><b>D+1 tras la clase · Remate de la oferta</b><span>Etapa: Clase hecha</span></div><div class="msg-body">¡Hola {nombre}! Un placer entrenar contigo ayer 💪 ¿Cómo van esas agujetas? 😄
+
+Como te comentó {coach}: si te unes esta semana mantienes tu plaza en el grupo de Academy y la matrícula te sale GRATIS. ¿Te la guardo?
+
+Cualquier duda de cuotas u horarios, dispara.</div></div>
+
+      <div class="msg"><div class="msg-head"><b>D+3 tras la clase · Si no responde a la oferta</b><span>Etapa: Clase hecha</span></div><div class="msg-body">{nombre}, mañana cierro las plazas del grupo de Academy de este mes y quería avisarte antes.
+
+Si es tema de precio u horarios, dímelo y lo miramos juntos — casi siempre hay solución. Si prefieres no seguir, también me vale saberlo 😊 ¿Hablamos?</div></div>
+    </div>
+  </section>
+
+  <section id="email">
+    <div class="wrap">
+      <div class="eyebrow">3 · Seguimiento paralelo</div>
+      <h2 class="display">Secuencia de email</h2>
+      <p class="intro">El email no cierra: nutre. Corre en paralelo al WhatsApp para leads que dejaron correo (ads, web). Tres correos, uno cada 2 días. Asuntos cortos, un solo botón por correo.</p>
+
+      <div class="msg email"><div class="msg-head"><b>Email 1 · D+0 — "Tu clase gratis te espera"</b><span>Objetivo: agendar</span></div><div class="msg-body">Hola {nombre}:
+
+Tu plaza para la clase de prueba de CrossFit Academy está reservada. Solo falta ponerle día y hora.
+
+Respóndenos a este correo o escríbenos por WhatsApp (más rápido) y en 2 minutos lo dejamos cerrado.
+
+Lo que vas a encontrarte: un grupo pequeño de gente que también empieza, un coach pendiente de ti y una clase adaptada a tu nivel real. Nada de postureo.
+
+[BOTÓN → Confirmar mi clase por WhatsApp]</div></div>
+
+      <div class="msg email"><div class="msg-head"><b>Email 2 · D+2 — "Lo que pasa en tu primera clase (minuto a minuto)"</b><span>Objetivo: quitar miedo</span></div><div class="msg-body">Hola {nombre}:
+
+El 90% de la gente que no viene a su clase gratis no es por falta de ganas: es por no saber qué esperar. Así que aquí va, minuto a minuto:
+
+• Min 0–10: te recibe tu coach, charláis de tu objetivo y tu historial.
+• Min 10–25: calentamiento guiado, todos juntos.
+• Min 25–50: la parte de técnica y el WOD del día, adaptado a ti.
+• Min 50–60: vuelta a la calma y resolvemos tus dudas (cuotas incluidas, sin rodeos).
+
+Nadie te va a mirar raro. Todos empezaron igual.
+
+[BOTÓN → Reservar mi hueco]</div></div>
+
+      <div class="msg email"><div class="msg-head"><b>Email 3 · D+4 — "La historia de Laura (10 años sin entrenar)"</b><span>Objetivo: prueba social + urgencia</span></div><div class="msg-body">Hola {nombre}:
+
+Laura llegó a Getafe después de 10 años sin hacer deporte. Su mensaje exacto fue: "no estoy en forma para CrossFit". Ocho meses después no ha fallado una semana.
+
+¿La diferencia? Vino a la clase gratis "solo por probar".
+
+Este mes quedan pocas plazas en los grupos de Academy (máximo 12 por box). Si quieres una, este es el momento.
+
+[BOTÓN → Quiero mi clase gratis]
+
+PD: Si no quieres más correos nuestros, dínoslo y listo. Sin rencores 😊</div></div>
+    </div>
+  </section>
+
+  <section id="prueba" style="background:var(--white)">
+    <div class="wrap">
+      <div class="eyebrow">4 · El momento de la verdad</div>
+      <h2 class="display">Guion de la clase de prueba</h2>
+      <p class="intro">La conversión real ocurre aquí. El coach que da la clase es el que cierra: no se delega a "ya te llamará alguien de recepción". Estructura de la conversación post-clase (5 minutos):</p>
+      <div class="grid2">
+        <div class="panel">
+          <h4>1 · Conecta con SU objetivo (1 min)</h4>
+          <ul>
+            <li>"¿Qué te ha parecido?" — deja que hable primero.</li>
+            <li>Conecta la clase con lo que puso en el formulario: "Me decías que querías {objetivo}. Lo que hemos hecho hoy de X es exactamente lo que trabaja eso."</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>2 · Presenta el plan, no el precio (2 min)</h4>
+          <ul>
+            <li>Dibuja las 4 semanas de Academy: qué aprenderá cada semana y cómo se sentirá al acabar.</li>
+            <li>El precio se da con total claridad DESPUÉS del plan, nunca antes. Cuota + "sin permanencia" siempre en la misma frase.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>3 · La oferta con fecha (1 min)</h4>
+          <ul>
+            <li>"Si te unes esta semana, la matrícula es gratis y te guardo la plaza en este mismo grupo."</li>
+            <li>La urgencia es real (grupos de 12), no inventada. Dila como un hecho, no como presión.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>4 · Cierre por alternativa (1 min)</h4>
+          <ul>
+            <li>Nunca preguntes "¿quieres apuntarte?". Pregunta: "¿Te viene mejor empezar el lunes o el miércoles?"</li>
+            <li>Si duda → identifica la objeción real (tabla de abajo) y respóndela. Si necesita pensarlo → "Te escribo mañana y me cuentas" (y se apunta en el CRM).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="objeciones">
+    <div class="wrap">
+      <div class="eyebrow">5 · Cierre</div>
+      <h2 class="display">Manejo de objeciones</h2>
+      <p class="intro">Regla: valida primero ("te entiendo, es normal"), responde después, y termina siempre devolviendo una pregunta que avance.</p>
+      <div class="tbl-scroll">
+      <table>
+        <tr><th style="width:26%">Objeción</th><th>Qué significa de verdad</th><th>Respuesta</th></tr>
+        <tr><td><b class="obj">"Es caro"</b></td><td>No ve el valor todavía; compara con un gimnasio low-cost.</td><td>"Te entiendo. La diferencia con un gimnasio de 25€ es que aquí tienes un entrenador pendiente de ti en cada clase — es entrenamiento personal en grupo. Divide la cuota entre las clases del mes: sale a menos que una caña con tapa. ¿Cuántos días a la semana vendrías? Miramos la cuota que encaje."</td></tr>
+        <tr><td><b class="obj">"No tengo tiempo"</b></td><td>Miedo a comprometerse y fallar.</td><td>"Con 3 horas a la semana sobra — son clases de 1 hora con horarios de 7:00 a 21:30. ¿Cuándo tienes más hueco, antes de trabajar o después? Te enseño los horarios de esa franja."</td></tr>
+        <tr><td><b class="obj">"Tengo que pensarlo"</b></td><td>Hay otra objeción que no ha dicho (casi siempre precio o miedo).</td><td>"Claro. ¿Qué es lo que te hace dudar: el precio, los horarios o si vas a poder seguir el ritmo? Te lo digo sin compromiso y así lo piensas con todos los datos."</td></tr>
+        <tr><td><b class="obj">"Lo hablo con mi pareja"</b></td><td>Objeción social; a veces real, a veces excusa.</td><td>"¡Perfecto! ¿Sabes qué? Tráetela a una clase gratis también — empezar en pareja funciona mucho mejor. ¿Le reservo hueco a ella también y decidís juntos?"</td></tr>
+        <tr><td><b class="obj">"No estoy en forma"</b></td><td>Miedo a hacer el ridículo.</td><td>"Justo por eso existe la Academy: 4 semanas de técnica a tu ritmo antes de meter intensidad. Hoy has visto que todo se adapta. Nadie en ese grupo estaba en forma cuando empezó — pregúntales."</td></tr>
+        <tr><td><b class="obj">"Empiezo el mes que viene"</b></td><td>Procrastinación clásica.</td><td>"Puedes, claro. Pero el grupo que empieza ahora es donde tienes la matrícula gratis y la plaza — el mes que viene no te lo puedo garantizar. ¿Qué te impide empezar esta semana de verdad? Quizá tenga solución."</td></tr>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="reactivacion" style="background:var(--white)">
+    <div class="wrap">
+      <div class="eyebrow">6 · Nada se tira</div>
+      <h2 class="display">Reactivación de leads perdidos</h2>
+      <p class="intro">Un lead "perdido" es un socio futuro con mal timing. La columna "Perdido" del CRM es una lista de remarketing gratuita: se trabaja una vez al mes, el día 1, con el botón "Reactivar".</p>
+      <div class="msg"><div class="msg-head"><b>Mensaje de reactivación mensual</b><span>Etapa: Perdido → Lead</span></div><div class="msg-body">¡Hola {nombre}! Hace un tiempo pediste probar CrossFit con nosotros y al final no cuadró — pasa en las mejores familias 😄
+
+Abrimos nuevo grupo de Academy este mes en {centro} y me he acordado de ti: tu clase gratis sigue disponible.
+
+¿Le damos otra oportunidad? Solo dime qué día te viene bien.</div></div>
+      <div class="rule"><b>Cadencia</b>Máximo 1 mensaje de reactivación al mes y máximo 3 intentos en total (mes 1, mes 3, mes 6 — con septiembre y enero como comodines: son los meses de mayor intención). Después, se elimina del CRM.</div>
+    </div>
+  </section>
+
+  <section id="ads">
+    <div class="wrap">
+      <div class="eyebrow">7 · Llenar el funnel</div>
+      <h2 class="display">Copy para anuncios y orgánico</h2>
+      <p class="intro">Todo el tráfico apunta a la landing con UTM (<code>?utm_source=instagram&amp;utm_medium=paid&amp;utm_campaign=academy</code>) — la landing lo captura y el CRM te dirá qué canal trae socios, no solo clics.</p>
+      <div class="grid2">
+        <div class="panel">
+          <h4>Meta Ads · Ángulo "miedo a empezar"</h4>
+          <ul>
+            <li><b>Gancho:</b> "No estás en baja forma para CrossFit. Estás a una clase de descubrirlo."</li>
+            <li><b>Cuerpo:</b> Programa Academy: 4 semanas desde cero, grupos de 12, en Getafe, Parla y Las Rosas. Primera clase gratis, sin permanencia.</li>
+            <li><b>CTA:</b> "Reservar clase gratis" → landing.</li>
+            <li><b>Creatividad:</b> vídeo real de una clase de Academy con gente normal, no atletas.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Meta Ads · Ángulo "prueba social"</h4>
+          <ul>
+            <li><b>Gancho:</b> "Laura llevaba 10 años sin entrenar. Lleva 8 meses sin fallar."</li>
+            <li><b>Cuerpo:</b> El 92% de los que acaban la Academy siguen entrenando. El secreto no es la fuerza de voluntad: es el grupo.</li>
+            <li><b>CTA:</b> "Quiero probarlo gratis".</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Google Ads · Búsqueda local</h4>
+          <ul>
+            <li><b>Keywords:</b> "crossfit getafe", "crossfit parla", "crossfit las rosas", "gimnasio crossfit cerca", "crossfit principiantes madrid".</li>
+            <li><b>Titular:</b> CrossFit en {ciudad} | 1ª Clase Gratis — Programa para empezar desde cero. Grupos reducidos. Sin permanencia.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Orgánico + referidos (el canal más barato)</h4>
+          <ul>
+            <li>Stories semanales del grupo de Academy en curso (con permiso) → link a landing.</li>
+            <li>Programa referido: el socio que trae a un amigo que se inscribe → 1 mes al 50% para ambos.</li>
+            <li>Reseña de Google al acabar la Academy (semana 4, pedida por su coach) → alimenta el 4.9★ de la landing.</li>
+            <li>QR a la landing en recepción y en el vinilo del escaparate.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Playbook Funnel Academy · CrossFit Metropolitano · <a href="crm.html" style="color:var(--green)">Abrir CRM</a> · <a href="index.html" style="color:var(--green)">Ver landing</a></footer>
+</body>
+</html>
