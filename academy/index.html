@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CrossFit Academy — 99€/mes sin permanencia | CrossFit Metropolitano Madrid</title>
+  <meta name="description" content="CrossFit Academy: aprende CrossFit desde cero en grupos de máximo 8 personas con coach certificado. 99€ al mes, sin permanencia y sin matrícula. Getafe, Parla y Las Rosas (Madrid)." />
+  <!-- TODO: quitar noindex al publicar en el dominio definitivo -->
+  <meta name="robots" content="noindex,nofollow" />
+  <meta property="og:title" content="CrossFit Academy — 99€/mes sin permanencia" />
+  <meta property="og:description" content="La puerta de entrada al CrossFit para gente normal. Grupos de máximo 8, coach certificado y técnica desde cero. Sin permanencia. Getafe, Parla y Las Rosas." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/cfmp-training.jpg" />
+  <link rel="icon" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#0E0E0D;
+      --ink:#171715;
+      --paper:#EFE9E9;
+      --white:#FFFCF7;
+      --stone:#C3BFBE;
+      --green:#88AF60;
+      --green-dark:#48662F;
+      --line:rgba(14,14,13,.22);
+      --line-light:rgba(248,245,242,.22);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--black);font-family:Manrope,system-ui,sans-serif;line-height:1.45;overflow-x:hidden}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1240px,calc(100% - 36px));margin-inline:auto}
+    .display{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-weight:400;letter-spacing:-.015em;line-height:.86;margin:0}
+    .eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--green-dark)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border:2px solid currentColor;padding:1rem 1.2rem;font-weight:950;text-transform:uppercase;letter-spacing:.03em;transition:transform .18s ease,background .18s ease,color .18s ease;min-height:52px;text-align:center}
+    .btn:hover{transform:translateY(-2px)}
+    .btn:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+    ::placeholder{color:rgba(248,245,242,.46)}
+    .btn-dark{background:var(--black);color:var(--white);border-color:var(--black)}
+    .btn-light{background:var(--white);color:var(--black);border-color:var(--white)}
+    .btn-green{background:var(--green);color:var(--black);border-color:var(--green)}
+    .btn-outline{background:transparent;color:var(--black)}
+    .btn-outline-light{background:transparent;color:var(--white);border-color:var(--white)}
+
+    .site-header{position:sticky;top:0;z-index:30;background:rgba(239,233,233,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .topbar{height:34px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.13em;color:rgba(14,14,13,.72)}
+    .topbar strong{color:var(--black)}
+    .nav{height:76px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:26px}
+    .brand{display:flex;align-items:center;gap:14px;min-width:0}
+    .brand-block{width:44px;height:44px;background:var(--black);color:var(--green);display:grid;place-items:center;font-family:Anton;font-size:1.65rem;line-height:1}
+    .brand-name{font-family:Anton;text-transform:uppercase;font-size:1.15rem;letter-spacing:.02em}
+    .brand-name small{display:block;font-family:Manrope;font-size:.62rem;font-weight:900;letter-spacing:.2em;color:var(--green-dark)}
+    .navlinks{justify-self:center;display:flex;align-items:center;gap:24px;font-size:.86rem;font-weight:950;text-transform:uppercase;letter-spacing:.05em}
+    .navlinks a{border-bottom:2px solid transparent;padding:8px 0;color:rgba(14,14,13,.74)}
+    .navlinks a:hover{color:var(--black);border-bottom-color:var(--green-dark)}
+    .nav-mobile{display:none;border-top:1px solid var(--line);overflow:auto;gap:20px;padding:10px 0;font-size:.78rem;text-transform:uppercase;font-weight:950;letter-spacing:.05em;color:rgba(14,14,13,.7)}
+
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:calc(100vh - 110px);border-bottom:1px solid var(--line)}
+    .hero-copy{padding:48px clamp(24px,4vw,60px);display:flex;flex-direction:column;justify-content:space-between;background:var(--paper)}
+    .hero-copy-top{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding-bottom:22px;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:950;color:rgba(14,14,13,.70)}
+    .hero-copy h1{font-size:clamp(4.2rem,9.5vw,9rem);margin:40px 0 22px}
+    .hero-copy .soft{color:transparent;-webkit-text-stroke:1.5px var(--black)}
+    .lead{font-size:clamp(1.12rem,1.7vw,1.4rem);max-width:660px;margin:0 0 18px;color:rgba(14,14,13,.78);font-weight:650}
+    .lead strong{color:var(--black)}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .price-strip{display:flex;flex-wrap:wrap;border:1px solid var(--line);margin-top:24px;background:var(--white)}
+    .price-strip>div{padding:14px 18px;border-right:1px solid var(--line);flex:1;min-width:150px}
+    .price-strip>div:last-child{border-right:0}
+    .price-strip b{display:block;font-family:Anton;font-size:1.7rem;line-height:1;font-weight:400}
+    .price-strip span{display:block;margin-top:5px;color:rgba(14,14,13,.68);font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.05em}
+    .hero-media{position:relative;min-height:640px;background:var(--black);overflow:hidden}
+    .hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.12)}
+    .hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.7)),linear-gradient(270deg,rgba(0,0,0,.22),transparent)}
+    .media-label{position:absolute;left:26px;right:26px;bottom:26px;z-index:2;color:var(--white);display:grid;gap:10px}
+    .media-label b{font-family:Anton;text-transform:uppercase;font-size:clamp(2.6rem,5.5vw,5.4rem);line-height:.86;font-weight:400}
+    .media-label span{font-weight:900;color:rgba(248,245,242,.8);max-width:440px}
+    .price-tag{position:absolute;top:26px;right:26px;z-index:2;background:var(--green);color:var(--black);padding:16px 18px;transform:rotate(2deg);box-shadow:6px 6px 0 rgba(0,0,0,.45)}
+    .price-tag b{display:block;font-family:Anton;font-size:2.6rem;line-height:.9;font-weight:400}
+    .price-tag span{display:block;font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.09em}
+
+    .marquee{background:var(--black);color:var(--white);border-bottom:1px solid var(--line-light);overflow:hidden;padding:12px 0}
+    .marquee-track{display:flex;gap:0;white-space:nowrap;animation:scroll 26s linear infinite;width:max-content}
+    .marquee-track span{font-family:Anton;text-transform:uppercase;font-size:1.05rem;letter-spacing:.04em;padding:0 22px;border-right:1px solid var(--line-light)}
+    .marquee-track span em{font-style:normal;color:var(--green)}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+    section{padding:88px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:1fr minmax(280px,430px);gap:28px;align-items:end;margin-bottom:34px}
+    .section-head h2{font-size:clamp(3rem,6.5vw,7rem)}
+    .section-head p{font-size:1.03rem;font-weight:750;color:rgba(14,14,13,.72)}
+
+    .offer-section{background:var(--black);color:var(--white);border-bottom:1px solid var(--line-light)}
+    .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line-light)}
+    .offer-card{padding:44px clamp(22px,4vw,52px);border-right:1px solid var(--line-light);display:flex;flex-direction:column;gap:0}
+    .offer-card .eyebrow{color:var(--green)}
+    .offer-price{display:flex;align-items:baseline;gap:14px;margin:18px 0 6px;flex-wrap:wrap}
+    .offer-price b{font-family:Anton;font-size:clamp(5rem,9vw,8.4rem);line-height:.85;font-weight:400}
+    .offer-price div{font-weight:900;text-transform:uppercase;letter-spacing:.06em;font-size:.95rem;color:rgba(248,245,242,.85)}
+    .offer-price div small{display:block;color:var(--green);font-size:.8rem;letter-spacing:.12em}
+    .offer-note{color:rgba(248,245,242,.62);font-weight:700;font-size:.95rem;margin:6px 0 24px}
+    .includes{display:grid;border-top:1px solid var(--line-light)}
+    .includes div{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--line-light)}
+    .includes .tick{width:26px;height:26px;flex:none;display:grid;place-items:center;background:var(--green);color:var(--black);font-weight:950;font-size:.95rem}
+    .includes b{display:block;text-transform:uppercase;font-size:.92rem}
+    .includes span{color:rgba(248,245,242,.68);font-weight:650;font-size:.92rem}
+    .form-card{padding:44px clamp(20px,4vw,52px)}
+    .form-card h3{font-family:Anton;text-transform:uppercase;font-weight:400;font-size:clamp(2rem,3.4vw,3.2rem);line-height:.9;margin:0 0 10px}
+    .form-card>p{color:rgba(248,245,242,.72);font-weight:700;margin:0 0 24px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:grid;gap:8px;margin-bottom:14px}
+    .field label{font-size:.76rem;color:rgba(248,245,242,.74);font-weight:950;text-transform:uppercase;letter-spacing:.12em}
+    .field input,.field select{width:100%;border:1px solid var(--line-light);background:#171715;color:var(--white);padding:16px 14px;font:inherit;outline:none;min-height:56px}
+    .field input:focus,.field select:focus{border-color:var(--green);box-shadow:inset 0 -3px 0 var(--green)}
+    .field select option{background:#171715}
+    .micro{font-size:.78rem;color:rgba(248,245,242,.48);margin-top:12px}
+    .success{display:none;margin-top:14px;border:1px solid rgba(136,175,96,.5);background:rgba(136,175,96,.16);padding:14px;color:var(--white);font-weight:900}
+
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line)}
+    .card{min-height:260px;padding:26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}
+    .card .icon{font-family:Anton;font-size:2.6rem;line-height:1;color:var(--green-dark)}
+    .card h3{font-size:1.3rem;margin:16px 0 10px;text-transform:uppercase;line-height:1.1}
+    .card p{color:rgba(14,14,13,.72);font-weight:700;margin:0}
+
+    .phases{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line)}
+    .phase{padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);display:flex;flex-direction:column;gap:14px}
+    .phase .num{font-family:Anton;font-size:4.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--green-dark)}
+    .phase h3{font-family:Anton;text-transform:uppercase;font-weight:400;font-size:1.9rem;line-height:.95;margin:0}
+    .phase p{color:rgba(14,14,13,.72);font-weight:700;margin:0;flex:1}
+    .phase .tagrow-light{display:flex;flex-wrap:wrap;gap:6px}
+    .phase .tagrow-light span{font-size:.7rem;font-weight:950;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);padding:.4rem .55rem;color:rgba(14,14,13,.7)}
+
+    .dark-section{background:var(--black);color:var(--white);border-bottom:1px solid var(--line-light)}
+    .dark-section .eyebrow{color:var(--green)}
+    .dark-section .section-head p{color:rgba(248,245,242,.76)}
+    .class-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .class-card{border:1px solid var(--line-light);padding:28px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));display:flex;flex-direction:column;gap:18px}
+    .class-card header{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+    .class-card h3{font-family:Anton;text-transform:uppercase;font-weight:400;font-size:clamp(1.9rem,3vw,2.7rem);line-height:.9;margin:0}
+    .class-card .dur{font-family:Anton;font-size:1.3rem;color:var(--green);white-space:nowrap}
+    .class-card p{color:rgba(248,245,242,.74);font-weight:700;margin:0;flex:1}
+    .meters{display:grid;gap:10px}
+    .meter{display:grid;grid-template-columns:110px 1fr 44px;align-items:center;gap:12px;font-size:.74rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em;color:rgba(248,245,242,.72)}
+    .meter .bar{height:8px;background:rgba(248,245,242,.14);position:relative}
+    .meter .bar i{position:absolute;inset:0;right:auto;background:var(--green)}
+    .meter em{font-style:normal;text-align:right;color:var(--white)}
+
+    .coach-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch}
+    .coach-media{position:relative;min-height:480px;background:var(--black);overflow:hidden}
+    .coach-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.86) contrast(1.12) brightness(.85)}
+    .coach-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.78))}
+    .coach-media b{position:absolute;left:24px;bottom:24px;z-index:2;color:var(--white);font-family:Anton;text-transform:uppercase;font-size:clamp(2.4rem,4.5vw,4.2rem);line-height:.88;font-weight:400;max-width:80%}
+    .coach-copy{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:10px clamp(0px,2vw,20px)}
+    .coach-copy h2{font-size:clamp(2.8rem,5.5vw,5.6rem)}
+    .coach-copy p{font-size:1.1rem;font-weight:750;color:rgba(14,14,13,.74);margin:0;max-width:640px}
+    .quotes{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:10px}
+    .quotes blockquote{margin:0;padding:18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white);font-weight:800;font-size:.98rem}
+    .quotes blockquote span{display:block;margin-top:8px;font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green-dark);font-weight:950}
+
+    .centers{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
+    .center{min-height:360px;padding:28px;border-right:1px solid var(--line-light);border-bottom:1px solid var(--line-light);display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015))}
+    .center h3{font-family:Anton;text-transform:uppercase;font-size:clamp(2.6rem,3.8vw,4rem);line-height:.88;font-weight:400;margin:0 0 14px}
+    .center p{color:rgba(248,245,242,.78);font-weight:750}
+    .tagrow{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
+    .tag{font-size:.76rem;font-weight:950;text-transform:uppercase;border-right:1px solid var(--line-light);border-bottom:1px solid var(--line-light);padding:.55rem .7rem;color:rgba(248,245,242,.76)}
+
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+    .compare-col{border:1px solid var(--line);background:var(--white);padding:30px;display:flex;flex-direction:column;gap:14px}
+    .compare-col.metro{background:var(--black);color:var(--white);border-color:var(--black)}
+    .compare-col h3{font-family:Anton;text-transform:uppercase;font-weight:400;font-size:1.8rem;margin:0;line-height:.95}
+    .compare-col.metro h3 em{font-style:normal;color:var(--green)}
+    .compare-col ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+    .compare-col li{display:flex;gap:10px;font-weight:750;color:rgba(14,14,13,.74)}
+    .compare-col.metro li{color:rgba(248,245,242,.8)}
+    .compare-col li:before{content:"—";font-weight:950;color:var(--stone)}
+    .compare-col.metro li:before{content:"✓";color:var(--green)}
+
+    .faq{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--line);border-top:1px solid var(--line)}
+    .faq details{background:var(--white);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .faq summary{cursor:pointer;font-weight:900;line-height:1.18;list-style:none;padding:22px 22px 20px;display:flex;gap:18px;justify-content:space-between}
+    .faq summary::-webkit-details-marker{display:none}
+    .faq summary:after{content:"+";font-family:Anton;font-size:1.8rem;line-height:1;color:var(--green-dark)}
+    .faq details[open] summary:after{content:"–"}
+    .faq p{color:rgba(14,14,13,.74);font-weight:650;margin:0;padding:0 22px 22px}
+
+    .final{background:var(--green);color:var(--black);padding:90px 0}
+    .final-box{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end}
+    .final .eyebrow{color:var(--black)}
+    .final h2{font-size:clamp(3.6rem,7.5vw,8.4rem)}
+    .final p{font-weight:850;max-width:620px;font-size:1.12rem;color:rgba(14,14,13,.80)}
+    .final-actions{display:grid;gap:12px}
+    .footer{background:var(--black);color:rgba(248,245,242,.55);padding:28px 0 96px;font-size:.88rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+    .footer .wrap{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+
+    .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;background:var(--black);color:var(--white);border-top:2px solid var(--green);padding:10px 14px;align-items:center;justify-content:space-between;gap:12px}
+    .sticky-cta b{font-family:Anton;font-size:1.25rem;font-weight:400;text-transform:uppercase;line-height:1}
+    .sticky-cta small{display:block;font-size:.68rem;font-weight:900;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
+    .sticky-cta .btn{padding:.7rem 1rem;min-height:44px;font-size:.82rem}
+
+    @media(max-width:980px){
+      .nav{grid-template-columns:1fr auto}.navlinks{display:none}.nav-mobile{display:flex}
+      .hero,.offer-grid,.class-grid,.coach-grid,.compare,.final-box{grid-template-columns:1fr}
+      .hero-media{min-height:440px;order:2}.hero-copy{order:1}.hero-copy h1{font-size:clamp(3.6rem,16vw,7rem)}
+      .offer-card{border-right:0;border-bottom:1px solid var(--line-light)}
+      .cards,.phases,.centers,.faq,.quotes{grid-template-columns:1fr}
+      .section-head{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}
+      .coach-media{min-height:380px}
+      .topbar{font-size:.62rem}.topbar span:last-child{display:none}
+      .sticky-cta{display:flex}
+      .price-tag{top:16px;right:16px}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Product",
+    "name":"CrossFit Academy — CrossFit Metropolitano",
+    "description":"Programa de iniciación al CrossFit en grupos de máximo 8 personas con coach certificado. Sin permanencia y sin matrícula, en Getafe, Parla y Las Rosas (Madrid).",
+    "brand":{"@type":"Brand","name":"CrossFit Metropolitano"},
+    "offers":{
+      "@type":"Offer",
+      "price":"99.00",
+      "priceCurrency":"EUR",
+      "availability":"https://schema.org/InStock",
+      "description":"99€ al mes. Sin permanencia. Sin matrícula."
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SportsActivityLocation","name":"CrossFit Metropolitano","url":"https://crossfitmetropolitano.com/","sport":["CrossFit","Entrenamiento funcional","HYROX"],"areaServed":["Getafe","Parla","Las Rosas","Madrid"],"department":[{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Getafe","address":"Avda. de la Paz 35, El Bercial, Getafe"},{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Parla","address":"C. Roma 18, Parla"},{"@type":"SportsActivityLocation","name":"CrossFit Metropolitano Las Rosas","address":"C. de Sofía 30, San Blas, Madrid"}]}
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap topbar"><strong>CrossFit Metropolitano</strong><span>Getafe / Parla / Las Rosas</span></div>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="CrossFit Metropolitano — Academy">
+        <span class="brand-block">M</span>
+        <span class="brand-name">Academy<small>CrossFit Metropolitano</small></span>
+      </a>
+      <nav class="navlinks" aria-label="Navegación principal"><a href="#que-es">Qué es</a><a href="#programa">El programa</a><a href="#clases">Las clases</a><a href="#centros">Centros</a><a href="#faq">Dudas</a></nav>
+      <a class="btn btn-dark" href="#apuntate">Apúntate — 99€/mes</a>
+    </div>
+    <nav class="wrap nav-mobile" aria-label="Navegación móvil"><a href="#que-es">Qué es</a><a href="#programa">Programa</a><a href="#clases">Clases</a><a href="#centros">Centros</a><a href="#faq">Dudas</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="CrossFit Academy" style="padding:0">
+      <div class="hero-copy">
+        <div>
+          <div class="hero-copy-top"><span>Iniciación al CrossFit · Madrid</span><span>Sin permanencia</span></div>
+          <h1 class="display">CrossFit <span class="soft">Academy</span></h1>
+          <p class="lead">La puerta de entrada al CrossFit para gente normal. Grupos de <strong>máximo 8 personas</strong>, un coach pendiente de ti y técnica desde cero. <strong>Sin ir vendido el primer día.</strong></p>
+          <p class="lead"><strong>99€ al mes. Sin permanencia. Sin matrícula. Sin letra pequeña.</strong> Si no es para ti, te vas cuando quieras. Estamos tan seguros de lo que hacemos que no necesitamos atarte.</p>
+          <div class="hero-actions"><a class="btn btn-dark" href="#apuntate">Quiero mi plaza</a><a class="btn btn-outline" href="#que-es">Ver qué incluye</a></div>
+        </div>
+        <div class="price-strip" aria-label="Resumen de la oferta">
+          <div><b>99€</b><span>Al mes, todo incluido</span></div>
+          <div><b>0€</b><span>Matrícula y permanencia</span></div>
+          <div><b>8</b><span>Personas máximo por grupo</span></div>
+          <div><b>3</b><span>Boxes: Getafe, Parla, Las Rosas</span></div>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="assets/cfmp-training.jpg" alt="Clase de CrossFit Academy en CrossFit Metropolitano" loading="eager">
+        <div class="price-tag" aria-hidden="true"><b>99€</b><span>/mes · sin permanencia</span></div>
+        <div class="media-label"><b>Empieza desde cero. De verdad.</b><span>Nadie espera que sepas hacer nada el primer día. Para eso existe Academy.</span></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Sin permanencia</span><span>Sin matrícula</span><span><em>99€/mes</em></span><span>Máximo 8 por grupo</span><span>Coach certificado</span><span>Técnica desde cero</span><span>Getafe · Parla · Las Rosas</span>
+        <span>Sin permanencia</span><span>Sin matrícula</span><span><em>99€/mes</em></span><span>Máximo 8 por grupo</span><span>Coach certificado</span><span>Técnica desde cero</span><span>Getafe · Parla · Las Rosas</span>
+      </div>
+    </div>
+
+    <section class="offer-section" id="apuntate" style="padding:88px 0">
+      <div class="wrap">
+        <div class="section-head" style="margin-bottom:34px"><div><div class="eyebrow">La cuota, sin trampas</div><h2 class="display" style="color:#FFFCF7">Todo incluido. Nada escondido.</h2></div><p>Una cuota. Un precio. Lo que ves es lo que pagas. Y el mes que no quieras seguir, lo dices y ya está.</p></div>
+        <div class="offer-grid">
+          <div class="offer-card">
+            <div class="eyebrow">CrossFit Academy</div>
+            <div class="offer-price"><b>99€</b><div>al mes<small>Sin permanencia · Sin matrícula</small></div></div>
+            <p class="offer-note">Cancela cuando quieras con un mensaje. Sin penalizaciones, sin "procesos de baja", sin llamadas incómodas.</p>
+            <div class="includes">
+              <div><span class="tick">✓</span><div><b>Grupos de máximo 8 personas</b><span>El coach te ve en cada repetición. No eres uno más en una clase de 40.</span></div></div>
+              <div><span class="tick">✓</span><div><b>Coach certificado en cada sesión</b><span>Te corrige, te adapta el ejercicio y te frena cuando toca. La técnica va antes que el ego.</span></div></div>
+              <div><span class="tick">✓</span><div><b>Programa de iniciación completo</b><span>Aprendes los movimientos básicos del CrossFit paso a paso, desde tu nivel real.</span></div></div>
+              <div><span class="tick">✓</span><div><b>Acceso a tu box: Getafe, Parla o Las Rosas</b><span>Entrenas en el centro que mejor encaje con tu semana.</span></div></div>
+              <div><span class="tick">✓</span><div><b>Paso directo a las clases regulares</b><span>Cuando termines Academy, entras en las clases de CrossFit con base de verdad.</span></div></div>
+            </div>
+          </div>
+          <form class="form-card" id="leadForm" aria-label="Formulario de inscripción en CrossFit Academy">
+            <h3>Reserva tu plaza ahora</h3>
+            <p>Déjanos tus datos y te escribimos por WhatsApp con los horarios disponibles de tu centro. Sin compromiso: primero hablamos, luego decides.</p>
+            <div class="form-row">
+              <div class="field"><label for="name">Nombre</label><input id="name" name="name" required autocomplete="name" placeholder="Tu nombre"></div>
+              <div class="field"><label for="phone">WhatsApp</label><input id="phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="Ej. 600 000 000"></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="center">Centro</label><select id="center" name="center" required><option value="">Elige centro</option><option>Getafe</option><option>Parla</option><option>Las Rosas</option><option>No lo tengo claro</option></select></div>
+              <div class="field"><label for="schedule">¿Cuándo te viene mejor?</label><select id="schedule" name="schedule"><option>Por la mañana</option><option>A mediodía</option><option>Por la tarde</option><option>Me adapto</option></select></div>
+            </div>
+            <div class="field"><label for="level">Tu punto de partida</label><select id="level" name="level"><option>Nunca he hecho CrossFit</option><option>Llevo tiempo sin entrenar</option><option>Entreno, pero quiero base técnica</option></select></div>
+            <button class="btn btn-green" style="width:100%;margin-top:8px" type="submit">Quiero mi plaza en Academy</button>
+            <div class="micro">Al enviar se abre WhatsApp con tu mensaje preparado. Esta página no guarda tus datos.</div>
+            <div class="success" id="success">Perfecto. Se ha preparado el mensaje para el equipo Metro.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="que-es">
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">Qué es Academy</div><h2 class="display">El CrossFit que te imaginas no es el nuestro</h2></div><p>Sé lo que piensas: gente sin camiseta gritando y peleándose por ver quién levanta más hierro. Ese CrossFit existe. Pero no es el que vas a encontrar aquí.</p></div>
+        <div class="cards">
+          <article class="card"><div class="icon">01</div><h3>Primero técnica. Luego apretamos.</h3><p>No te soltamos una barra y buena suerte. En Academy aprendes a moverte bien antes de subir una sola marcha. Por eso empiezas aquí y no en una clase normal.</p></article>
+          <article class="card"><div class="icon">02</div><h3>Máximo 8. Coach encima.</h3><p>Con 8 personas el coach te ve en cada serie. Te corrige antes de que hagas una tontería y te adapta el ejercicio cuando toca. Eso es lo que cambia todo.</p></article>
+          <article class="card"><div class="icon">03</div><h3>Una hora que no le debes a nadie.</h3><p>Trabajas. Tienes familia. Tienes poco tiempo. La sesión dura una hora y va al grano: calentamiento, técnica, trabajo y a seguir con tu día.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="programa">
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">El programa</div><h2 class="display">De "esto no es para mí" a tu primera clase normal</h2></div><p>Academy no es un cursillo suelto. Es un camino con tres fases claras para que entres en las clases de CrossFit con base y sin miedo.</p></div>
+        <div class="phases">
+          <article class="phase"><div class="num">01</div><h3>Aprende a moverte</h3><p>Sentadilla, bisagra de cadera, empujes, tracciones. Los patrones básicos con tu cuerpo y material ligero, a tu ritmo y con el coach corrigiendo cada detalle.</p><div class="tagrow-light"><span>Técnica</span><span>Movilidad</span><span>Sin cargas</span></div></article>
+          <article class="phase"><div class="num">02</div><h3>Añade herramientas</h3><p>Barra, kettlebell, remo, comba. Aprendes los movimientos que verás en las clases, con progresiones y el peso justo para hacerlos bien.</p><div class="tagrow-light"><span>Barra</span><span>Kettlebell</span><span>Progresiones</span></div></article>
+          <article class="phase"><div class="num">03</div><h3>Entrena de verdad</h3><p>Tus primeros WODs completos, adaptados a tu nivel. Cuando el coach ve que estás listo, pasas a las clases regulares. Con base, no de milagro.</p><div class="tagrow-light"><span>WODs</span><span>Ritmo propio</span><span>Paso a clases</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="clases">
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">Lo que entrenas</div><h2 class="display" style="color:#FFFCF7">Todo incluido en tu cuota</h2></div><p>En Academy no eliges entre fuerza o cardio: trabajas todo lo que necesitas, en la dosis que necesitas. Esto es lo que te llevas cada semana.</p></div>
+        <div class="class-grid">
+          <article class="class-card">
+            <header><h3>Fuerza</h3><span class="dur">60'</span></header>
+            <p>La base de todo. Sentadillas, peso muerto, presses. Aprendes a levantar bien y a ganar una fuerza que notas fuera del box: subir la compra, coger a tus hijos, vivir sin dolores.</p>
+            <div class="meters" role="img" aria-label="Fuerza: técnica 90%, sudor 60%, confianza 80%">
+              <div class="meter"><span>Técnica</span><span class="bar"><i style="width:90%"></i></span><em>90%</em></div>
+              <div class="meter"><span>Sudor</span><span class="bar"><i style="width:60%"></i></span><em>60%</em></div>
+              <div class="meter"><span>Confianza</span><span class="bar"><i style="width:80%"></i></span><em>80%</em></div>
+            </div>
+          </article>
+          <article class="class-card">
+            <header><h3>Motor</h3><span class="dur">60'</span></header>
+            <p>Cardio útil, no correr por correr. Remo, bici, comba y circuitos que te devuelven la energía y te quitan el estrés del día. Saldrás con otra cabeza. Garantizado.</p>
+            <div class="meters" role="img" aria-label="Motor: técnica 50%, sudor 100%, confianza 70%">
+              <div class="meter"><span>Técnica</span><span class="bar"><i style="width:50%"></i></span><em>50%</em></div>
+              <div class="meter"><span>Sudor</span><span class="bar"><i style="width:100%"></i></span><em>100%</em></div>
+              <div class="meter"><span>Confianza</span><span class="bar"><i style="width:70%"></i></span><em>70%</em></div>
+            </div>
+          </article>
+          <article class="class-card">
+            <header><h3>Gimnásticos</h3><span class="dur">60'</span></header>
+            <p>Dominar tu propio cuerpo: flexiones, remos, colgarte de una barra sin miedo. Con progresiones para todos los niveles, también si hoy no puedes hacer ni una.</p>
+            <div class="meters" role="img" aria-label="Gimnásticos: técnica 100%, sudor 55%, confianza 90%">
+              <div class="meter"><span>Técnica</span><span class="bar"><i style="width:100%"></i></span><em>100%</em></div>
+              <div class="meter"><span>Sudor</span><span class="bar"><i style="width:55%"></i></span><em>55%</em></div>
+              <div class="meter"><span>Confianza</span><span class="bar"><i style="width:90%"></i></span><em>90%</em></div>
+            </div>
+          </article>
+          <article class="class-card">
+            <header><h3>Movilidad</h3><span class="dur">60'</span></header>
+            <p>La parte que nadie entrena y todos necesitan. Caderas, hombros, espalda. Para moverte mejor, prevenir lesiones y que el resto del entrenamiento funcione.</p>
+            <div class="meters" role="img" aria-label="Movilidad: técnica 80%, sudor 30%, confianza 85%">
+              <div class="meter"><span>Técnica</span><span class="bar"><i style="width:80%"></i></span><em>80%</em></div>
+              <div class="meter"><span>Sudor</span><span class="bar"><i style="width:30%"></i></span><em>30%</em></div>
+              <div class="meter"><span>Confianza</span><span class="bar"><i style="width:85%"></i></span><em>85%</em></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap coach-grid">
+        <div class="coach-media">
+          <img src="assets/cfmp-training.jpg" alt="Coach de CrossFit Metropolitano acompañando a un alumno" loading="lazy">
+          <b>Te esperamos en el box</b>
+        </div>
+        <div class="coach-copy">
+          <div class="eyebrow">Quién te acompaña</div>
+          <h2 class="display">No entrenas solo. Nunca.</h2>
+          <p>Detrás de Academy hay coaches certificados que llevan desde 2017 haciendo lo mismo: coger a gente que jura que "esto no es para mí" y demostrarle lo contrario. Sin gritos, sin postureo y sin dejar a nadie atrás.</p>
+          <p>Su trabajo no es machacarte. Es mirarte, corregirte y darte la versión del ejercicio que tu cuerpo necesita hoy.</p>
+          <div class="quotes">
+            <blockquote>"Esto no es para mí."<span>Lo que piensas antes de venir</span></blockquote>
+            <blockquote>"Ojalá hubiera empezado antes."<span>Lo que dices a las pocas semanas</span></blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">Compara y decide</div><h2 class="display">¿Es caro? Compara lo que pagas</h2></div><p>Sí, un gimnasio low cost cuesta menos. También te deja solo delante de una máquina. Aquí pagas otra cosa: que alguien se ocupe de ti.</p></div>
+        <div class="compare">
+          <div class="compare-col">
+            <h3>Gimnasio low cost</h3>
+            <ul>
+              <li>Entras, nadie sabe tu nombre</li>
+              <li>Rutina de internet y a ver qué pasa</li>
+              <li>Sin nadie que corrija tu técnica</li>
+              <li>La motivación dura dos semanas</li>
+              <li>Pagas poco por algo que no usas</li>
+            </ul>
+          </div>
+          <div class="compare-col metro">
+            <h3>CrossFit Academy — <em>99€/mes</em></h3>
+            <ul>
+              <li>Coach certificado en cada sesión, pendiente de ti</li>
+              <li>Programa de iniciación con fases y progresiones</li>
+              <li>Grupos de máximo 8: te corrigen en cada serie</li>
+              <li>Un grupo que pregunta por ti si no vienes</li>
+              <li>Sin permanencia: pagas mientras te aporte</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="centros">
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">Tres centros en Madrid</div><h2 class="display" style="color:#FFFCF7">Elige tu box: Getafe, Parla o Las Rosas</h2></div><p>El mejor box es el que puedes sostener en tu semana. Por eso estamos cerca de donde vives o trabajas, con grupos de Academy en los tres centros.</p></div>
+        <div class="centers">
+          <article class="center"><div><h3>Getafe</h3><p>En El Bercial, para quien lleva tiempo diciéndose <em>"algún día vuelvo a entrenar"</em>. Algún día puede ser esta semana.</p></div><div class="tagrow"><span class="tag">Avda. de la Paz 35</span><span class="tag">Academy</span><span class="tag">HYROX</span></div></article>
+          <article class="center"><div><h3>Parla</h3><p>El sitio para romper el mito. No necesitas experiencia: necesitas venir, escuchar al coach y empezar por lo básico.</p></div><div class="tagrow"><span class="tag">C. Roma 18</span><span class="tag">Academy</span><span class="tag">Grupos reducidos</span></div></article>
+          <article class="center"><div><h3>Las Rosas</h3><p>Una hora al día que es solo tuya. En San Blas, con entrenamiento funcional y coach pendiente de cada detalle.</p></div><div class="tagrow"><span class="tag">C. de Sofía 30</span><span class="tag">Academy</span><span class="tag">Madrid</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head"><div><div class="eyebrow">Dudas normales</div><h2 class="display">Lo que estás pensando antes de apuntarte</h2></div><p>No son excusas. Son dudas normales cuando llevas tiempo sin entrenar o cuando CrossFit te suena a algo que no va contigo.</p></div>
+        <div class="faq">
+          <details open><summary>¿Qué es exactamente CrossFit Academy?</summary><p>Es nuestro programa de iniciación: grupos de máximo 8 personas para aprender los movimientos básicos del CrossFit con un coach certificado, antes de pasar a las clases regulares. Es la puerta de entrada al box, pensada para empezar sin ir vendido.</p></details>
+          <details><summary>¿Qué incluyen los 99€ al mes?</summary><p>Todo: tus sesiones de Academy en grupos de máximo 8, coach certificado en cada clase, el programa completo de iniciación y el paso a las clases regulares cuando estés listo. Sin matrícula y sin extras escondidos.</p></details>
+          <details><summary>¿De verdad no hay permanencia?</summary><p>De verdad. Ni permanencia, ni penalización, ni "proceso de baja" raro. Si un mes no quieres seguir, nos lo dices y ya está. Preferimos que te quedes porque funciona, no porque un contrato te obligue.</p></details>
+          <details><summary>¿Y si nunca he hecho CrossFit?</summary><p>Mejor. Así empiezas sin vicios. Academy existe exactamente para eso: iniciación, grupos pequeños y técnica desde cero. Nadie espera que sepas hacer nada el primer día.</p></details>
+          <details><summary>¿Tengo que estar en forma para empezar?</summary><p>No. Vienes precisamente para ponerte en forma. Si ya estuvieras perfecto, no necesitarías un box. Empezamos desde tu nivel real, no desde el de Instagram.</p></details>
+          <details><summary>¿Me puedo lesionar?</summary><p>Te puedes lesionar entrenando mal, con prisa o copiando al de al lado. Aquí el coach adapta peso, ritmo y movimiento. Primero técnica. Luego intensidad. En ese orden, siempre.</p></details>
+          <details><summary>¿Es para gente muy joven?</summary><p>No. En Academy entrena gente que trabaja, tiene hijos, horarios complicados y quiere cuidarse sin convertir el deporte en otra obligación imposible.</p></details>
+          <details><summary>¿Y si solo puedo venir dos días por semana?</summary><p>Dos días bien hechos ganan a cero días perfectos. Si tu vida ahora da para dos, empezamos con dos. Lo importante es sostenerlo en el tiempo.</p></details>
+          <details><summary>¿Qué pasa cuando termino Academy?</summary><p>Pasas a las clases regulares de CrossFit del box, con la base ya hecha. El coach decide contigo el momento: ni antes de tiempo, ni más tarde de lo necesario.</p></details>
+          <details><summary>¿Puedo probar antes de pagar?</summary><p>Sí. Escríbenos y te invitamos a conocer el box y probar una clase antes de decidir. Sin compromiso y sin que nadie te persiga después con llamadas.</p></details>
+          <details><summary>¿En qué centros hay Academy?</summary><p>En los tres: Getafe (Avda. de la Paz 35, El Bercial), Parla (C. Roma 18) y Las Rosas (C. de Sofía 30, San Blas). Al apuntarte eliges el que mejor te venga.</p></details>
+          <details><summary>¿Por qué cuesta más que un gimnasio normal?</summary><p>Porque no es un gimnasio normal. Pagas programación, un coach que te mira en cada sesión, grupos de 8 y una razón real para volver mañana. Un gimnasio vacío a 25€ que no pisas sale más caro.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap final-box">
+        <div><div class="eyebrow">CrossFit Academy · 99€/mes · Sin permanencia</div><h2 class="display">¿Todavía te lo estás pensando?</h2><p>Si has llegado hasta aquí, ya sabes la respuesta. Llevas tiempo diciéndote que lo harás. Hoy puede ser el día en que dejes de decírtelo. Sin permanencia: el riesgo es cero.</p></div>
+        <div class="final-actions">
+          <a class="btn btn-dark" href="#apuntate">Sí, quiero mi plaza</a>
+          <a class="btn btn-outline" href="#apuntate">Prefiero probar una clase antes</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap"><span>CrossFit Metropolitano · CrossFit Academy</span><span>Getafe · Parla · Las Rosas</span></div>
+  </footer>
+
+  <div class="sticky-cta" aria-hidden="false">
+    <div><b>Academy · 99€/mes</b><small>Sin permanencia · Máx. 8 por grupo</small></div>
+    <a class="btn btn-green" href="#apuntate">Apúntate</a>
+  </div>
+
+  <script>
+    const form = document.getElementById('leadForm');
+    const success = document.getElementById('success');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const message = `Hola, quiero apuntarme a CrossFit Academy (99€/mes sin permanencia).\n\nNombre: ${data.name}\nWhatsApp: ${data.phone}\nCentro: ${data.center}\nHorario preferido: ${data.schedule}\nPunto de partida: ${data.level}\n\nVengo desde la página de Academy.`;
+      success.style.display = 'block';
+      window.open(`https://wa.me/34604840858?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+    });
+  </script>
+</body>
+</html>
