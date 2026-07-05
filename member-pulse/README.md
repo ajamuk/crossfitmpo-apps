@@ -11,7 +11,8 @@ Se probó la app en vivo como `admin` en las cuatro pestañas (Envíos del mes,
 Lectura general, Revisar respuestas, Estadísticas), en escritorio y móvil, y se
 verificaron sus tres endpoints (`responses`, `bot-state`, `campaign`). Todos
 responden `200`, no hay errores de consola ni de red, y no hay desbordamiento
-horizontal en móvil. La app funciona correctamente salvo por un bug.
+horizontal en móvil. La app funciona correctamente; se aplicaron dos mejoras
+(un bug del selector de mes y la unificación de coaches duplicados).
 
 ## Bug corregido: el selector de "Mes" no se poblaba
 
@@ -38,7 +39,26 @@ Verificado en vivo: el menú pasa a mostrar "Julio de 2026" y "Junio de 2026",
 seleccionar junio carga sus 15 filas con los badges "Enviado", y la etiqueta del
 botón se sincroniza al cambiar y volver.
 
-El cambio total son 2 puntos localizados (ver `fix-selector-mes.patch`).
+El cambio total son 2 puntos localizados.
+
+## Mejora: coaches duplicados unificados en las estadísticas
+
+**Síntoma:** un mismo coach escrito de formas distintas en las respuestas
+(p. ej. `Jose` vs `José`, o nombres con espacios dobles) aparecía como filas
+separadas en el desglose por centro y coach, y como entradas repetidas en el
+filtro de coach.
+
+**Corrección:** al cargar las respuestas se construye un mapa canónico
+(`buildCoachCanon`) que agrupa las variantes de cada coach de forma
+insensible a acentos, mayúsculas y espacios, y elige un nombre de
+visualización (la variante más frecuente; a igualdad, la que lleva acentos).
+Ese nombre canónico se asigna a `_coach`, que es lo que usan las estadísticas,
+la lectura general y el filtro de coach. La tabla de *Revisar respuestas*
+mantiene el valor **literal** de cada encuesta, sin tocar.
+
+Verificado con datos reales: en el desglose, `Parla · Jose` y `Parla · José`
+se fusionan en `Parla · José · 2 respuestas` (5 filas en vez de 6), y el
+desplegable de coach deja de mostrar el duplicado.
 
 ## Cómo desplegar
 
@@ -63,8 +83,8 @@ El cambio total son 2 puntos localizados (ver `fix-selector-mes.patch`).
    Alternativamente, aplica solo el parche in situ:
 
    ```bash
-   scp member-pulse/fix-selector-mes.patch root@82.223.108.143:/tmp/
-   ssh root@82.223.108.143 "cd \$(dirname <RUTA>) && patch -p0 < /tmp/fix-selector-mes.patch"
+   scp member-pulse/member-pulse.patch root@82.223.108.143:/tmp/
+   ssh root@82.223.108.143 "cd \$(dirname <RUTA>) && patch -p0 < /tmp/member-pulse.patch"
    ```
 
 3. Recarga `https://apps.crossfitmpo.com/member-pulse/` (forzando recarga). La
